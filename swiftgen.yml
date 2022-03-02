@@ -1,0 +1,20 @@
+xcassets:
+  - inputs: Superheroes/Resources/Assets.xcassets
+    outputs:
+        templateName: swift5
+        output: Superheroes/Generated/Images.swift
+        params:
+            enumName: Images
+
+  - inputs: Superheroes/Resources/Colors.xcassets
+    outputs:
+        templateName: swift5
+        output: Superheroes/Generated/Colors.swift
+        params:
+            enumName: Colors
+
+strings:
+  inputs: Superheroes/Common/StringLocalization/en.lproj/Localizable.strings
+  outputs:
+    templateName: structured-swift5
+    output: Superheroes/Generated/Strings.swift

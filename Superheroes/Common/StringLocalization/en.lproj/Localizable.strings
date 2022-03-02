@@ -1,0 +1,5 @@
+"tabBarViewController.search.tabBarItem.title" = "Heroes";
+"tabBarViewController.favorites.tabBarItem.title" = "Favorites";
+"tabBarViewController.profile.tabBarItem.title" = "Profile";
+"searchViewController.searchBar.placeholder" = "Type here to search...";
+"searchViewController.emptyStateView.label" = "The World is in danger and no superhero to save it...";
