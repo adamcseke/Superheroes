@@ -22,6 +22,23 @@
 	<true/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Gotham-XLight.otf</string>
+		<string>Gotham-Thin.otf</string>
+		<string>Gotham-Black.otf</string>
+		<string>Gotham-Bold.otf</string>
+		<string>Gotham-BookItalic.otf</string>
+		<string>Gotham-Light.otf</string>
+		<string>Gotham-ThinItalic.otf</string>
+		<string>Gotham-UltraItalic.otf</string>
+		<string>Gotham-XLightItalic.otf</string>
+		<string>GothamBold.ttf</string>
+		<string>GothamBook.ttf</string>
+		<string>GothamLight.ttf</string>
+		<string>GothamMedium_1.ttf</string>
+		<string>GothamMedium.ttf</string>
+	</array>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

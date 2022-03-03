@@ -18,3 +18,9 @@ strings:
   outputs:
     templateName: structured-swift5
     output: Superheroes/Generated/Strings.swift
+    
+fonts:
+  - inputs: Superheroes/Resources/Fonts
+    outputs:
+        templateName: swift5
+        output: Superheroes/Generated/Fonts.swift

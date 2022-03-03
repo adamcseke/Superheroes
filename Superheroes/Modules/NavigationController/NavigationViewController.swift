@@ -30,7 +30,7 @@ final class NavigationViewController: UINavigationController {
         navigationBar.isOpaque = false
         navigationBar.backgroundColor = .clear
         navigationBar.prefersLargeTitles = true
-        let attributes = [NSAttributedString.Key.foregroundColor: Colors.orange.color]
+        let attributes = [NSAttributedString.Key.foregroundColor: UIColor.label]
         self.navigationBar.largeTitleTextAttributes = attributes
     }
 
