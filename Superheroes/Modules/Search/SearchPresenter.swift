@@ -11,18 +11,18 @@
 import Foundation
 
 final class SearchPresenter {
-
+    
     // MARK: - Private properties -
-
+    
     private unowned let view: SearchViewInterface
     private let interactor: SearchInteractorInterface
     private let wireframe: SearchWireframeInterface
     
     private var heroes: [Heroes] = []
     private var text: String = ""
-
+    
     // MARK: - Lifecycle -
-
+    
     init(
         view: SearchViewInterface,
         interactor: SearchInteractorInterface,
@@ -37,6 +37,11 @@ final class SearchPresenter {
 // MARK: - Extensions -
 
 extension SearchPresenter: SearchPresenterInterface {
+    func searchVCDismissed() {
+        heroes.removeAll()
+        self.view.reloadCollectionView()
+    }
+    
     func pushToDetails(hero: Heroes) {
         wireframe.pushToDetails(hero: hero)
     }
@@ -64,7 +69,6 @@ extension SearchPresenter: SearchPresenterInterface {
             case .success(let heroes):
                 
                 self.heroes = heroes.results
-                
                 self.view.reloadCollectionView()
                 
             case .failure(let error):

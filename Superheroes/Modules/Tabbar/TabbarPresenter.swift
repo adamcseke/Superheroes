@@ -46,6 +46,11 @@ extension TabbarPresenter: TabbarPresenterInterface {
         UITabBar.appearance().barTintColor = .systemBackground
         UITabBar.appearance().tintColor = Colors.orange.color
         if #available(iOS 15.0, *) {
+            let appearance = UITabBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            appearance.backgroundColor = .systemBackground
+            
+            UITabBar.appearance().standardAppearance = appearance
             UITabBar.appearance().scrollEdgeAppearance = UITabBar.appearance().standardAppearance
         }
     }
@@ -60,22 +65,22 @@ extension TabbarPresenter: TabbarPresenterInterface {
         return controllers
     }
     
-    private func createSearchNC() -> NavigationViewController {
+    private func createSearchNC() -> UINavigationController {
         let searchVC = SearchWireframe().viewController
         searchVC.title = L10n.TabBarViewController.Search.TabBarItem.title
         searchVC.tabBarItem = UITabBarItem(title: L10n.TabBarViewController.Search.TabBarItem.title, image: UIImage(systemName: "magnifyingglass"), tag: 0)
-        return NavigationViewController(rootViewController: searchVC)
+        return UINavigationController(rootViewController: searchVC)
     }
     
-    private func createFavoritesNC() -> NavigationViewController {
-        let favoritesVC = FavoritesViewController()
+    private func createFavoritesNC() -> UINavigationController {
+        let favoritesVC = FavoritesWireframe().viewController
         favoritesVC.tabBarItem = UITabBarItem(title: L10n.TabBarViewController.Favorites.TabBarItem.title, image: UIImage(systemName: "star.fill"), tag: 1)
-        return NavigationViewController(rootViewController: favoritesVC)
+        return UINavigationController(rootViewController: favoritesVC)
     }
     
-    private func createProfileNC() -> NavigationViewController {
-        let profileVC = ProfileViewController()
+    private func createProfileNC() -> UINavigationController {
+        let profileVC = ProfileWireframe().viewController
         profileVC.tabBarItem = UITabBarItem(title: L10n.TabBarViewController.Profile.TabBarItem.title, image: UIImage(systemName: "person.fill"), tag: 2)
-        return NavigationViewController(rootViewController: profileVC)
+        return UINavigationController(rootViewController:  profileVC)
     }
 }

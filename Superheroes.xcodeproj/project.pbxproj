@@ -71,11 +71,6 @@
 		37268EA727CF75DD0000F942 /* ProfileInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37268EA227CF75DD0000F942 /* ProfileInteractor.swift */; };
 		37268EA827CF75DD0000F942 /* ProfileWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37268EA327CF75DD0000F942 /* ProfileWireframe.swift */; };
 		37268EAC27CF85C70000F942 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37268EAB27CF85C70000F942 /* Strings.swift */; };
-		37268EBF27CF8AFB0000F942 /* NavigationControllerInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37268EBA27CF8AFB0000F942 /* NavigationControllerInteractor.swift */; };
-		37268EC027CF8AFB0000F942 /* NavigationControllerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37268EBB27CF8AFB0000F942 /* NavigationControllerPresenter.swift */; };
-		37268EC127CF8AFB0000F942 /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37268EBC27CF8AFB0000F942 /* NavigationViewController.swift */; };
-		37268EC227CF8AFB0000F942 /* NavigationControllerWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37268EBD27CF8AFB0000F942 /* NavigationControllerWireframe.swift */; };
-		37268EC327CF8AFB0000F942 /* NavigationControllerInterfaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37268EBE27CF8AFB0000F942 /* NavigationControllerInterfaces.swift */; };
 		37268EC627CF99970000F942 /* SearchedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37268EC527CF99970000F942 /* SearchedCollectionViewCell.swift */; };
 		37268EC827CFA5220000F942 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37268EC727CFA5220000F942 /* EmptyView.swift */; };
 		37EFE0AA27D1F594008F28EF /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37EFE0A927D1F594008F28EF /* Fonts.swift */; };
@@ -95,6 +90,7 @@
 		37EFE0B827D1F6F0008F28EF /* Gotham-UltraItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 37EFE0A527D1F56C008F28EF /* Gotham-UltraItalic.otf */; };
 		37EFE0B927D1F6F0008F28EF /* Gotham-XLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 37EFE09D27D1F56C008F28EF /* Gotham-XLight.otf */; };
 		37EFE0BA27D1F6F0008F28EF /* Gotham-XLightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 37EFE09E27D1F56C008F28EF /* Gotham-XLightItalic.otf */; };
+		37EFE0BC27D20DBA008F28EF /* SearchDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37EFE0BB27D20DBA008F28EF /* SearchDelegate.swift */; };
 		7E1421E2FFB77FBBB14AD6A9 /* Pods_Superheroes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23E9AEC29A7A15DC83867F48 /* Pods_Superheroes.framework */; };
 /* End PBXBuildFile section */
 
@@ -170,11 +166,6 @@
 		37268EA227CF75DD0000F942 /* ProfileInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInteractor.swift; sourceTree = "<group>"; };
 		37268EA327CF75DD0000F942 /* ProfileWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileWireframe.swift; sourceTree = "<group>"; };
 		37268EAB27CF85C70000F942 /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
-		37268EBA27CF8AFB0000F942 /* NavigationControllerInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationControllerInteractor.swift; sourceTree = "<group>"; };
-		37268EBB27CF8AFB0000F942 /* NavigationControllerPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationControllerPresenter.swift; sourceTree = "<group>"; };
-		37268EBC27CF8AFB0000F942 /* NavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
-		37268EBD27CF8AFB0000F942 /* NavigationControllerWireframe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationControllerWireframe.swift; sourceTree = "<group>"; };
-		37268EBE27CF8AFB0000F942 /* NavigationControllerInterfaces.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationControllerInterfaces.swift; sourceTree = "<group>"; };
 		37268EC527CF99970000F942 /* SearchedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchedCollectionViewCell.swift; sourceTree = "<group>"; };
 		37268EC727CFA5220000F942 /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
 		37EFE09927D1F56C008F28EF /* Gotham-BoldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-BoldItalic.otf"; sourceTree = "<group>"; };
@@ -194,6 +185,7 @@
 		37EFE0A727D1F56C008F28EF /* Gotham-ThinItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-ThinItalic.otf"; sourceTree = "<group>"; };
 		37EFE0A827D1F56C008F28EF /* Gotham-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-Light.otf"; sourceTree = "<group>"; };
 		37EFE0A927D1F594008F28EF /* Fonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
+		37EFE0BB27D20DBA008F28EF /* SearchDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDelegate.swift; sourceTree = "<group>"; };
 		4EF7DC8171F9897A5B5FA456 /* Pods-TemplateTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TemplateTests.release.xcconfig"; path = "Target Support Files/Pods-TemplateTests/Pods-TemplateTests.release.xcconfig"; sourceTree = "<group>"; };
 		9C0B7910D5B3D654CE3114A2 /* Pods-TemplateUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TemplateUITests.debug.xcconfig"; path = "Target Support Files/Pods-TemplateUITests/Pods-TemplateUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		AA1C71581E8FB7D1071CE22E /* Pods_TemplateUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TemplateUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -328,6 +320,7 @@
 			isa = PBXGroup;
 			children = (
 				1B0BFB4923362ECE0054E28A /* TabbarProtocol.swift */,
+				37EFE0BB27D20DBA008F28EF /* SearchDelegate.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -336,7 +329,6 @@
 			isa = PBXGroup;
 			children = (
 				371D73DE27D102B500BF93EB /* Detail */,
-				37268EB927CF8AFB0000F942 /* NavigationController */,
 				37268E9427CF75BC0000F942 /* Profile */,
 				37268E9327CF75B00000F942 /* Favorites */,
 				37268E7627CF6DB90000F942 /* Search */,
@@ -491,18 +483,6 @@
 				37268EA327CF75DD0000F942 /* ProfileWireframe.swift */,
 			);
 			path = Profile;
-			sourceTree = "<group>";
-		};
-		37268EB927CF8AFB0000F942 /* NavigationController */ = {
-			isa = PBXGroup;
-			children = (
-				37268EBA27CF8AFB0000F942 /* NavigationControllerInteractor.swift */,
-				37268EBB27CF8AFB0000F942 /* NavigationControllerPresenter.swift */,
-				37268EBC27CF8AFB0000F942 /* NavigationViewController.swift */,
-				37268EBD27CF8AFB0000F942 /* NavigationControllerWireframe.swift */,
-				37268EBE27CF8AFB0000F942 /* NavigationControllerInterfaces.swift */,
-			);
-			path = NavigationController;
 			sourceTree = "<group>";
 		};
 		37268EC427CF98B50000F942 /* Cell */ = {
@@ -736,7 +716,6 @@
 				1BDD46A223AFFEAE0020AC54 /* Constants.swift in Sources */,
 				1B0BFB3D23362A000054E28A /* FormatterInterface.swift in Sources */,
 				1B0BFAFC233628850054E28A /* AppDelegate.swift in Sources */,
-				37268EC127CF8AFB0000F942 /* NavigationViewController.swift in Sources */,
 				1B0BFB562336303F0054E28A /* TabbarPresenter.swift in Sources */,
 				371D73D127D0D34200BF93EB /* Heroes.swift in Sources */,
 				371D73DB27D102AF00BF93EB /* DetailViewController.swift in Sources */,
@@ -753,7 +732,6 @@
 				1B0BFB3A23362A000054E28A /* UIStoryboardExtension.swift in Sources */,
 				37268EC627CF99970000F942 /* SearchedCollectionViewCell.swift in Sources */,
 				371D73DC27D102AF00BF93EB /* DetailInteractor.swift in Sources */,
-				37268EBF27CF8AFB0000F942 /* NavigationControllerInteractor.swift in Sources */,
 				1B0BFB4723362B740054E28A /* BaseTabbarProtocolController.swift in Sources */,
 				37268EAC27CF85C70000F942 /* Strings.swift in Sources */,
 				371D73D327D0FD5200BF93EB /* RestClient+Typealias.swift in Sources */,
@@ -763,7 +741,6 @@
 				37268E7427CF6D390000F942 /* Images.swift in Sources */,
 				1B0BFB4A23362ECE0054E28A /* TabbarProtocol.swift in Sources */,
 				37268E9B27CF75CB0000F942 /* FavoritesPresenter.swift in Sources */,
-				37268EC327CF8AFB0000F942 /* NavigationControllerInterfaces.swift in Sources */,
 				1B0BFB592336303F0054E28A /* TabbarWireframe.swift in Sources */,
 				37268E8227CF6E2A0000F942 /* ViewControllerPreview.swift in Sources */,
 				371D73C327D0C9CD00BF93EB /* Superheroes.swift in Sources */,
@@ -774,12 +751,12 @@
 				1B0BFB5B2336303F0054E28A /* TabbarInteractor.swift in Sources */,
 				371D73CD27D0CA7F00BF93EB /* Powerstat.swift in Sources */,
 				37268E9C27CF75CB0000F942 /* FavoritesViewController.swift in Sources */,
-				37268EC027CF8AFB0000F942 /* NavigationControllerPresenter.swift in Sources */,
 				1B0BFB4123362B240054E28A /* BaseNavigationController.swift in Sources */,
 				37268E7D27CF6DCF0000F942 /* SearchPresenter.swift in Sources */,
 				37268E9E27CF75CB0000F942 /* FavoritesWireframe.swift in Sources */,
 				1B0BFB3B23362A000054E28A /* BaseWireframe.swift in Sources */,
 				371D73D927D102AF00BF93EB /* DetailInterfaces.swift in Sources */,
+				37EFE0BC27D20DBA008F28EF /* SearchDelegate.swift in Sources */,
 				371D73DA27D102AF00BF93EB /* DetailPresenter.swift in Sources */,
 				371D73C527D0C9F400BF93EB /* Appearance.swift in Sources */,
 				37268E7E27CF6DCF0000F942 /* SearchViewController.swift in Sources */,
@@ -787,7 +764,6 @@
 				37EFE0AA27D1F594008F28EF /* Fonts.swift in Sources */,
 				37268E7C27CF6DCF0000F942 /* SearchInterfaces.swift in Sources */,
 				37268E9A27CF75CB0000F942 /* FavoritesInterfaces.swift in Sources */,
-				37268EC227CF8AFB0000F942 /* NavigationControllerWireframe.swift in Sources */,
 				37268E9D27CF75CB0000F942 /* FavoritesInteractor.swift in Sources */,
 				371D73DD27D102AF00BF93EB /* DetailWireframe.swift in Sources */,
 				1B0BFB3923362A000054E28A /* ViewInterface.swift in Sources */,

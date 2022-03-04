@@ -21,6 +21,7 @@ protocol SearchViewInterface: ViewInterface {
 protocol SearchPresenterInterface: PresenterInterface {
     func getSuperHeroes() -> [Heroes]
     func searchButtonTapped(name: String)
+    func searchVCDismissed()
     func didTapOnCell(hero: Heroes)
     func pushToDetails(hero: Heroes)
 }

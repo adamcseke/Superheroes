@@ -12,7 +12,7 @@ import TBEmptyDataSet
 import UIKit
 
 final class SearchViewController: UIViewController {
-
+    
     private let generator = UIImpactFeedbackGenerator(style: .medium)
     
     private var searchVC: UISearchController!
@@ -21,21 +21,33 @@ final class SearchViewController: UIViewController {
     private let itemsPerRow: CGFloat = 2
     
     // MARK: - Public properties -
-
+    
     var presenter: SearchPresenterInterface!
-
+    
     // MARK: - Lifecycle -
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     private func setup() {
+        setupNavigationController()
         configureViewController()
         configureSearchController()
         configureCollectionView()
+    }
+    
+    private func setupNavigationController() {
+        navigationController?.navigationBar.isOpaque = false
+        navigationController?.navigationBar.backgroundColor = .clear
+        let attributes = [NSAttributedString.Key.foregroundColor: UIColor.label]
+        navigationController?.navigationBar.largeTitleTextAttributes = attributes
     }
     
     private func configureViewController() {
@@ -58,7 +70,7 @@ final class SearchViewController: UIViewController {
     private func configureCollectionView() {
         
         let flowLayout = UICollectionViewFlowLayout()
-               
+        
         let width =  view.bounds.width
         let availableWidth = width - 50
         let itemWidth = availableWidth / 2.1
@@ -83,17 +95,26 @@ final class SearchViewController: UIViewController {
         }
     }
     
+//    private func initGestureRecognizer() {
+//        let tap = UITapGestureRecognizer(target: self, action: #selector(backgroundTapped))
+//        searchVC
+//    }
+//
+//    @objc private func backgroundTapped() {
+//        presenter.searchVCDismissed()
+//        searchVC.dismiss(animated: true, completion: nil)
+//    }
 }
 
 // MARK: - Extensions -
 
 extension SearchViewController: SearchViewInterface {
+    
     func reloadCollectionView() {
         DispatchQueue.main.async {
             self.collectionView.reloadData()
         }
     }
-    
 }
 
 extension SearchViewController: UICollectionViewDelegate {
@@ -132,6 +153,11 @@ extension SearchViewController: UISearchBarDelegate {
         presenter.searchButtonTapped(name: searchBar.text ?? "")
         searchVC.dismiss(animated: true, completion: nil)
     }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        presenter.searchVCDismissed()
+    }
+    
 }
 
 extension SearchViewController: TBEmptyDataSetDelegate {

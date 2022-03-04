@@ -85,7 +85,7 @@ class SearchedCollectionViewCell: UICollectionViewCell {
         saveButton.setImage(UIImage(systemName: "star")?.withTintColor(.systemOrange, renderingMode: .alwaysOriginal), for: .normal)
         saveButton.setImage(UIImage(systemName: "star.fill")?.withTintColor(.systemOrange, renderingMode: .alwaysOriginal), for: .selected)
         saveButton.layer.backgroundColor = Colors.saveButtonBackground.color.cgColor
-        saveButton.layer.cornerRadius = 12
+        saveButton.layer.cornerRadius = 17.5
         saveButton.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         
         contentView.addSubview(saveButton)
@@ -93,7 +93,7 @@ class SearchedCollectionViewCell: UICollectionViewCell {
         saveButton.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-10)
-            make.height.width.equalTo(24)
+            make.height.width.equalTo(35)
         }
     }
     
