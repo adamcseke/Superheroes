@@ -24,8 +24,8 @@ internal enum FontFamily {
     internal static let bold = FontConvertible(name: "Gotham-Bold", family: "Gotham", path: "Gotham-Bold.otf")
     internal static let boldItalic = FontConvertible(name: "Gotham-BoldItalic", family: "Gotham", path: "Gotham-BoldItalic.otf")
     internal static let book = FontConvertible(name: "Gotham-Book", family: "Gotham", path: "Gotham-Book.otf")
-    internal static let bookItalic = FontConvertible(name: "Gotham-BookItalic", family: "Gotham", path: "GothamBookItalic.ttf")
-    internal static let light = FontConvertible(name: "Gotham-Light", family: "Gotham", path: "GothamLight.ttf")
+    internal static let bookItalic = FontConvertible(name: "Gotham-BookItalic", family: "Gotham", path: "Gotham-BookItalic.otf")
+    internal static let light = FontConvertible(name: "Gotham-Light", family: "Gotham", path: "Gotham-Light.otf")
     internal static let lightItalic = FontConvertible(name: "Gotham-LightItalic", family: "Gotham", path: "Gotham-LightItalic.otf")
     internal static let medium = FontConvertible(name: "Gotham-Medium", family: "Gotham", path: "Gotham-Medium.otf")
     internal static let mediumItalic = FontConvertible(name: "Gotham-MediumItalic", family: "Gotham", path: "Gotham-MediumItalic.otf")
@@ -33,9 +33,9 @@ internal enum FontFamily {
     internal static let thinItalic = FontConvertible(name: "Gotham-ThinItalic", family: "Gotham", path: "Gotham-ThinItalic.otf")
     internal static let ultra = FontConvertible(name: "Gotham-Ultra", family: "Gotham", path: "Gotham-Ultra.otf")
     internal static let ultraItalic = FontConvertible(name: "Gotham-UltraItalic", family: "Gotham", path: "Gotham-UltraItalic.otf")
-    internal static let xLight = FontConvertible(name: "Gotham-XLight", family: "Gotham", path: "Gotham-XLight.otf")
-    internal static let xLightItalic = FontConvertible(name: "Gotham-XLightItalic", family: "Gotham", path: "Gotham-XLightItalic.otf")
-    internal static let all: [FontConvertible] = [black, blackItalic, bold, boldItalic, book, bookItalic, light, lightItalic, medium, mediumItalic, thin, thinItalic, ultra, ultraItalic, xLight, xLightItalic]
+    internal static let extraLight = FontConvertible(name: "Gotham-XLight", family: "Gotham", path: "Gotham-XLight.otf")
+    internal static let extraLightItalic = FontConvertible(name: "Gotham-XLightItalic", family: "Gotham", path: "Gotham-XLightItalic.otf")
+    internal static let all: [FontConvertible] = [black, blackItalic, bold, boldItalic, book, bookItalic, light, lightItalic, medium, mediumItalic, thin, thinItalic, ultra, ultraItalic, extraLight, extraLightItalic]
   }
   internal static let allCustomFonts: [FontConvertible] = [Gotham.all].flatMap { $0 }
   internal static func registerAllCustomFonts() {

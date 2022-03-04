@@ -121,7 +121,7 @@ class SearchedCollectionViewCell: UICollectionViewCell {
               delegate: SearchedCellDelegate?
     ) {
         heroNameLabel.text = nameLabel
-        cellBackgroundImageView.sd_setImage(with: URL(string: backgroundImageURL))
+        cellBackgroundImageView.sd_setImage(with: URL(string: backgroundImageURL), placeholderImage: Images.superhero.image.withTintColor(UIColor.label))
         self.indexPath = indexPath
         self.delegate = delegate
     }

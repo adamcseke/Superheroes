@@ -61,7 +61,7 @@ extension TabbarPresenter: TabbarPresenterInterface {
     }
     
     private func createSearchNC() -> NavigationViewController {
-        let searchVC = SearchViewController()
+        let searchVC = SearchWireframe().viewController
         searchVC.title = L10n.TabBarViewController.Search.TabBarItem.title
         searchVC.tabBarItem = UITabBarItem(title: L10n.TabBarViewController.Search.TabBarItem.title, image: UIImage(systemName: "magnifyingglass"), tag: 0)
         return NavigationViewController(rootViewController: searchVC)

@@ -9,24 +9,7 @@
 //
 
 import TBEmptyDataSet
-import SwiftUI
 import UIKit
-
-@available(iOS 13.0.0, *)
-struct Search_Preview: PreviewProvider {
-    static var previews: some View {
-        Group {
-            ViewControllerPreview {
-                SearchWireframe().viewController
-            }
-            ViewControllerPreview {
-                SearchWireframe().viewController
-            }
-            .preferredColorScheme(.dark)
-            
-        }
-    }
-}
 
 final class SearchViewController: UIViewController {
 
@@ -34,7 +17,7 @@ final class SearchViewController: UIViewController {
     
     private var searchVC: UISearchController!
     private var collectionView: UICollectionView!
-    private var heroes = 10
+    
     private let itemsPerRow: CGFloat = 2
     
     // MARK: - Public properties -
@@ -46,6 +29,7 @@ final class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+        
     }
     
     private func setup() {
@@ -89,6 +73,7 @@ final class SearchViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.backgroundColor = .systemBackground
+        collectionView.alwaysBounceVertical = true
         collectionView.emptyDataSetDataSource = self
         collectionView.emptyDataSetDelegate = self
         view.addSubview(collectionView)
@@ -98,29 +83,42 @@ final class SearchViewController: UIViewController {
         }
     }
     
-    
 }
 
 // MARK: - Extensions -
 
 extension SearchViewController: SearchViewInterface {
+    func reloadCollectionView() {
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
+    }
+    
 }
 
 extension SearchViewController: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectedHero = presenter.getSuperHeroes()[indexPath.row]
+        presenter.pushToDetails(hero: selectedHero)
+    }
     
 }
 
 extension SearchViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        heroes
+        return presenter.getSuperHeroes().count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "searchedCell", for: indexPath) as? SearchedCollectionViewCell else {
             return UICollectionViewCell()
         }
-        cell.bind(nameLabel: "Ok",
-                  backgroundImageURL: "https://c1.staticflickr.com/3/2884/34091698215_a52e1922cc_b.jpg",
+        let heroesInfo = presenter.getSuperHeroes()[indexPath.row]
+        let heroname = heroesInfo.name
+        let heroImage = heroesInfo.image.url
+        cell.bind(nameLabel: heroname,
+                  backgroundImageURL: heroImage,
                   indexPath: indexPath,
                   delegate: self)
         return cell
@@ -131,9 +129,7 @@ extension SearchViewController: UICollectionViewDataSource {
 extension SearchViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        guard let text = searchBar.text, !text.isEmpty else {
-            return
-        }
+        presenter.searchButtonTapped(name: searchBar.text ?? "")
         searchVC.dismiss(animated: true, completion: nil)
     }
 }
@@ -141,7 +137,7 @@ extension SearchViewController: UISearchBarDelegate {
 extension SearchViewController: TBEmptyDataSetDelegate {
     
     func emptyDataSetShouldDisplay(in scrollView: UIScrollView) -> Bool {
-        return heroes == 0
+        return presenter.getSuperHeroes().isEmpty == true
     }
 }
 

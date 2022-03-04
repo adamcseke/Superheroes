@@ -28,4 +28,9 @@ final class SearchWireframe: BaseWireframe {
 // MARK: - Extensions -
 
 extension SearchWireframe: SearchWireframeInterface {
+    func pushToDetails(hero: Heroes) {
+        let detailWF = DetailWireframe(hero: hero)
+        navigationController?.pushWireframe(detailWF)
+    }
+    
 }

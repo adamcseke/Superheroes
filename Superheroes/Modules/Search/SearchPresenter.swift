@@ -17,6 +17,9 @@ final class SearchPresenter {
     private unowned let view: SearchViewInterface
     private let interactor: SearchInteractorInterface
     private let wireframe: SearchWireframeInterface
+    
+    private var heroes: [Heroes] = []
+    private var text: String = ""
 
     // MARK: - Lifecycle -
 
@@ -34,4 +37,40 @@ final class SearchPresenter {
 // MARK: - Extensions -
 
 extension SearchPresenter: SearchPresenterInterface {
+    func pushToDetails(hero: Heroes) {
+        wireframe.pushToDetails(hero: hero)
+    }
+    
+    func didTapOnCell(hero: Heroes) {
+        pushToDetails(hero: hero)
+    }
+    
+    func searchButtonTapped(name: String) {
+        text = name
+        if text.isEmpty {
+            return
+        }
+        search(name: text)
+    }
+    
+    func getSuperHeroes() -> [Heroes] {
+        heroes
+    }
+    
+    private func search(name: String) {
+        interactor.getSuperheroes(name: name) { result in
+            switch result {
+                
+            case .success(let heroes):
+                
+                self.heroes = heroes.results
+                
+                self.view.reloadCollectionView()
+                
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
 }

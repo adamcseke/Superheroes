@@ -11,13 +11,20 @@
 import UIKit
 
 protocol SearchWireframeInterface: WireframeInterface {
+    func pushToDetails(hero: Heroes)
 }
 
 protocol SearchViewInterface: ViewInterface {
+    func reloadCollectionView()
 }
 
 protocol SearchPresenterInterface: PresenterInterface {
+    func getSuperHeroes() -> [Heroes]
+    func searchButtonTapped(name: String)
+    func didTapOnCell(hero: Heroes)
+    func pushToDetails(hero: Heroes)
 }
 
 protocol SearchInteractorInterface: InteractorInterface {
+    func getSuperheroes(name: String, completion: @escaping SuperheroesLoaded )
 }

@@ -9,58 +9,77 @@
 import Alamofire
 import Foundation
 
-class RestClient {
-    
-    // MARK: Singleton
+enum GithubError: Error {
+    case wrongURL
+}
+
+final class RestClient {
     static let shared = RestClient()
+    
+    struct Constants {
+        static let baseUrl = "https://superheroapi.com/api.php/" + apiKey
+        static let apiKey = "2915390945376495"
+    }
+    
     private init() {}
-    
-    // MARK: - Private properties -
-    
-    private var headers: HTTPHeaders = [
-        "Content-Type": "application/json"
-    ]
-    
-    // MARK: - Requests -
-    
-    internal func request<T: Codable>(url: String,
-                                      method: HTTPMethod = .get,
-                                      data: [String: Any]? = nil,
-                                      completion: ((Result<T, Error>) -> Void)?) {
-        
-        if let apiKey = UserDefaults.standard.string(forKey: Constants.UserDefaults.ApiKey) {
-            // TODO: Modify according to api spec
-            headers["x-api-key"] = apiKey
-            log.debug("x-api-key: \(apiKey)")
+   
+    func request<T: Codable>(urlString: String, completion: @escaping (Result<T, Error>) -> Void) {
+        guard let url = URL(string: urlString) else {
+            completion(.failure(GithubError.wrongURL))
+            return
         }
-        
-        AF.request(url,
-                   method: method,
-                   parameters: data,
-                   encoding: JSONEncoding.default,
-                   headers: self.headers)
-            .responseData { (response: DataResponse<Data, AFError>) in
-                
-                log.debug(response.debugDescription)
-                
-                switch response.result {
-                case .success(let data):
-                    if let object = try? JSONDecoder().decode(T.self, from: data) {
-                        log.debug("success: \(String(describing: response.request?.url))")
-                        completion?(Result.success(object))
-                    } else if let error = try? JSONDecoder().decode(APIError.self, from: data) {
-                        log.warning("\(error)")
-                        completion?(Result.failure(error))
+        let task = URLSession.shared.dataTask(with: url) { data, _, error in
+            if let error = error {
+                DispatchQueue.main.async {
+                    completion(.failure(error))
+                    print(error.localizedDescription)
+                }
+            } else if let data = data {
+                do {
+                    let decoder = JSONDecoder()
+                    decoder.dateDecodingStrategy = .iso8601
+                    let result = try decoder.decode(T.self, from: data)
+                    DispatchQueue.main.async {
+                        completion(.success(result))
                     }
-                case .failure(let error):
-                    if let data = response.data,let apiError = try? JSONDecoder().decode(APIError.self, from: data) {
-                        log.warning("\(apiError)")
-                        completion?(Result.failure(apiError))
-                    } else {
-                        log.warning("\(error)")
-                        completion?(Result.failure(error))
+                } catch let exepction {
+                    DispatchQueue.main.async {
+                        completion(.failure(exepction))
+                        print(String(describing: exepction))
                     }
                 }
+            }
         }
+        task.resume()
+    }
+    
+    func request<T: Codable>(urlString: String, completion: @escaping (Result<[T], Error>) -> Void) {
+        guard let url = URL(string: urlString) else {
+            completion(.failure(GithubError.wrongURL))
+            return
+        }
+        let task = URLSession.shared.dataTask(with: url) { data, _, error in
+            if let error = error {
+                DispatchQueue.main.async {
+                    completion(.failure(error))
+                    print(error.localizedDescription)
+                }
+            } else if let data = data {
+                do {
+                    let decoder = JSONDecoder()
+                    decoder.dateDecodingStrategy = .iso8601
+                    let result = try decoder.decode([T].self, from: data)
+                    DispatchQueue.main.async {
+                        completion(.success(result))
+                    }
+                } catch let exepction {
+                    DispatchQueue.main.async {
+                        completion(.failure(exepction))
+                        print(String(describing: exepction))
+                    }
+                }
+            }
+        }
+        task.resume()
     }
 }

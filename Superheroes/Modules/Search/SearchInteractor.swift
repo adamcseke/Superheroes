@@ -11,9 +11,14 @@
 import Foundation
 
 final class SearchInteractor {
+    let provider: SuperheroesService = RestClient.shared
 }
 
 // MARK: - Extensions -
 
 extension SearchInteractor: SearchInteractorInterface {
+    func getSuperheroes(name: String, completion: @escaping SuperheroesLoaded) {
+        provider.getSuperheroes(name: name, completion: completion)
+    }
+    
 }
