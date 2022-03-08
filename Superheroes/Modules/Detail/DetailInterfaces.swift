@@ -15,9 +15,15 @@ protocol DetailWireframeInterface: WireframeInterface {
 
 protocol DetailViewInterface: ViewInterface {
     func pushHeroName(hero: Heroes)
+    func setPowerstatsButton(selected: Bool)
+    func setCharacteristicsButton(selected: Bool)
+    func setCommentsButton(selected: Bool)
 }
 
 protocol DetailPresenterInterface: PresenterInterface {
+    func powerstatsButtonTapped()
+    func characteristicsButtonTapped()
+    func commentsButtonTapped()
 }
 
 protocol DetailInteractorInterface: InteractorInterface {

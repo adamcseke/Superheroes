@@ -25,7 +25,6 @@ class EmptyView: UIView {
     
     private func setup() {
         configureEmptyLabel()
-//        configureEmptyImage()
     }
     
     private func configureEmptyLabel() {
@@ -41,23 +40,8 @@ class EmptyView: UIView {
             make.leading.equalTo(12)
             make.centerX.equalToSuperview()
             make.centerY.equalToSuperview().multipliedBy(0.3)
-            
         }
     }
-    
-//    private func configureEmptyImage() {
-//        emptyImageView = UIImageView()
-//        emptyImageView.image = UIImage(named: "empty-state-logo")
-//
-//        addSubview(emptyImageView)
-//
-//        emptyImageView.snp.makeConstraints { make in
-//            make.centerX.equalToSuperview().multipliedBy(1.65)
-//            make.top.equalTo(emptyLabel.snp.bottom).offset(99)
-//            make.height.equalTo(emptyImageView.snp.width)
-//
-//        }
-//    }
     
     func bind(text: String) {
         emptyLabel.text = text

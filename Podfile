@@ -19,6 +19,7 @@ target 'Superheroes' do
   pod 'SDWebImage'
   pod 'SwiftGen'
   pod 'TBEmptyDataSet'
+  pod 'BetterSegmentedControl', '~> 2.0'
 
 end
 

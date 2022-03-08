@@ -42,4 +42,16 @@ final class DetailPresenter {
 // MARK: - Extensions -
 
 extension DetailPresenter: DetailPresenterInterface {
+    func powerstatsButtonTapped() {
+        view.setPowerstatsButton(selected: true)
+    }
+    
+    func characteristicsButtonTapped() {
+        view.setCharacteristicsButton(selected: true)
+    }
+    
+    func commentsButtonTapped() {
+        view.setCommentsButton(selected: true)
+    }
+    
 }

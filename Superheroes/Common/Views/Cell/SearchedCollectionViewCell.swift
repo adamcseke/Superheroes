@@ -91,7 +91,7 @@ class SearchedCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(saveButton)
         
         saveButton.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(20)
+            make.top.equalToSuperview().offset(10)
             make.trailing.equalToSuperview().offset(-10)
             make.height.width.equalTo(35)
         }

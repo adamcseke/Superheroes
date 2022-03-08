@@ -6,6 +6,7 @@
 //  Copyright © 2019. levivig. All rights reserved.
 //
 
+import BetterSegmentedControl
 import SDWebImage
 import TBEmptyDataSet
 import SnapKit
@@ -30,6 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         initializers.forEach { $0.performInitialization() }
         setRoot(wireframe: TabbarWireframe())
+        UIApplication.shared.isStatusBarHidden = false 
         return true
     }
     

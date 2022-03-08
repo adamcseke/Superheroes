@@ -13,12 +13,21 @@ import UIKit
 final class DetailViewController: UIViewController {
     
     private var scrollView: UIScrollView!
-    private var contentView: UIView!
+    
     private let generator = UIImpactFeedbackGenerator(style: .medium)
     private var gradientLayer: CAGradientLayer!
     private var heroImageView: UIImageView!
     private var heroNameLabel: UILabel!
     private var saveButton: UIButton!
+    private var powerstatButton: StatButton!
+    private var characteristicsButton: StatButton!
+    private var commentsButton: StatButton!
+    private var stackView: UIStackView!
+    private var buttonsStackView: UIView!
+    private var biographyView: CharacteristicsView!
+    private var appearanceView: CharacteristicsView!
+    private var workView: CharacteristicsView!
+    private var connectionsView: CharacteristicsView!
     
     private var selectedHero: Heroes?
     
@@ -32,11 +41,24 @@ final class DetailViewController: UIViewController {
         super.viewDidLoad()
         presenter.viewDidLoad()
         setup()
+        addInfos()
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        if self.traitCollection.userInterfaceStyle == .light {
+            heroNameLabel.textColor = Colors.grayHeroName.color
+        } else {
+            heroNameLabel.textColor = Colors.orange.color
+        }
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        gradientLayer.colors = [UIColor.systemBackground.withAlphaComponent(0).cgColor,
+                                UIColor.systemBackground.withAlphaComponent(1).cgColor]
         gradientLayer.frame = CGRect(x: 0, y: 0, width: heroImageView.frame.size.width, height: heroImageView.frame.size.height)
+        let bottom = stackView.frame.maxY
+        scrollView.contentSize = CGSize(width: view.frame.width, height: bottom)
     }
     
     private func setup() {
@@ -45,6 +67,12 @@ final class DetailViewController: UIViewController {
         configureViewController()
         configureHeroImageView()
         configureHeroNameLabel()
+        configureButtonsStackView()
+        configurePowerstatsButton()
+        configureCharacteristicButton()
+        configureCommentsButton()
+        configureStackView()
+        configureCharacteristicsView()
     }
     
     func setNavigationBar() {
@@ -69,6 +97,7 @@ final class DetailViewController: UIViewController {
         navigationController?.navigationBar.tintColor = Colors.orange.color
         navigationController?.navigationBar.isTranslucent = true
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
     }
     
     @objc private func didTapNavBarButton() {
@@ -88,18 +117,11 @@ final class DetailViewController: UIViewController {
     
     private func configureScrollView() {
         scrollView = UIScrollView()
-        contentView = UIView()
+        scrollView.backgroundColor = .systemBackground
         view.addSubview(scrollView)
-        scrollView.addSubview(contentView)
         
         scrollView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.leading.trailing.bottom.equalToSuperview()
-        }
-        
-        contentView.snp.makeConstraints { make in
-            make.edges.equalTo(scrollView)
-            make.width.equalTo(scrollView.snp.width)
+            make.edges.equalToSuperview()
         }
     }
     
@@ -111,33 +133,237 @@ final class DetailViewController: UIViewController {
         heroImageView = UIImageView()
         heroImageView.sd_setImage(with: URL(string: selectedHero?.image.url ?? ""),
                                   placeholderImage: Images.superhero.image)
-        
+        heroImageView.contentMode = .scaleAspectFill
         gradientLayer = CAGradientLayer()
-        gradientLayer.colors = [UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0).cgColor,
-                                UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 1).cgColor]
+        gradientLayer.locations = [0.0, 1.0]
+        scrollView.addSubview(heroImageView)
         heroImageView.layer.insertSublayer(gradientLayer, at: 0)
         
-        contentView.addSubview(heroImageView)
-        
         heroImageView.snp.makeConstraints { make in
-            make.leading.top.equalToSuperview()
-            make.centerX.equalToSuperview()
-            make.height.equalTo(500)
-            make.width.equalTo(375)
+            make.leading.centerX.equalToSuperview()
+            if UIDevice.Devices.iPhoneSE1stGen {
+                make.centerY.equalToSuperview().multipliedBy(0.35)
+            } else {
+                make.centerY.equalToSuperview().multipliedBy(0.5)
+            }
+            
         }
     }
     
     private func configureHeroNameLabel() {
         heroNameLabel = UILabel()
-        heroNameLabel.font = UIFont(font: FontFamily.Gotham.bold, size: 37)
-        heroNameLabel.textColor = Colors.orange.color
+        if UIDevice.Devices.iPhoneSE1stGen {
+            heroNameLabel.font = UIFont(font: FontFamily.Gotham.bold, size: 27)
+        } else {
+            heroNameLabel.font = UIFont(font: FontFamily.Gotham.bold, size: 37)
+        }
+        if self.traitCollection.userInterfaceStyle == .light {
+            heroNameLabel.textColor = Colors.grayHeroName.color
+        } else {
+            heroNameLabel.textColor = Colors.orange.color
+        }
         heroNameLabel.text = selectedHero?.name
         
-        contentView.addSubview(heroNameLabel)
+        scrollView.addSubview(heroNameLabel)
         
         heroNameLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(16)
             make.bottom.equalTo(heroImageView.snp.bottom).offset(-82)
+        }
+    }
+    
+    private func configureButtonsStackView() {
+        buttonsStackView = UIView()
+        
+        scrollView.addSubview(buttonsStackView)
+        
+        buttonsStackView.snp.makeConstraints { make in
+            make.top.equalTo(heroNameLabel.snp.bottom).offset(25)
+            make.leading.equalToSuperview().offset(10)
+            make.centerX.equalToSuperview()
+            make.height.equalTo(27)
+        }
+    }
+    
+    private func configurePowerstatsButton() {
+        powerstatButton = StatButton()
+        powerstatButton.addTarget(self, action: #selector(powerstatsButtonTapped), for: .touchUpInside)
+        powerstatButton.bind(buttonLabelText: L10n.DetailViewController.Powerstats.Button.title)
+        powerstatButton.isSelected = true
+        
+        buttonsStackView.addSubview(powerstatButton)
+        
+        powerstatButton.snp.makeConstraints { make in
+            if UIDevice.Devices.iPhoneSE1stGen {
+                make.width.equalTo(85)
+            }
+            make.centerY.equalToSuperview()
+            make.leading.equalToSuperview()
+            make.width.equalTo(96)
+            make.height.equalTo(27)
+        }
+    }
+    
+    private func configureCharacteristicButton() {
+        characteristicsButton = StatButton()
+        characteristicsButton.addTarget(self, action: #selector(characteristicsButtonTapped), for: .touchUpInside)
+        characteristicsButton.bind(buttonLabelText: L10n.DetailViewController.Characteristics.Button.title)
+        characteristicsButton.isSelected = false
+        
+        buttonsStackView.addSubview(characteristicsButton)
+        
+        characteristicsButton.snp.makeConstraints { make in
+            if UIDevice.Devices.iPhoneSE1stGen {
+                make.width.equalTo(115)
+            }
+            make.centerY.equalToSuperview()
+            make.centerX.equalToSuperview()
+            make.width.equalTo(118)
+            make.height.equalTo(27)
+        }
+    }
+    
+    private func configureCommentsButton() {
+        commentsButton = StatButton()
+        commentsButton.addTarget(self, action: #selector(commentsButtonTapped), for: .touchUpInside)
+        commentsButton.bind(buttonLabelText: L10n.DetailViewController.Comments.Button.title)
+        commentsButton.isSelected = false
+        
+        buttonsStackView.addSubview(commentsButton)
+        
+        commentsButton.snp.makeConstraints { make in
+            if UIDevice.Devices.iPhoneSE1stGen {
+                make.width.equalTo(85)
+            }
+            make.centerY.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.width.equalTo(96)
+            make.height.equalTo(27)
+        }
+    }
+    
+    @objc private func powerstatsButtonTapped() {
+        presenter.powerstatsButtonTapped()
+    }
+    
+    @objc private func characteristicsButtonTapped() {
+        presenter.characteristicsButtonTapped()
+    }
+    
+    @objc private func commentsButtonTapped() {
+        presenter.commentsButtonTapped()
+    }
+    
+    private func configureStackView() {
+        stackView = UIStackView()
+        stackView.alignment = .leading
+        stackView.axis = .vertical
+        stackView.spacing = 27
+        stackView.distribution = .equalSpacing
+        stackView.isHidden = true
+        
+        scrollView.addSubview(stackView)
+        
+        stackView.snp.makeConstraints { make in
+            make.top.equalTo(powerstatButton.snp.bottom).offset(25)
+            make.leading.equalToSuperview().offset(16)
+            make.bottom.equalToSuperview().offset(-5)
+            make.centerX.equalToSuperview()
+        }
+    }
+    
+    private func configureCharacteristicsView() {
+        biographyView = CharacteristicsView()
+        appearanceView = CharacteristicsView()
+        workView = CharacteristicsView()
+        connectionsView = CharacteristicsView()
+        
+        biographyView.title = L10n.DetailViewController.BiographyView.SectionTitle.biography
+        appearanceView.title = L10n.DetailViewController.BiographyView.SectionTitle.appearance
+        workView.title = L10n.DetailViewController.BiographyView.SectionTitle.work
+        connectionsView.title = L10n.DetailViewController.BiographyView.SectionTitle.connections
+        
+        stackView.addArrangedSubview(biographyView)
+        stackView.addArrangedSubview(appearanceView)
+        stackView.addArrangedSubview(workView)
+        stackView.addArrangedSubview(connectionsView)
+        
+        biographyView.snp.makeConstraints { make in
+            make.leading.centerX.equalToSuperview()
+        }
+        appearanceView.snp.makeConstraints { make in
+            make.leading.centerX.equalToSuperview()
+        }
+        workView.snp.makeConstraints { make in
+            make.leading.centerX.equalToSuperview()
+        }
+        connectionsView.snp.makeConstraints { make in
+            make.leading.centerX.equalToSuperview()
+        }
+    }
+    
+    private func addInfos() {
+        guard let bio = selectedHero?.biography,
+              let heroAppearance = selectedHero?.appearance,
+              let heroWork = selectedHero?.work,
+              let heroConnections = selectedHero?.connections else { return }
+        
+        let biography = Mirror(reflecting: bio)
+        let appearance = Mirror(reflecting: heroAppearance)
+        let work = Mirror(reflecting: heroWork)
+        let connections = Mirror(reflecting: heroConnections)
+        
+        for (index, attr) in biography.children.enumerated() {
+            if let propertyName = attr.label as String? {
+                if let arrayString = attr.value as? [String] {
+                    biographyView.addItem(title: "detailViewController.biographyView.\(propertyName)".localized,
+                                          info: "\(arrayString.joined())")
+                    print("\(arrayString.joined(separator: ", "))")
+                } else {
+                    biographyView.addItem(title: "detailViewController.biographyView.\(propertyName)".localized,
+                                          info: "\(attr.value)")
+                    print("Attr \(index): \(propertyName) = \(attr.value)")
+                }
+            }
+        }
+        for (index, attr) in appearance.children.enumerated() {
+            if let propertyName = attr.label as String? {
+                if let arrayString = attr.value as? [String] {
+                    appearanceView.addItem(title: "detailViewController.appearanceView.\(propertyName)".localized,
+                                           info: "\(arrayString.last ?? "")")
+                    print("\(arrayString.joined(separator: ", "))")
+                } else {
+                    appearanceView.addItem(title: "detailViewController.appearanceView.\(propertyName)".localized,
+                                          info: "\(attr.value)")
+                    print("Attr \(index): \(propertyName) = \(attr.value)")
+                }
+            }
+        }
+        for (index, attr) in work.children.enumerated() {
+            if let propertyName = attr.label as String? {
+                if let arrayString = attr.value as? [String] {
+                    workView.addItem(title: "detailViewController.workView.\(propertyName)".localized,
+                                     info: "\(arrayString.joined(separator: ", "))")
+                    print("\(arrayString.joined(separator: ", "))")
+                } else {
+                    workView.addItem(title: "detailViewController.workView.\(propertyName)".localized,
+                                          info: "\(attr.value)")
+                    print("Attr \(index): \(propertyName) = \(attr.value)")
+                }
+            }
+        }
+        for (index, attr) in connections.children.enumerated() {
+            if let propertyName = attr.label as String? {
+                if let arrayString = attr.value as? [String] {
+                    connectionsView.addItem(title: "detailViewController.connectionsView.\(propertyName)".localized,
+                                            info: "\(arrayString.joined())")
+                    print("\(arrayString.joined(separator: ", "))")
+                } else {
+                    connectionsView.addItem(title: "detailViewController.connectionsView.\(propertyName)".localized,
+                                          info: "\(attr.value)")
+                    print("Attr \(index): \(propertyName) = \(attr.value)")
+                }
+            }
         }
     }
     
@@ -146,8 +372,31 @@ final class DetailViewController: UIViewController {
 // MARK: - Extensions -
 
 extension DetailViewController: DetailViewInterface {
+    func setPowerstatsButton(selected: Bool) {
+        print("Powerstats")
+        stackView.isHidden = true
+        powerstatButton.isSelected = true
+        characteristicsButton.isSelected = false
+        commentsButton.isSelected = false
+    }
+    
+    func setCharacteristicsButton(selected: Bool) {
+        print("Characteristics")
+        stackView.isHidden = false
+        characteristicsButton.isSelected = true
+        powerstatButton.isSelected = false
+        commentsButton.isSelected = false
+    }
+    
+    func setCommentsButton(selected: Bool) {
+        print("Comments")
+        stackView.isHidden = true
+        commentsButton.isSelected = true
+        powerstatButton.isSelected = false
+        characteristicsButton.isSelected = false
+    }
+    
     func pushHeroName(hero: Heroes) {
         selectedHero = hero
     }
-    
 }

@@ -11,6 +11,79 @@ import Foundation
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 internal enum L10n {
 
+  internal enum DetailViewController {
+    internal enum AppearanceView {
+      /// Eye color:
+      internal static let eyeColor = L10n.tr("Localizable", "detailViewController.appearanceView.eyeColor")
+      /// Gender:
+      internal static let gender = L10n.tr("Localizable", "detailViewController.appearanceView.gender")
+      /// Hair color:
+      internal static let hairColor = L10n.tr("Localizable", "detailViewController.appearanceView.hairColor")
+      /// Height:
+      internal static let height = L10n.tr("Localizable", "detailViewController.appearanceView.height")
+      /// Race:
+      internal static let race = L10n.tr("Localizable", "detailViewController.appearanceView.race")
+      /// Weight:
+      internal static let weight = L10n.tr("Localizable", "detailViewController.appearanceView.weight")
+    }
+    internal enum BiographyView {
+      /// Aliases:
+      internal static let aliases = L10n.tr("Localizable", "detailViewController.biographyView.aliases")
+      /// Alignment:
+      internal static let alignment = L10n.tr("Localizable", "detailViewController.biographyView.alignment")
+      /// Alter egos:
+      internal static let alterEgos = L10n.tr("Localizable", "detailViewController.biographyView.alterEgos")
+      /// First appearance:
+      internal static let firstAppearance = L10n.tr("Localizable", "detailViewController.biographyView.firstAppearance")
+      /// Full name:
+      internal static let fullName = L10n.tr("Localizable", "detailViewController.biographyView.fullName")
+      /// Place of birth:
+      internal static let placeOfBirth = L10n.tr("Localizable", "detailViewController.biographyView.placeOfBirth")
+      /// Publisher:
+      internal static let publisher = L10n.tr("Localizable", "detailViewController.biographyView.publisher")
+      internal enum SectionTitle {
+        /// Appearance
+        internal static let appearance = L10n.tr("Localizable", "detailViewController.biographyView.sectionTitle.appearance")
+        /// Biography
+        internal static let biography = L10n.tr("Localizable", "detailViewController.biographyView.sectionTitle.biography")
+        /// Connections
+        internal static let connections = L10n.tr("Localizable", "detailViewController.biographyView.sectionTitle.connections")
+        /// Work
+        internal static let work = L10n.tr("Localizable", "detailViewController.biographyView.sectionTitle.work")
+      }
+    }
+    internal enum Characteristics {
+      internal enum Button {
+        /// Characteristics
+        internal static let title = L10n.tr("Localizable", "detailViewController.characteristics.button.title")
+      }
+    }
+    internal enum Comments {
+      internal enum Button {
+        /// Comments
+        internal static let title = L10n.tr("Localizable", "detailViewController.comments.button.title")
+      }
+    }
+    internal enum ConnectionsView {
+      /// Group affiliation:
+      internal static let groupAffiliation = L10n.tr("Localizable", "detailViewController.connectionsView.groupAffiliation")
+      /// Relatives:
+      internal static let relatives = L10n.tr("Localizable", "detailViewController.connectionsView.relatives")
+    }
+    internal enum Powerstats {
+      internal enum Button {
+        /// Powerstats
+        internal static let title = L10n.tr("Localizable", "detailViewController.powerstats.button.title")
+      }
+    }
+    internal enum WorkView {
+      /// Base:
+      internal static let base = L10n.tr("Localizable", "detailViewController.workView.base")
+      /// Occupation:
+      internal static let occupation = L10n.tr("Localizable", "detailViewController.workView.occupation")
+    }
+  }
+
   internal enum SearchViewController {
     internal enum EmptyStateView {
       /// The World is in danger and no superhero to save it...
