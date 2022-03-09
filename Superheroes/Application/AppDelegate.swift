@@ -6,7 +6,6 @@
 //  Copyright © 2019. levivig. All rights reserved.
 //
 
-import BetterSegmentedControl
 import SDWebImage
 import TBEmptyDataSet
 import SnapKit

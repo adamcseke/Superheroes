@@ -7,7 +7,6 @@ target 'Superheroes' do
   use_frameworks!
 
   # Pods for Superheroes
-  pod 'Alamofire'
   # pod 'Crashlytics'
   # pod 'Fabric'
   # pod 'Firebase/Analytics'
@@ -19,7 +18,6 @@ target 'Superheroes' do
   pod 'SDWebImage'
   pod 'SwiftGen'
   pod 'TBEmptyDataSet'
-  pod 'BetterSegmentedControl', '~> 2.0'
 
 end
 

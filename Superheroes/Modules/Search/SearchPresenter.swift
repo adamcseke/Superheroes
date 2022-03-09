@@ -37,6 +37,19 @@ final class SearchPresenter {
 // MARK: - Extensions -
 
 extension SearchPresenter: SearchPresenterInterface {
+    
+    func numberOfSections() -> Int {
+        1
+    }
+    
+    func numberOfItem(in section: Int) -> Int {
+        heroes.count
+    }
+    
+    func cellForRow(at indexPath: IndexPath) -> Heroes {
+        heroes[indexPath.row]
+    }
+    
     func searchVCDismissed() {
         heroes.removeAll()
         self.view.reloadCollectionView()
@@ -56,10 +69,6 @@ extension SearchPresenter: SearchPresenterInterface {
             return
         }
         search(name: text)
-    }
-    
-    func getSuperHeroes() -> [Heroes] {
-        heroes
     }
     
     private func search(name: String) {

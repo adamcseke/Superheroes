@@ -19,7 +19,9 @@ protocol SearchViewInterface: ViewInterface {
 }
 
 protocol SearchPresenterInterface: PresenterInterface {
-    func getSuperHeroes() -> [Heroes]
+    func numberOfSections() -> Int
+    func numberOfItem(in section: Int) -> Int
+    func cellForRow(at indexPath: IndexPath) -> Heroes
     func searchButtonTapped(name: String)
     func searchVCDismissed()
     func didTapOnCell(hero: Heroes)

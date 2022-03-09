@@ -9,13 +9,20 @@
 //
 
 import UIKit
+import SnapKit
 
 final class DetailViewController: UIViewController {
     
     private var scrollView: UIScrollView!
+    private var headerContainerView: UIView!
+    
+    private var stackViewTop: Constraint? = nil
+    
+    let statusBarFrame = UIApplication.shared.statusBarFrame
+    let statusBarView = UIView()
     
     private let generator = UIImpactFeedbackGenerator(style: .medium)
-    private var gradientLayer: CAGradientLayer!
+    private var gradientView: GradientView!
     private var heroImageView: UIImageView!
     private var heroNameLabel: UILabel!
     private var saveButton: UIButton!
@@ -42,21 +49,24 @@ final class DetailViewController: UIViewController {
         presenter.viewDidLoad()
         setup()
         addInfos()
+        statusBarView.frame = statusBarFrame
+        self.view.addSubview(statusBarView)
+        statusBarView.backgroundColor = UIColor.clear
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         if self.traitCollection.userInterfaceStyle == .light {
             heroNameLabel.textColor = Colors.grayHeroName.color
+            navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: Colors.grayHeroName.color]
         } else {
             heroNameLabel.textColor = Colors.orange.color
+            navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: Colors.orange.color]
         }
     }
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        gradientLayer.colors = [UIColor.systemBackground.withAlphaComponent(0).cgColor,
-                                UIColor.systemBackground.withAlphaComponent(1).cgColor]
-        gradientLayer.frame = CGRect(x: 0, y: 0, width: heroImageView.frame.size.width, height: heroImageView.frame.size.height)
+        
         let bottom = stackView.frame.maxY
         scrollView.contentSize = CGSize(width: view.frame.width, height: bottom)
     }
@@ -64,6 +74,7 @@ final class DetailViewController: UIViewController {
     private func setup() {
         setNavigationBar()
         configureScrollView()
+        configureStackView()
         configureViewController()
         configureHeroImageView()
         configureHeroNameLabel()
@@ -71,7 +82,6 @@ final class DetailViewController: UIViewController {
         configurePowerstatsButton()
         configureCharacteristicButton()
         configureCommentsButton()
-        configureStackView()
         configureCharacteristicsView()
     }
     
@@ -79,8 +89,20 @@ final class DetailViewController: UIViewController {
         let screenSize: CGRect = UIScreen.main.bounds
         let navBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: 44))
         saveButton = UIButton(type: UIButton.ButtonType.custom) as UIButton
-        saveButton.setImage(UIImage(systemName: "star"), for: UIControl.State.normal)
-        saveButton.setImage(UIImage(systemName: "star.fill"), for: UIControl.State.selected)
+        
+        let emptyStar = NSTextAttachment()
+        emptyStar.image = UIImage(asset: Images.starEmpty)
+        emptyStar.setImageHeight(height: 22)
+        let emptyStarStr = NSMutableAttributedString(attachment: emptyStar)
+        
+        let filledStar = NSTextAttachment()
+        filledStar.image = UIImage(asset: Images.starFill)
+        filledStar.setImageHeight(height: 22)
+        let filledStarStr = NSMutableAttributedString(attachment: filledStar)
+        
+        saveButton.setAttributedTitle(emptyStarStr, for: .normal)
+        saveButton.setAttributedTitle(filledStarStr, for: .selected)
+        
         saveButton.layer.backgroundColor = Colors.saveButtonBackground.color.cgColor
         saveButton.layer.cornerRadius = 18.5
         saveButton.addTarget(self, action: #selector(didTapNavBarButton), for: UIControl.Event.touchUpInside)
@@ -92,10 +114,16 @@ final class DetailViewController: UIViewController {
         
         self.view.addSubview(navBar)
         
+        if self.traitCollection.userInterfaceStyle == .light {
+            navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: Colors.grayHeroName.color]
+        } else {
+            navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: Colors.orange.color]
+        }
+        
+        navigationController?.navigationBar.isTranslucent = true
         navigationItem.largeTitleDisplayMode = .never
         navigationController?.navigationBar.backgroundColor = .clear
         navigationController?.navigationBar.tintColor = Colors.orange.color
-        navigationController?.navigationBar.isTranslucent = true
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
     }
@@ -117,11 +145,15 @@ final class DetailViewController: UIViewController {
     
     private func configureScrollView() {
         scrollView = UIScrollView()
+        scrollView.delegate = self
+        scrollView.contentInsetAdjustmentBehavior = .never
         scrollView.backgroundColor = .systemBackground
         view.addSubview(scrollView)
         
         scrollView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
+            make.top.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
     
@@ -131,22 +163,33 @@ final class DetailViewController: UIViewController {
     
     private func configureHeroImageView() {
         heroImageView = UIImageView()
+        headerContainerView = UIView()
+        gradientView = GradientView()
+        
+        scrollView.addSubview(headerContainerView)
+        headerContainerView.addSubview(heroImageView)
+        heroImageView.addSubview(gradientView)
+        
+        gradientView.colors = [.clear, .systemBackground.withAlphaComponent(1)]
+        gradientView.snp.makeConstraints { make in
+            make.leading.bottom.centerX.equalToSuperview()
+            make.top.equalTo(headerContainerView.snp.top)
+        }
+
+        headerContainerView.snp.makeConstraints { make in
+            make.leading.trailing.centerX.equalToSuperview()
+            make.height.equalTo(view.frame.height)
+            make.bottom.equalTo(stackView.snp.top)
+        }
+        
         heroImageView.sd_setImage(with: URL(string: selectedHero?.image.url ?? ""),
                                   placeholderImage: Images.superhero.image)
+        heroImageView.clipsToBounds = true
         heroImageView.contentMode = .scaleAspectFill
-        gradientLayer = CAGradientLayer()
-        gradientLayer.locations = [0.0, 1.0]
-        scrollView.addSubview(heroImageView)
-        heroImageView.layer.insertSublayer(gradientLayer, at: 0)
         
         heroImageView.snp.makeConstraints { make in
-            make.leading.centerX.equalToSuperview()
-            if UIDevice.Devices.iPhoneSE1stGen {
-                make.centerY.equalToSuperview().multipliedBy(0.35)
-            } else {
-                make.centerY.equalToSuperview().multipliedBy(0.5)
-            }
-            
+            make.leading.centerX.bottom.equalToSuperview()
+            make.top.equalTo(view.snp.top).priority(900)
         }
     }
     
@@ -168,7 +211,7 @@ final class DetailViewController: UIViewController {
         
         heroNameLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(16)
-            make.bottom.equalTo(heroImageView.snp.bottom).offset(-82)
+            make.bottom.equalTo(headerContainerView.snp.bottom).offset(-65).priority(.required)
         }
     }
     
@@ -178,8 +221,8 @@ final class DetailViewController: UIViewController {
         scrollView.addSubview(buttonsStackView)
         
         buttonsStackView.snp.makeConstraints { make in
-            make.top.equalTo(heroNameLabel.snp.bottom).offset(25)
-            make.leading.equalToSuperview().offset(10)
+            make.bottom.equalTo(headerContainerView.snp.bottom).offset(-25)
+            make.leading.equalToSuperview().offset(16)
             make.centerX.equalToSuperview()
             make.height.equalTo(27)
         }
@@ -265,7 +308,7 @@ final class DetailViewController: UIViewController {
         scrollView.addSubview(stackView)
         
         stackView.snp.makeConstraints { make in
-            make.top.equalTo(powerstatButton.snp.bottom).offset(25)
+            make.top.equalToSuperview().offset(view.frame.height * 0.75)
             make.leading.equalToSuperview().offset(16)
             make.bottom.equalToSuperview().offset(-5)
             make.centerX.equalToSuperview()
@@ -398,5 +441,45 @@ extension DetailViewController: DetailViewInterface {
     
     func pushHeroName(hero: Heroes) {
         selectedHero = hero
+    }
+}
+
+extension DetailViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        let maxHeight = scrollView.frame.height * 0.55
+        if offsetY > maxHeight {
+            UILabel.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut, animations: {
+                self.heroNameLabel.alpha = 0.0
+                self.navigationItem.title = self.selectedHero?.name
+            }, completion: nil)
+
+            UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseIn, animations: {
+                self.saveButton.layer.backgroundColor = UIColor.clear.cgColor
+                self.statusBarView.frame = self.statusBarFrame
+                self.statusBarView.backgroundColor = UIColor.systemBackground
+            }, completion: nil)
+            
+            UINavigationBar.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseIn, animations: {
+                self.navigationController?.navigationBar.backgroundColor = .systemBackground
+            }, completion: nil)
+
+        } else {
+            
+            UILabel.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseIn, animations: {
+                self.heroNameLabel.alpha = 1.0
+                self.navigationItem.title = ""
+            }, completion: nil)
+            
+            UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseIn, animations: {
+                self.saveButton.layer.backgroundColor = Colors.saveButtonBackground.color.cgColor
+                self.statusBarView.frame = self.statusBarFrame
+                self.statusBarView.backgroundColor = UIColor.clear
+            }, completion: nil)
+            
+            UINavigationBar.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseIn, animations: {
+                self.navigationController?.navigationBar.backgroundColor = .clear
+            }, completion: nil)
+        }
     }
 }

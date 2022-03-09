@@ -82,8 +82,20 @@ class SearchedCollectionViewCell: UICollectionViewCell {
     
     private func configureSaveButton() {
         saveButton = UIButton()
-        saveButton.setImage(UIImage(systemName: "star")?.withTintColor(.systemOrange, renderingMode: .alwaysOriginal), for: .normal)
-        saveButton.setImage(UIImage(systemName: "star.fill")?.withTintColor(.systemOrange, renderingMode: .alwaysOriginal), for: .selected)
+        
+        let filledStar = NSTextAttachment()
+        filledStar.image = UIImage(asset: Images.starFill)
+        filledStar.setImageHeight(height: 22)
+        let filledStarStr = NSMutableAttributedString(attachment: filledStar)
+        
+        let emptyStar = NSTextAttachment()
+        emptyStar.image = UIImage(asset: Images.starEmpty)
+        emptyStar.setImageHeight(height: 22)
+        let emptyStarStr = NSMutableAttributedString(attachment: emptyStar)
+        
+        saveButton.setAttributedTitle(emptyStarStr, for: .normal)
+        saveButton.setAttributedTitle(filledStarStr, for: .selected)
+
         saveButton.layer.backgroundColor = Colors.saveButtonBackground.color.cgColor
         saveButton.layer.cornerRadius = 17.5
         saveButton.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)

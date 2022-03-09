@@ -1,6 +1,4 @@
 PODS:
-  - Alamofire (5.2.2)
-  - BetterSegmentedControl (2.0.1)
   - SDWebImage (5.12.3):
     - SDWebImage/Core (= 5.12.3)
   - SDWebImage/Core (5.12.3)
@@ -30,8 +28,6 @@ PODS:
   - TBEmptyDataSet (3.0)
 
 DEPENDENCIES:
-  - Alamofire
-  - BetterSegmentedControl (~> 2.0)
   - SDWebImage
   - SnapKit
   - SwifterSwift
@@ -42,8 +38,6 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
-    - Alamofire
-    - BetterSegmentedControl
     - SDWebImage
     - SnapKit
     - SwifterSwift
@@ -53,8 +47,6 @@ SPEC REPOS:
     - TBEmptyDataSet
 
 SPEC CHECKSUMS:
-  Alamofire: 814429acc853c6c54ff123fc3d2ef66803823ce0
-  BetterSegmentedControl: 09607b27861d49cbce48b7673b74f9150a3d371a
   SDWebImage: 53179a2dba77246efa8a9b85f5c5b21f8f43e38f
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SwifterSwift: 96f90594b370802f01647c2b1229c74a84ffafee
@@ -63,6 +55,6 @@ SPEC CHECKSUMS:
   SwiftyBeaver: da5e573ad583586c18236324c36900990afe1733
   TBEmptyDataSet: 349add79095bf66d0d11ef9464edd1a8cf5354b5
 
-PODFILE CHECKSUM: a7e4de27ad9781e408addfd42ad356114c218252
+PODFILE CHECKSUM: acb54be988d78b106a8aafb2ca023da70eec20d6
 
 COCOAPODS: 1.11.2

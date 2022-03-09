@@ -6,7 +6,6 @@
 //  Copyright © 2019. levivig. All rights reserved.
 //
 
-import Alamofire
 import Foundation
 
 enum GithubError: Error {

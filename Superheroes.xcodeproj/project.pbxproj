@@ -77,6 +77,8 @@
 		374B9B7627D6367C001BF4A5 /* CharacteristicsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374B9B7527D6367C001BF4A5 /* CharacteristicsView.swift */; };
 		374B9B7827D637C1001BF4A5 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374B9B7727D637C1001BF4A5 /* InfoView.swift */; };
 		377CFF0927D2436200BA3A31 /* StatButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377CFF0827D2436200BA3A31 /* StatButton.swift */; };
+		3798864927D79E9E00B8FBF5 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3798864827D79E9E00B8FBF5 /* GradientView.swift */; };
+		37BDADE027D8D3F200C3AE2F /* NSTextAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BDADDF27D8D3F200C3AE2F /* NSTextAttachment.swift */; };
 		37EFE0AA27D1F594008F28EF /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37EFE0A927D1F594008F28EF /* Fonts.swift */; };
 		37EFE0AB27D1F6F0008F28EF /* Gotham-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 37EFE0A227D1F56C008F28EF /* Gotham-Black.otf */; };
 		37EFE0AC27D1F6F0008F28EF /* Gotham-BlackItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 37EFE0A627D1F56C008F28EF /* Gotham-BlackItalic.otf */; };
@@ -175,6 +177,8 @@
 		374B9B7527D6367C001BF4A5 /* CharacteristicsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacteristicsView.swift; sourceTree = "<group>"; };
 		374B9B7727D637C1001BF4A5 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		377CFF0827D2436200BA3A31 /* StatButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatButton.swift; sourceTree = "<group>"; };
+		3798864827D79E9E00B8FBF5 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		37BDADDF27D8D3F200C3AE2F /* NSTextAttachment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSTextAttachment.swift; sourceTree = "<group>"; };
 		37EFE09927D1F56C008F28EF /* Gotham-BoldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-BoldItalic.otf"; sourceTree = "<group>"; };
 		37EFE09A27D1F56C008F28EF /* Gotham-Ultra.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-Ultra.otf"; sourceTree = "<group>"; };
 		37EFE09B27D1F56C008F28EF /* Gotham-LightItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-LightItalic.otf"; sourceTree = "<group>"; };
@@ -387,6 +391,7 @@
 			children = (
 				37268E8527CF721E0000F942 /* String */,
 				1BB2479323E6EE6E00EBFD39 /* Foundation */,
+				37BDADDF27D8D3F200C3AE2F /* NSTextAttachment.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -414,6 +419,7 @@
 				377CFF0727D2433B00BA3A31 /* Button */,
 				37268EC427CF98B50000F942 /* Cell */,
 				37268EC727CFA5220000F942 /* EmptyView.swift */,
+				3798864827D79E9E00B8FBF5 /* GradientView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -739,6 +745,7 @@
 			files = (
 				1B0BFB572336303F0054E28A /* TabbarViewController.swift in Sources */,
 				1BDD46A223AFFEAE0020AC54 /* Constants.swift in Sources */,
+				3798864927D79E9E00B8FBF5 /* GradientView.swift in Sources */,
 				1B0BFB3D23362A000054E28A /* FormatterInterface.swift in Sources */,
 				1B0BFAFC233628850054E28A /* AppDelegate.swift in Sources */,
 				1B0BFB562336303F0054E28A /* TabbarPresenter.swift in Sources */,
@@ -792,6 +799,7 @@
 				37EFE0AA27D1F594008F28EF /* Fonts.swift in Sources */,
 				37268E7C27CF6DCF0000F942 /* SearchInterfaces.swift in Sources */,
 				37268E9A27CF75CB0000F942 /* FavoritesInterfaces.swift in Sources */,
+				37BDADE027D8D3F200C3AE2F /* NSTextAttachment.swift in Sources */,
 				37268E9D27CF75CB0000F942 /* FavoritesInteractor.swift in Sources */,
 				371D73DD27D102AF00BF93EB /* DetailWireframe.swift in Sources */,
 				1B0BFB3923362A000054E28A /* ViewInterface.swift in Sources */,

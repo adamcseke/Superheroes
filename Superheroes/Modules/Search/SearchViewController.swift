@@ -17,7 +17,7 @@ final class SearchViewController: UIViewController {
     
     private var searchVC: UISearchController!
     private var collectionView: UICollectionView!
-    
+    private var heroes: Int = 0
     private let itemsPerRow: CGFloat = 2
     
     // MARK: - Public properties -
@@ -94,16 +94,6 @@ final class SearchViewController: UIViewController {
             make.edges.equalToSuperview()
         }
     }
-    
-//    private func initGestureRecognizer() {
-//        let tap = UITapGestureRecognizer(target: self, action: #selector(backgroundTapped))
-//        searchVC
-//    }
-//
-//    @objc private func backgroundTapped() {
-//        presenter.searchVCDismissed()
-//        searchVC.dismiss(animated: true, completion: nil)
-//    }
 }
 
 // MARK: - Extensions -
@@ -111,31 +101,35 @@ final class SearchViewController: UIViewController {
 extension SearchViewController: SearchViewInterface {
     
     func reloadCollectionView() {
-        DispatchQueue.main.async {
-            self.collectionView.reloadData()
-        }
+        self.collectionView.reloadData()
     }
 }
 
 extension SearchViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let selectedHero = presenter.getSuperHeroes()[indexPath.row]
+        let selectedHero = presenter.cellForRow(at: indexPath)
         presenter.pushToDetails(hero: selectedHero)
     }
     
 }
 
 extension SearchViewController: UICollectionViewDataSource {
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        presenter.numberOfSections()
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return presenter.getSuperHeroes().count
+        self.heroes = presenter.numberOfItem(in: section)
+        return presenter.numberOfItem(in: section)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "searchedCell", for: indexPath) as? SearchedCollectionViewCell else {
             return UICollectionViewCell()
         }
-        let heroesInfo = presenter.getSuperHeroes()[indexPath.row]
+        let heroesInfo = presenter.cellForRow(at: indexPath)
         let heroname = heroesInfo.name
         let heroImage = heroesInfo.image.url
         cell.bind(nameLabel: heroname,
@@ -163,7 +157,7 @@ extension SearchViewController: UISearchBarDelegate {
 extension SearchViewController: TBEmptyDataSetDelegate {
     
     func emptyDataSetShouldDisplay(in scrollView: UIScrollView) -> Bool {
-        return presenter.getSuperHeroes().isEmpty == true
+        return self.heroes == 0
     }
 }
 
