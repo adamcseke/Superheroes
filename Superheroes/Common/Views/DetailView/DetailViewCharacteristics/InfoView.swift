@@ -57,9 +57,9 @@ class InfoView: UIView {
     private func configureTitleLabel() {
         titleLabel = UILabel()
         if  UIDevice.Devices.iPhoneSE1stGen {
-            titleLabel.font = FontFamily.Gotham.medium.font(size: 14)
+            titleLabel.font = FontFamily.Gotham.bold.font(size: 14)
         } else {
-            titleLabel.font = FontFamily.Gotham.medium.font(size: 18)
+            titleLabel.font = FontFamily.Gotham.bold.font(size: 16)
         }
         
         if self.traitCollection.userInterfaceStyle == .light {

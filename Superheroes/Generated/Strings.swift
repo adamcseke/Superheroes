@@ -11,6 +11,17 @@ import Foundation
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 internal enum L10n {
 
+  internal enum CommentsView {
+    internal enum Button {
+      ///  Push to comment
+      internal static let title = L10n.tr("Localizable", "commentsView.button.title")
+    }
+    internal enum TextView {
+      /// Write down your thoughts...
+      internal static let placeholder = L10n.tr("Localizable", "commentsView.textView.placeholder")
+    }
+  }
+
   internal enum DetailViewController {
     internal enum AppearanceView {
       /// Eye color:
@@ -71,6 +82,18 @@ internal enum L10n {
       internal static let relatives = L10n.tr("Localizable", "detailViewController.connectionsView.relatives")
     }
     internal enum Powerstats {
+      /// Combat
+      internal static let combat = L10n.tr("Localizable", "detailViewController.powerstats.Combat")
+      /// Durability
+      internal static let duranility = L10n.tr("Localizable", "detailViewController.powerstats.Duranility")
+      /// Intelligence
+      internal static let intelligence = L10n.tr("Localizable", "detailViewController.powerstats.intelligence")
+      /// Power
+      internal static let power = L10n.tr("Localizable", "detailViewController.powerstats.Power")
+      /// Speed
+      internal static let speed = L10n.tr("Localizable", "detailViewController.powerstats.Speed")
+      /// Strength
+      internal static let strength = L10n.tr("Localizable", "detailViewController.powerstats.strength")
       internal enum Button {
         /// Powerstats
         internal static let title = L10n.tr("Localizable", "detailViewController.powerstats.button.title")
@@ -81,6 +104,13 @@ internal enum L10n {
       internal static let base = L10n.tr("Localizable", "detailViewController.workView.base")
       /// Occupation:
       internal static let occupation = L10n.tr("Localizable", "detailViewController.workView.occupation")
+    }
+  }
+
+  internal enum FavoritesViewController {
+    internal enum EmptyStateView {
+      /// You don't have any favorites.
+      internal static let label = L10n.tr("Localizable", "favoritesViewController.emptyStateView.label")
     }
   }
 
@@ -102,10 +132,10 @@ internal enum L10n {
         internal static let title = L10n.tr("Localizable", "tabBarViewController.favorites.tabBarItem.title")
       }
     }
-    internal enum Profile {
+    internal enum Fight {
       internal enum TabBarItem {
-        /// Profile
-        internal static let title = L10n.tr("Localizable", "tabBarViewController.profile.tabBarItem.title")
+        /// Fight
+        internal static let title = L10n.tr("Localizable", "tabBarViewController.fight.tabBarItem.title")
       }
     }
     internal enum Search {

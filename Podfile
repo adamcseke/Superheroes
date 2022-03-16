@@ -18,6 +18,7 @@ target 'Superheroes' do
   pod 'SDWebImage'
   pod 'SwiftGen'
   pod 'TBEmptyDataSet'
+  pod 'Charts'
 
 end
 

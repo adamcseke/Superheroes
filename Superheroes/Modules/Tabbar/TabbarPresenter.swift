@@ -59,7 +59,7 @@ extension TabbarPresenter: TabbarPresenterInterface {
         let controllers: [UIViewController] = [
             createSearchNC(),
             createFavoritesNC(),
-            createProfileNC()
+            createFightNC()
         ]
         
         return controllers
@@ -67,6 +67,7 @@ extension TabbarPresenter: TabbarPresenterInterface {
     
     private func createSearchNC() -> UINavigationController {
         let searchVC = SearchWireframe().viewController
+        searchVC.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: FontFamily.Gotham.bold.font(size: 26)]
         searchVC.title = L10n.TabBarViewController.Search.TabBarItem.title
         searchVC.tabBarItem = UITabBarItem(title: L10n.TabBarViewController.Search.TabBarItem.title, image: UIImage(systemName: "magnifyingglass"), tag: 0)
         return UINavigationController(rootViewController: searchVC)
@@ -74,13 +75,16 @@ extension TabbarPresenter: TabbarPresenterInterface {
     
     private func createFavoritesNC() -> UINavigationController {
         let favoritesVC = FavoritesWireframe().viewController
+        favoritesVC.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: FontFamily.Gotham.bold.font(size: 26)]
+        favoritesVC.title = L10n.TabBarViewController.Favorites.TabBarItem.title
         favoritesVC.tabBarItem = UITabBarItem(title: L10n.TabBarViewController.Favorites.TabBarItem.title, image: UIImage(systemName: "star.fill"), tag: 1)
         return UINavigationController(rootViewController: favoritesVC)
     }
     
-    private func createProfileNC() -> UINavigationController {
-        let profileVC = ProfileWireframe().viewController
-        profileVC.tabBarItem = UITabBarItem(title: L10n.TabBarViewController.Profile.TabBarItem.title, image: UIImage(systemName: "person.fill"), tag: 2)
-        return UINavigationController(rootViewController:  profileVC)
+    private func createFightNC() -> UINavigationController {
+        let fightVC = FightWireframe().viewController
+        fightVC.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: FontFamily.Gotham.bold.font(size: 26)]
+        fightVC.tabBarItem = UITabBarItem(title: L10n.TabBarViewController.Fight.TabBarItem.title, image: UIImage(systemName: "flame.fill"), tag: 2)
+        return UINavigationController(rootViewController:  fightVC)
     }
 }

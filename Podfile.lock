@@ -1,4 +1,7 @@
 PODS:
+  - Charts (3.6.0):
+    - Charts/Core (= 3.6.0)
+  - Charts/Core (3.6.0)
   - SDWebImage (5.12.3):
     - SDWebImage/Core (= 5.12.3)
   - SDWebImage/Core (5.12.3)
@@ -28,6 +31,7 @@ PODS:
   - TBEmptyDataSet (3.0)
 
 DEPENDENCIES:
+  - Charts
   - SDWebImage
   - SnapKit
   - SwifterSwift
@@ -38,6 +42,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - Charts
     - SDWebImage
     - SnapKit
     - SwifterSwift
@@ -47,6 +52,7 @@ SPEC REPOS:
     - TBEmptyDataSet
 
 SPEC CHECKSUMS:
+  Charts: b1e3a1f5a1c9ba5394438ca3b91bd8c9076310af
   SDWebImage: 53179a2dba77246efa8a9b85f5c5b21f8f43e38f
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SwifterSwift: 96f90594b370802f01647c2b1229c74a84ffafee
@@ -55,6 +61,6 @@ SPEC CHECKSUMS:
   SwiftyBeaver: da5e573ad583586c18236324c36900990afe1733
   TBEmptyDataSet: 349add79095bf66d0d11ef9464edd1a8cf5354b5
 
-PODFILE CHECKSUM: acb54be988d78b106a8aafb2ca023da70eec20d6
+PODFILE CHECKSUM: b094731ea79cb17be32fc3b297ac7fa6b985236e
 
 COCOAPODS: 1.11.2

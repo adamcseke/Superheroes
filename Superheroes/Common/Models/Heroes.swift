@@ -8,6 +8,11 @@
 
 import Foundation
 
+protocol SearchedCollectionViewCellBindable {
+    var name: String { get }
+    var image: Image { get }
+}
+
 // MARK: - Result
 struct Heroes: Codable {
     let id: String
@@ -18,4 +23,18 @@ struct Heroes: Codable {
     let work: Work
     let connections: Connections
     let image: Image
+}
+
+struct HeroViewModel {
+    let name: String
+    let image: Image
+    
+    init(hero: Heroes) {
+        self.name = hero.name
+        self.image = hero.image
+    }
+}
+
+extension HeroViewModel: SearchedCollectionViewCellBindable {
+    
 }

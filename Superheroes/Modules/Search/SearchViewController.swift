@@ -14,6 +14,8 @@ import UIKit
 final class SearchViewController: UIViewController {
     
     private let generator = UIImpactFeedbackGenerator(style: .medium)
+    private let statusBarFrame = UIApplication.shared.statusBarFrame
+    private var statusBarView: UIView!
     
     private var searchVC: UISearchController!
     private var collectionView: UICollectionView!
@@ -31,9 +33,21 @@ final class SearchViewController: UIViewController {
         setup()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        statusBarView = UIView()
+        statusBarView.frame = statusBarFrame
+        self.view.addSubview(statusBarView)
+        self.statusBarView.frame = self.statusBarFrame
+        self.statusBarView.backgroundColor = UIColor.systemBackground
+        self.navigationController?.navigationBar.backgroundColor = .systemBackground
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.prefersLargeTitles = true
+        tabBarController?.tabBar.isHidden = false
+        
     }
     
     private func setup() {
@@ -130,15 +144,10 @@ extension SearchViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         let heroesInfo = presenter.cellForRow(at: indexPath)
-        let heroname = heroesInfo.name
-        let heroImage = heroesInfo.image.url
-        cell.bind(nameLabel: heroname,
-                  backgroundImageURL: heroImage,
-                  indexPath: indexPath,
-                  delegate: self)
+        let heroViewModel = HeroViewModel(hero: heroesInfo)
+        cell.bind(hero: heroViewModel, indexPath: indexPath, delegate: self)
         return cell
     }
-    
 }
 
 extension SearchViewController: UISearchBarDelegate {

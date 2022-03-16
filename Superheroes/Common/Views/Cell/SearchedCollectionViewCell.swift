@@ -20,7 +20,7 @@ class SearchedCollectionViewCell: UICollectionViewCell {
     private var heroNameLabel: UILabel!
     private var nameBackgroundView: UIView!
     private var cellBackgroundImageView: UIImageView!
-    private var saveButton: UIButton!
+    private var saveButton: FavoritesButton!
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -81,20 +81,7 @@ class SearchedCollectionViewCell: UICollectionViewCell {
     }
     
     private func configureSaveButton() {
-        saveButton = UIButton()
-        
-        let filledStar = NSTextAttachment()
-        filledStar.image = UIImage(asset: Images.starFill)
-        filledStar.setImageHeight(height: 22)
-        let filledStarStr = NSMutableAttributedString(attachment: filledStar)
-        
-        let emptyStar = NSTextAttachment()
-        emptyStar.image = UIImage(asset: Images.starEmpty)
-        emptyStar.setImageHeight(height: 22)
-        let emptyStarStr = NSMutableAttributedString(attachment: emptyStar)
-        
-        saveButton.setAttributedTitle(emptyStarStr, for: .normal)
-        saveButton.setAttributedTitle(filledStarStr, for: .selected)
+        saveButton = FavoritesButton()
 
         saveButton.layer.backgroundColor = Colors.saveButtonBackground.color.cgColor
         saveButton.layer.cornerRadius = 17.5
@@ -126,14 +113,9 @@ class SearchedCollectionViewCell: UICollectionViewCell {
             })
     }
     
-    func bind(
-              nameLabel: String,
-              backgroundImageURL: String,
-              indexPath: IndexPath,
-              delegate: SearchedCellDelegate?
-    ) {
-        heroNameLabel.text = nameLabel
-        cellBackgroundImageView.sd_setImage(with: URL(string: backgroundImageURL), placeholderImage: Images.superhero.image.withTintColor(UIColor.label))
+    func bind(hero: SearchedCollectionViewCellBindable, indexPath: IndexPath, delegate: SearchedCellDelegate?) {
+        heroNameLabel.text = hero.name
+        cellBackgroundImageView.sd_setImage(with: URL(string: hero.image.url), placeholderImage: Images.superhero.image.withTintColor(UIColor.label))
         self.indexPath = indexPath
         self.delegate = delegate
     }

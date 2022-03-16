@@ -6,6 +6,7 @@
 //  Copyright © 2019. levivig. All rights reserved.
 //
 
+import Charts
 import SDWebImage
 import TBEmptyDataSet
 import SnapKit

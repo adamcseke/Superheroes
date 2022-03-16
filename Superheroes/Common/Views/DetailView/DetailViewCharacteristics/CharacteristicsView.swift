@@ -45,12 +45,13 @@ class CharacteristicsView: UIStackView {
     
     private func configureSectionTitle() {
         sectionTitleLabel = UILabel()
+        sectionTitleLabel.font = FontFamily.Gotham.bold.font(size: 24)
         if self.traitCollection.userInterfaceStyle == .light {
             sectionTitleLabel.textColor = Colors.sectionTitleLightMode.color
         } else {
             sectionTitleLabel.textColor = Colors.orange.color
         }
-        sectionTitleLabel.font = FontFamily.Gotham.bold.font(size: 20)
+        
         addArrangedSubview(sectionTitleLabel)
     }
     

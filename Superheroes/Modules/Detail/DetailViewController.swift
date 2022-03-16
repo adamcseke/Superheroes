@@ -16,16 +16,13 @@ final class DetailViewController: UIViewController {
     private var scrollView: UIScrollView!
     private var headerContainerView: UIView!
     
-    private var stackViewTop: Constraint? = nil
-    
-    let statusBarFrame = UIApplication.shared.statusBarFrame
-    let statusBarView = UIView()
-    
+    private let statusBarFrame = UIApplication.shared.statusBarFrame
+    private let statusBarView = UIView()
     private let generator = UIImpactFeedbackGenerator(style: .medium)
     private var gradientView: GradientView!
     private var heroImageView: UIImageView!
     private var heroNameLabel: UILabel!
-    private var saveButton: UIButton!
+    private var saveButton: FavoritesButton!
     private var powerstatButton: StatButton!
     private var characteristicsButton: StatButton!
     private var commentsButton: StatButton!
@@ -35,6 +32,11 @@ final class DetailViewController: UIViewController {
     private var appearanceView: CharacteristicsView!
     private var workView: CharacteristicsView!
     private var connectionsView: CharacteristicsView!
+    private var circlesStackView: UIStackView!
+    private var circlesFirstRowView: CirclesStackView!
+    private var circlesSecondRowView: CirclesStackView!
+    private var heroStatsWebView: SpiderWebChartView!
+    private var commentsView: CommentsView!
     
     private var selectedHero: Heroes?
     
@@ -51,28 +53,69 @@ final class DetailViewController: UIViewController {
         addInfos()
         statusBarView.frame = statusBarFrame
         self.view.addSubview(statusBarView)
+        self.hideKeyboardWhenTappedAround()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         statusBarView.backgroundColor = UIColor.clear
+        navigationController?.navigationBar.backgroundColor = .clear
+        navigationController?.navigationBar.tintColor = Colors.orange.color
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        tabBarController?.tabBar.isHidden = true
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let numIntelligence = Double(selectedHero?.powerstats.intelligence ?? "") ?? 0.0
+        let numStrength = Double(selectedHero?.powerstats.strength ?? "") ?? 0.0
+        let numSpeed = Double(selectedHero?.powerstats.speed ?? "") ?? 0.0
+        let numDurability = Double(selectedHero?.powerstats.durability ?? "") ?? 0.0
+        let numPower = Double(selectedHero?.powerstats.power ?? "") ?? 0.0
+        let numCombat = Double(selectedHero?.powerstats.combat ?? "") ?? 0.0
+        
+        circlesFirstRowView.currentProgressCircleOne = numIntelligence
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            self.circlesFirstRowView.currentProgressCircleTwo = numStrength
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+            self.circlesFirstRowView.currentProgressCircleThree = numSpeed
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.9) {
+            self.circlesSecondRowView.currentProgressCircleOne = numDurability
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+            self.circlesSecondRowView.currentProgressCircleTwo = numPower
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            self.circlesSecondRowView.currentProgressCircleThree = numCombat
+        }
+        self.heroStatsWebView.entries = [numIntelligence, numStrength, numSpeed, numDurability, numPower, numCombat]
+        
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         if self.traitCollection.userInterfaceStyle == .light {
             heroNameLabel.textColor = Colors.grayHeroName.color
             navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: Colors.grayHeroName.color]
+            saveButton.layer.backgroundColor = Colors.white.color.cgColor
         } else {
             heroNameLabel.textColor = Colors.orange.color
             navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: Colors.orange.color]
+            saveButton.layer.backgroundColor = Colors.saveButtonBackground.color.cgColor
         }
     }
-
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
         let bottom = stackView.frame.maxY
         scrollView.contentSize = CGSize(width: view.frame.width, height: bottom)
     }
     
     private func setup() {
         setNavigationBar()
+        keyboardWillShowHide()
         configureScrollView()
         configureStackView()
         configureViewController()
@@ -83,31 +126,24 @@ final class DetailViewController: UIViewController {
         configureCharacteristicButton()
         configureCommentsButton()
         configureCharacteristicsView()
+        configureCirclesRowStackView()
+        configureCirclesRow()
+        configureHeroStatsWebView()
+        configureCommentsView()
+    }
+    
+    private func keyboardWillShowHide() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     func setNavigationBar() {
         let screenSize: CGRect = UIScreen.main.bounds
         let navBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: 44))
-        saveButton = UIButton(type: UIButton.ButtonType.custom) as UIButton
+        saveButton = FavoritesButton()
         
-        let emptyStar = NSTextAttachment()
-        emptyStar.image = UIImage(asset: Images.starEmpty)
-        emptyStar.setImageHeight(height: 22)
-        let emptyStarStr = NSMutableAttributedString(attachment: emptyStar)
-        
-        let filledStar = NSTextAttachment()
-        filledStar.image = UIImage(asset: Images.starFill)
-        filledStar.setImageHeight(height: 22)
-        let filledStarStr = NSMutableAttributedString(attachment: filledStar)
-        
-        saveButton.setAttributedTitle(emptyStarStr, for: .normal)
-        saveButton.setAttributedTitle(filledStarStr, for: .selected)
-        
-        saveButton.layer.backgroundColor = Colors.saveButtonBackground.color.cgColor
         saveButton.layer.cornerRadius = 18.5
         saveButton.addTarget(self, action: #selector(didTapNavBarButton), for: UIControl.Event.touchUpInside)
-        
-        saveButton.frame = CGRect(x: 0, y: 1.5, width: 37, height: 37)
         
         let barButton = UIBarButtonItem(customView: saveButton)
         self.navigationItem.rightBarButtonItem = barButton
@@ -116,31 +152,18 @@ final class DetailViewController: UIViewController {
         
         if self.traitCollection.userInterfaceStyle == .light {
             navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: Colors.grayHeroName.color]
+            saveButton.layer.backgroundColor = Colors.white.color.cgColor
         } else {
             navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: Colors.orange.color]
+            saveButton.layer.backgroundColor = Colors.saveButtonBackground.color.cgColor
         }
         
         navigationController?.navigationBar.isTranslucent = true
         navigationItem.largeTitleDisplayMode = .never
-        navigationController?.navigationBar.backgroundColor = .clear
-        navigationController?.navigationBar.tintColor = Colors.orange.color
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController?.navigationBar.shadowImage = UIImage()
     }
     
     @objc private func didTapNavBarButton() {
         generator.impactOccurred()
-        //        if self.isFavorite {
-        //            DatabaseManager.main.delete(username: self.username?.lowercased() ?? "") { _ in
-        //                self.isFavorite = false
-        //                self.changeFavoriteButton(isFavorite: self.isFavorite)
-        //            }
-        //        } else {
-        //            DatabaseManager.main.insert(username: self.username?.lowercased() ?? "", avatar: selectedUser?.avatarURL ?? "") { _ in
-        //                self.isFavorite = true
-        //                self.changeFavoriteButton(isFavorite: self.isFavorite)
-        //            }
-        //        }
     }
     
     private func configureScrollView() {
@@ -175,7 +198,7 @@ final class DetailViewController: UIViewController {
             make.leading.bottom.centerX.equalToSuperview()
             make.top.equalTo(headerContainerView.snp.top)
         }
-
+        
         headerContainerView.snp.makeConstraints { make in
             make.leading.trailing.centerX.equalToSuperview()
             make.height.equalTo(view.frame.height)
@@ -206,7 +229,6 @@ final class DetailViewController: UIViewController {
             heroNameLabel.textColor = Colors.orange.color
         }
         heroNameLabel.text = selectedHero?.name
-        
         scrollView.addSubview(heroNameLabel)
         
         heroNameLabel.snp.makeConstraints { make in
@@ -361,11 +383,9 @@ final class DetailViewController: UIViewController {
                 if let arrayString = attr.value as? [String] {
                     biographyView.addItem(title: "detailViewController.biographyView.\(propertyName)".localized,
                                           info: "\(arrayString.joined())")
-                    print("\(arrayString.joined(separator: ", "))")
                 } else {
                     biographyView.addItem(title: "detailViewController.biographyView.\(propertyName)".localized,
                                           info: "\(attr.value)")
-                    print("Attr \(index): \(propertyName) = \(attr.value)")
                 }
             }
         }
@@ -374,11 +394,9 @@ final class DetailViewController: UIViewController {
                 if let arrayString = attr.value as? [String] {
                     appearanceView.addItem(title: "detailViewController.appearanceView.\(propertyName)".localized,
                                            info: "\(arrayString.last ?? "")")
-                    print("\(arrayString.joined(separator: ", "))")
                 } else {
                     appearanceView.addItem(title: "detailViewController.appearanceView.\(propertyName)".localized,
-                                          info: "\(attr.value)")
-                    print("Attr \(index): \(propertyName) = \(attr.value)")
+                                           info: "\(attr.value)")
                 }
             }
         }
@@ -387,11 +405,9 @@ final class DetailViewController: UIViewController {
                 if let arrayString = attr.value as? [String] {
                     workView.addItem(title: "detailViewController.workView.\(propertyName)".localized,
                                      info: "\(arrayString.joined(separator: ", "))")
-                    print("\(arrayString.joined(separator: ", "))")
                 } else {
                     workView.addItem(title: "detailViewController.workView.\(propertyName)".localized,
-                                          info: "\(attr.value)")
-                    print("Attr \(index): \(propertyName) = \(attr.value)")
+                                     info: "\(attr.value)")
                 }
             }
         }
@@ -400,13 +416,95 @@ final class DetailViewController: UIViewController {
                 if let arrayString = attr.value as? [String] {
                     connectionsView.addItem(title: "detailViewController.connectionsView.\(propertyName)".localized,
                                             info: "\(arrayString.joined())")
-                    print("\(arrayString.joined(separator: ", "))")
                 } else {
                     connectionsView.addItem(title: "detailViewController.connectionsView.\(propertyName)".localized,
-                                          info: "\(attr.value)")
-                    print("Attr \(index): \(propertyName) = \(attr.value)")
+                                            info: "\(attr.value)")
                 }
             }
+        }
+    }
+    
+    private func configureCirclesRowStackView() {
+        circlesStackView = UIStackView()
+        circlesStackView.alignment = .leading
+        circlesStackView.axis = .vertical
+        circlesStackView.spacing = 15
+        circlesStackView.distribution = .equalSpacing
+        circlesStackView.isHidden = false
+        
+        scrollView.addSubview(circlesStackView)
+        
+        circlesStackView.snp.makeConstraints { make in
+            make.top.equalTo(buttonsStackView.snp.bottom).offset(10)
+            make.leading.equalToSuperview().offset(16)
+            make.centerX.equalToSuperview()
+        }
+    }
+    
+    private func configureCirclesRow() {
+        circlesFirstRowView = CirclesStackView()
+        circlesSecondRowView = CirclesStackView()
+        
+        circlesFirstRowView.colorCircleOne = Colors.progressCircleRed.color.cgColor
+        circlesFirstRowView.colorCircleTwo = Colors.progressCirclePink.color.cgColor
+        circlesFirstRowView.colorCircleThree = Colors.progressCircleGreen.color.cgColor
+        circlesSecondRowView.colorCircleOne = Colors.progressCircleBlue.color.cgColor
+        circlesSecondRowView.colorCircleTwo = Colors.progressCircleBrown.color.cgColor
+        circlesSecondRowView.colorCircleThree = Colors.progressCircleOrange.color.cgColor
+        
+        circlesFirstRowView.titleCircleOne = L10n.DetailViewController.Powerstats.intelligence
+        circlesFirstRowView.titleCircleTwo = L10n.DetailViewController.Powerstats.strength
+        circlesFirstRowView.titleCircleThree = L10n.DetailViewController.Powerstats.speed
+        circlesSecondRowView.titleCircleOne = L10n.DetailViewController.Powerstats.duranility
+        circlesSecondRowView.titleCircleTwo = L10n.DetailViewController.Powerstats.power
+        circlesSecondRowView.titleCircleThree = L10n.DetailViewController.Powerstats.combat
+        
+        circlesStackView.addArrangedSubview(circlesFirstRowView)
+        circlesStackView.addArrangedSubview(circlesSecondRowView)
+        
+        circlesFirstRowView.snp.makeConstraints { make in
+            make.top.centerX.equalToSuperview()
+        }
+        circlesSecondRowView.snp.makeConstraints { make in
+            make.top.equalTo(circlesFirstRowView.snp.bottom).offset(10)
+            make.bottom.centerX.equalToSuperview()
+        }
+    }
+    
+    private func configureHeroStatsWebView() {
+        heroStatsWebView = SpiderWebChartView()
+        heroStatsWebView.isHidden = false
+        scrollView.addSubview(heroStatsWebView)
+        
+        heroStatsWebView.snp.makeConstraints { make in
+            make.top.equalTo(circlesStackView.snp.bottom).offset(20)
+            make.leading.equalTo(16)
+            make.centerX.equalToSuperview()
+        }
+    }
+    
+    private func configureCommentsView() {
+        commentsView = CommentsView()
+        commentsView.isHidden = true
+        scrollView.addSubview(commentsView)
+        commentsView.snp.makeConstraints { make in
+            make.top.equalTo(buttonsStackView.snp.bottom).offset(20)
+            make.centerX.equalToSuperview()
+            make.leading.equalToSuperview().offset(16)
+        }
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0 {
+                self.view.frame.origin.y -= keyboardSize.height * 0.30
+            }
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
         }
     }
     
@@ -416,27 +514,32 @@ final class DetailViewController: UIViewController {
 
 extension DetailViewController: DetailViewInterface {
     func setPowerstatsButton(selected: Bool) {
-        print("Powerstats")
         stackView.isHidden = true
         powerstatButton.isSelected = true
         characteristicsButton.isSelected = false
         commentsButton.isSelected = false
+        circlesStackView.isHidden = false
+        heroStatsWebView.isHidden = false
+        commentsView.isHidden = true
     }
     
     func setCharacteristicsButton(selected: Bool) {
-        print("Characteristics")
         stackView.isHidden = false
         characteristicsButton.isSelected = true
         powerstatButton.isSelected = false
         commentsButton.isSelected = false
+        circlesStackView.isHidden = true
+        heroStatsWebView.isHidden = true
+        commentsView.isHidden = true
     }
-    
     func setCommentsButton(selected: Bool) {
-        print("Comments")
         stackView.isHidden = true
         commentsButton.isSelected = true
         powerstatButton.isSelected = false
         characteristicsButton.isSelected = false
+        circlesStackView.isHidden = true
+        heroStatsWebView.isHidden = true
+        commentsView.isHidden = false
     }
     
     func pushHeroName(hero: Heroes) {
@@ -449,37 +552,40 @@ extension DetailViewController: UIScrollViewDelegate {
         let offsetY = scrollView.contentOffset.y
         let maxHeight = scrollView.frame.height * 0.55
         if offsetY > maxHeight {
-            UILabel.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut, animations: {
-                self.heroNameLabel.alpha = 0.0
-                self.navigationItem.title = self.selectedHero?.name
-            }, completion: nil)
-
             UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseIn, animations: {
                 self.saveButton.layer.backgroundColor = UIColor.clear.cgColor
                 self.statusBarView.frame = self.statusBarFrame
                 self.statusBarView.backgroundColor = UIColor.systemBackground
-            }, completion: nil)
-            
-            UINavigationBar.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseIn, animations: {
+                self.heroNameLabel.alpha = 0.0
+                self.navigationItem.title = self.selectedHero?.name
                 self.navigationController?.navigationBar.backgroundColor = .systemBackground
             }, completion: nil)
-
         } else {
-            
-            UILabel.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseIn, animations: {
-                self.heroNameLabel.alpha = 1.0
-                self.navigationItem.title = ""
-            }, completion: nil)
-            
             UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseIn, animations: {
-                self.saveButton.layer.backgroundColor = Colors.saveButtonBackground.color.cgColor
+                if self.traitCollection.userInterfaceStyle == .light {
+                    self.saveButton.layer.backgroundColor = Colors.white.color.cgColor
+                } else {
+                    self.saveButton.layer.backgroundColor = Colors.saveButtonBackground.color.cgColor
+                }
                 self.statusBarView.frame = self.statusBarFrame
                 self.statusBarView.backgroundColor = UIColor.clear
-            }, completion: nil)
-            
-            UINavigationBar.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseIn, animations: {
+                self.heroNameLabel.alpha = 1.0
+                self.navigationItem.title = ""
                 self.navigationController?.navigationBar.backgroundColor = .clear
             }, completion: nil)
         }
+    }
+}
+
+extension DetailViewController {
+    
+    func hideKeyboardWhenTappedAround() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 }

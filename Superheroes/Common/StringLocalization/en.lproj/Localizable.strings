@@ -1,6 +1,6 @@
 "tabBarViewController.search.tabBarItem.title" = "Heroes";
 "tabBarViewController.favorites.tabBarItem.title" = "Favorites";
-"tabBarViewController.profile.tabBarItem.title" = "Profile";
+"tabBarViewController.fight.tabBarItem.title" = "Fight";
 "searchViewController.searchBar.placeholder" = "Type here to search...";
 "searchViewController.emptyStateView.label" = "The World is in danger and no superhero to save it...";
 "detailViewController.powerstats.button.title" = "Powerstats";
@@ -27,4 +27,12 @@
 "detailViewController.workView.base" = "Base:";
 "detailViewController.connectionsView.groupAffiliation" = "Group affiliation:";
 "detailViewController.connectionsView.relatives" = "Relatives:";
-
+"detailViewController.powerstats.intelligence" = "Intelligence";
+"detailViewController.powerstats.strength" = "Strength";
+"detailViewController.powerstats.Speed" = "Speed";
+"detailViewController.powerstats.Duranility" = "Durability";
+"detailViewController.powerstats.Power" = "Power";
+"detailViewController.powerstats.Combat" = "Combat";
+"commentsView.button.title" = " Push to comment";
+"commentsView.textView.placeholder" = "Write down your thoughts...";
+"favoritesViewController.emptyStateView.label" = "You don't have any favorites.";
