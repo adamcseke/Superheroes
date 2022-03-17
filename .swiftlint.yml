@@ -26,4 +26,3 @@ line_length: 190
 reporter: "xcode"
 cyclomatic_complexity:
   ignores_case_statements: true
-

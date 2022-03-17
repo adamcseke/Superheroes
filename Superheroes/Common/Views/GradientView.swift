@@ -16,15 +16,15 @@ class GradientView: UIView {
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         // Must be set when the rect is drawn
-        setGradient(color1: colors[0], color2: colors[1], rect: rect)
+        setGradient(color1: colors[0], color2: colors[1], color3: colors[2], rect: rect)
     }
 
-    func setGradient(color1: UIColor, color2: UIColor, rect: CGRect) {
+    func setGradient(color1: UIColor, color2: UIColor, color3: UIColor, rect: CGRect) {
         layoutIfNeeded()
         let context = UIGraphicsGetCurrentContext()
-        let colours = [color1.cgColor, color2.cgColor] as CFArray
+        let colours = [color1.cgColor, color2.cgColor, color3.cgColor] as CFArray
         let colorSpace = CGColorSpaceCreateDeviceRGB()
-        let gradient = CGGradient(colorsSpace: colorSpace, colors: colours, locations: [0.0, 1])
+        let gradient = CGGradient(colorsSpace: colorSpace, colors: colours, locations: [0.0, 0.5, 1])
         let path = UIBezierPath(rect: CGRect(x: 0, y: 0, width: rect.width, height: rect.height))
         context?.saveGState()
         path.addClip()

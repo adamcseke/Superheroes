@@ -20,7 +20,7 @@ class SearchedCollectionViewCell: UICollectionViewCell {
     private var heroNameLabel: UILabel!
     private var nameBackgroundView: UIView!
     private var cellBackgroundImageView: UIImageView!
-    private var saveButton: FavoritesButton!
+    private var saveButton: UIButton!
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -81,11 +81,13 @@ class SearchedCollectionViewCell: UICollectionViewCell {
     }
     
     private func configureSaveButton() {
-        saveButton = FavoritesButton()
+        saveButton = UIButton()
 
         saveButton.layer.backgroundColor = Colors.saveButtonBackground.color.cgColor
         saveButton.layer.cornerRadius = 17.5
         saveButton.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        saveButton.setImage(UIImage(systemName: "star")?.withTintColor(Colors.orange.color, renderingMode: .alwaysOriginal), for: .normal)
+        saveButton.setImage(UIImage(systemName: "star.fill")?.withTintColor(Colors.orange.color, renderingMode: .alwaysOriginal), for: .selected)
         
         contentView.addSubview(saveButton)
         
@@ -113,10 +115,19 @@ class SearchedCollectionViewCell: UICollectionViewCell {
             })
     }
     
-    func bind(hero: SearchedCollectionViewCellBindable, indexPath: IndexPath, delegate: SearchedCellDelegate?) {
+    func bind(hero: SearchedCollectionViewCellBindable, indexPath: IndexPath, delegate: SearchedCellDelegate?, isFavorite: Bool) {
         heroNameLabel.text = hero.name
         cellBackgroundImageView.sd_setImage(with: URL(string: hero.image.url), placeholderImage: Images.superhero.image.withTintColor(UIColor.label))
         self.indexPath = indexPath
         self.delegate = delegate
+        saveButton.isSelected = isFavorite
+    }
+    
+    func bind(name: String, image: String, indexPath: IndexPath, delegate: SearchedCellDelegate?, isFavorite: Bool) {
+        heroNameLabel.text = name
+        cellBackgroundImageView.sd_setImage(with: URL(string: image), placeholderImage: Images.superhero.image.withTintColor(UIColor.label))
+        self.indexPath = indexPath
+        self.delegate = delegate
+        saveButton.isSelected = isFavorite
     }
 }

@@ -14,9 +14,11 @@ protocol FavoritesWireframeInterface: WireframeInterface {
 }
 
 protocol FavoritesViewInterface: ViewInterface {
+//    func pushfavorites(favorites: [Heroes])
 }
 
 protocol FavoritesPresenterInterface: PresenterInterface {
+//    func getFavorites()
 }
 
 protocol FavoritesInteractorInterface: InteractorInterface {

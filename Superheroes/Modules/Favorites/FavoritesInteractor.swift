@@ -11,9 +11,11 @@
 import Foundation
 
 final class FavoritesInteractor {
+//    let dataProvider: SuperheroesDatabaseManager = DatabaseManager.main
 }
 
 // MARK: - Extensions -
 
 extension FavoritesInteractor: FavoritesInteractorInterface {
+   
 }

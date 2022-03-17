@@ -12,11 +12,28 @@ import Foundation
 
 final class SearchInteractor {
     let provider: SuperheroesService = RestClient.shared
+//    let dataProvider: SuperheroesDatabaseManager = DatabaseManager.main
 }
 
 // MARK: - Extensions -
 
 extension SearchInteractor: SearchInteractorInterface {
+//    func delete(entity: Heroes, completion: BoolCompletition?) {
+//        dataProvider.delete(entity: entity, completion: completion)
+//    }
+//    
+//    func insert(entity: Heroes, completion: BoolCompletition?) {
+//        dataProvider.insert(entity: entity, completion: completion)
+//    }
+//    
+//    func isInTheFavorites(name: String) -> Bool {
+//        if DatabaseManager.main.getHeroes().first(where: { $0.name == name.lowercased() }) != nil {
+//            return true
+//        } else {
+//            return false
+//        }
+//    }
+    
     func getSuperheroes(name: String, completion: @escaping SuperheroesLoaded) {
         provider.getSuperheroes(name: name, completion: completion)
     }

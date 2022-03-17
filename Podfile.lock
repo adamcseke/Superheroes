@@ -6,6 +6,9 @@ PODS:
     - SDWebImage/Core (= 5.12.3)
   - SDWebImage/Core (5.12.3)
   - SnapKit (5.0.1)
+  - SQLite.swift (0.13.2):
+    - SQLite.swift/standard (= 0.13.2)
+  - SQLite.swift/standard (0.13.2)
   - SwifterSwift (5.0.0):
     - SwifterSwift/AppKit (= 5.0.0)
     - SwifterSwift/CoreGraphics (= 5.0.0)
@@ -34,6 +37,7 @@ DEPENDENCIES:
   - Charts
   - SDWebImage
   - SnapKit
+  - SQLite.swift
   - SwifterSwift
   - SwiftGen
   - SwiftLint
@@ -45,6 +49,7 @@ SPEC REPOS:
     - Charts
     - SDWebImage
     - SnapKit
+    - SQLite.swift
     - SwifterSwift
     - SwiftGen
     - SwiftLint
@@ -55,12 +60,13 @@ SPEC CHECKSUMS:
   Charts: b1e3a1f5a1c9ba5394438ca3b91bd8c9076310af
   SDWebImage: 53179a2dba77246efa8a9b85f5c5b21f8f43e38f
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
+  SQLite.swift: 4fc2be46c36392e3b87afe6fe7f1801c1daa07ef
   SwifterSwift: 96f90594b370802f01647c2b1229c74a84ffafee
   SwiftGen: a6d22010845f08fe18fbdf3a07a8e380fd22e0ea
   SwiftLint: 5553187048b900c91aa03552807681bb6b027846
   SwiftyBeaver: da5e573ad583586c18236324c36900990afe1733
   TBEmptyDataSet: 349add79095bf66d0d11ef9464edd1a8cf5354b5
 
-PODFILE CHECKSUM: b094731ea79cb17be32fc3b297ac7fa6b985236e
+PODFILE CHECKSUM: 464dfb6d9de973a717a85d98f9200d017e8ac452
 
 COCOAPODS: 1.11.2

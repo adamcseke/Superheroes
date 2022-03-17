@@ -45,7 +45,7 @@
 		371D73C727D0CA3B00BF93EB /* Biography.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371D73C627D0CA3B00BF93EB /* Biography.swift */; };
 		371D73C927D0CA5700BF93EB /* Connections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371D73C827D0CA5700BF93EB /* Connections.swift */; };
 		371D73CB27D0CA6A00BF93EB /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371D73CA27D0CA6A00BF93EB /* Image.swift */; };
-		371D73CD27D0CA7F00BF93EB /* Powerstat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371D73CC27D0CA7F00BF93EB /* Powerstat.swift */; };
+		371D73CD27D0CA7F00BF93EB /* Powerstats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371D73CC27D0CA7F00BF93EB /* Powerstats.swift */; };
 		371D73CF27D0CA9200BF93EB /* Work.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371D73CE27D0CA9200BF93EB /* Work.swift */; };
 		371D73D127D0D34200BF93EB /* Heroes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371D73D027D0D34200BF93EB /* Heroes.swift */; };
 		371D73D327D0FD5200BF93EB /* RestClient+Typealias.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371D73D227D0FD5200BF93EB /* RestClient+Typealias.swift */; };
@@ -81,6 +81,8 @@
 		374B9B7827D637C1001BF4A5 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374B9B7727D637C1001BF4A5 /* InfoView.swift */; };
 		377CFF0927D2436200BA3A31 /* StatButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377CFF0827D2436200BA3A31 /* StatButton.swift */; };
 		3798864927D79E9E00B8FBF5 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3798864827D79E9E00B8FBF5 /* GradientView.swift */; };
+		37B5ED3F27E1CC8B00A28FEB /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B5ED3E27E1CC8B00A28FEB /* DatabaseManager.swift */; };
+		37B5ED4427E1CF0400A28FEB /* BoolCompletition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B5ED4327E1CF0400A28FEB /* BoolCompletition.swift */; };
 		37BDADE027D8D3F200C3AE2F /* NSTextAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BDADDF27D8D3F200C3AE2F /* NSTextAttachment.swift */; };
 		37ED519327DB5A4300E96829 /* SpiderWebChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37ED519227DB5A4300E96829 /* SpiderWebChartView.swift */; };
 		37EFE0AA27D1F594008F28EF /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37EFE0A927D1F594008F28EF /* Fonts.swift */; };
@@ -150,7 +152,7 @@
 		371D73C627D0CA3B00BF93EB /* Biography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Biography.swift; sourceTree = "<group>"; };
 		371D73C827D0CA5700BF93EB /* Connections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connections.swift; sourceTree = "<group>"; };
 		371D73CA27D0CA6A00BF93EB /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
-		371D73CC27D0CA7F00BF93EB /* Powerstat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Powerstat.swift; sourceTree = "<group>"; };
+		371D73CC27D0CA7F00BF93EB /* Powerstats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Powerstats.swift; sourceTree = "<group>"; };
 		371D73CE27D0CA9200BF93EB /* Work.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Work.swift; sourceTree = "<group>"; };
 		371D73D027D0D34200BF93EB /* Heroes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Heroes.swift; sourceTree = "<group>"; };
 		371D73D227D0FD5200BF93EB /* RestClient+Typealias.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RestClient+Typealias.swift"; sourceTree = "<group>"; };
@@ -186,6 +188,8 @@
 		374B9B7727D637C1001BF4A5 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		377CFF0827D2436200BA3A31 /* StatButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatButton.swift; sourceTree = "<group>"; };
 		3798864827D79E9E00B8FBF5 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		37B5ED3E27E1CC8B00A28FEB /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
+		37B5ED4327E1CF0400A28FEB /* BoolCompletition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoolCompletition.swift; sourceTree = "<group>"; };
 		37BDADDF27D8D3F200C3AE2F /* NSTextAttachment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSTextAttachment.swift; sourceTree = "<group>"; };
 		37ED519227DB5A4300E96829 /* SpiderWebChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiderWebChartView.swift; sourceTree = "<group>"; };
 		37EFE09927D1F56C008F28EF /* Gotham-BoldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-BoldItalic.otf"; sourceTree = "<group>"; };
@@ -261,9 +265,10 @@
 		1B0BFB2B2336291F0054E28A /* Application */ = {
 			isa = PBXGroup;
 			children = (
-				1B0BFB2E233629630054E28A /* Initializers */,
 				1B0BFAFB233628850054E28A /* AppDelegate.swift */,
+				37B5ED4327E1CF0400A28FEB /* BoolCompletition.swift */,
 				1BDD46A123AFFEAE0020AC54 /* Constants.swift */,
+				1B0BFB2E233629630054E28A /* Initializers */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -373,6 +378,7 @@
 		1B0BFB5E233632830054E28A /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				37B5ED3D27E1CC6F00A28FEB /* DatabaseManager */,
 				1B0BFB5F2336328D0054E28A /* RestClient */,
 			);
 			path = Services;
@@ -416,7 +422,7 @@
 				371D73C627D0CA3B00BF93EB /* Biography.swift */,
 				371D73C827D0CA5700BF93EB /* Connections.swift */,
 				371D73CA27D0CA6A00BF93EB /* Image.swift */,
-				371D73CC27D0CA7F00BF93EB /* Powerstat.swift */,
+				371D73CC27D0CA7F00BF93EB /* Powerstats.swift */,
 				371D73CE27D0CA9200BF93EB /* Work.swift */,
 			);
 			path = Models;
@@ -566,6 +572,14 @@
 				3702619727DF204900965843 /* FavoritesButton.swift */,
 			);
 			path = Button;
+			sourceTree = "<group>";
+		};
+		37B5ED3D27E1CC6F00A28FEB /* DatabaseManager */ = {
+			isa = PBXGroup;
+			children = (
+				37B5ED3E27E1CC8B00A28FEB /* DatabaseManager.swift */,
+			);
+			path = DatabaseManager;
 			sourceTree = "<group>";
 		};
 		37F77A8A27DE07C600A6D58F /* DetailView */ = {
@@ -786,6 +800,7 @@
 				1BDD46A223AFFEAE0020AC54 /* Constants.swift in Sources */,
 				3798864927D79E9E00B8FBF5 /* GradientView.swift in Sources */,
 				1B0BFB3D23362A000054E28A /* FormatterInterface.swift in Sources */,
+				37B5ED4427E1CF0400A28FEB /* BoolCompletition.swift in Sources */,
 				1B0BFAFC233628850054E28A /* AppDelegate.swift in Sources */,
 				1B0BFB562336303F0054E28A /* TabbarPresenter.swift in Sources */,
 				371D73D127D0D34200BF93EB /* Heroes.swift in Sources */,
@@ -825,13 +840,14 @@
 				1B0BFB4523362B740054E28A /* BaseResponse.swift in Sources */,
 				371D73CB27D0CA6A00BF93EB /* Image.swift in Sources */,
 				1B0BFB5B2336303F0054E28A /* TabbarInteractor.swift in Sources */,
-				371D73CD27D0CA7F00BF93EB /* Powerstat.swift in Sources */,
+				371D73CD27D0CA7F00BF93EB /* Powerstats.swift in Sources */,
 				37268E9C27CF75CB0000F942 /* FavoritesViewController.swift in Sources */,
 				1B0BFB4123362B240054E28A /* BaseNavigationController.swift in Sources */,
 				37268E7D27CF6DCF0000F942 /* SearchPresenter.swift in Sources */,
 				3702619227DF1F9400965843 /* FightInterfaces.swift in Sources */,
 				374B9B7627D6367C001BF4A5 /* CharacteristicsView.swift in Sources */,
 				37268E9E27CF75CB0000F942 /* FavoritesWireframe.swift in Sources */,
+				37B5ED3F27E1CC8B00A28FEB /* DatabaseManager.swift in Sources */,
 				37F77A8D27DE07F400A6D58F /* CommentsView.swift in Sources */,
 				1B0BFB3B23362A000054E28A /* BaseWireframe.swift in Sources */,
 				371D73D927D102AF00BF93EB /* DetailInterfaces.swift in Sources */,

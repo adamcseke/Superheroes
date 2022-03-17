@@ -6,14 +6,14 @@
 //  Copyright © 2019. levivig. All rights reserved.
 //
 
-import UIKit
-
-//swiftlint:disable force_cast
-let kAppDelegate = UIApplication.shared.delegate as! AppDelegate
-
-struct Constants {
-    
-    struct UserDefaults {
-        static let ApiKey = "ApiKey"
-    }
-}
+//import UIKit
+//
+////swiftlint:disable force_cast
+//let kAppDelegate = UIApplication.shared.delegate as! AppDelegate
+//
+//struct Constants {
+//    
+//    struct UserDefaults {
+//        static let ApiKey = "ApiKey"
+//    }
+//}

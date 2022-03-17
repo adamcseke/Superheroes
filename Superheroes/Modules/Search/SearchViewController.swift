@@ -21,6 +21,9 @@ final class SearchViewController: UIViewController {
     private var collectionView: UICollectionView!
     private var heroes: Int = 0
     private let itemsPerRow: CGFloat = 2
+    private var selectedHeroName: String?
+    private var selectedHeroImage: String?
+    private var saveButtonImage: NSAttributedString?
     
     // MARK: - Public properties -
     
@@ -31,6 +34,7 @@ final class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+        presenter.viewDidLoad()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -113,6 +117,10 @@ final class SearchViewController: UIViewController {
 // MARK: - Extensions -
 
 extension SearchViewController: SearchViewInterface {
+    func setSaveButton(buttonImage: NSAttributedString) {
+        self.saveButtonImage = buttonImage
+    }
+    
     
     func reloadCollectionView() {
         self.collectionView.reloadData()
@@ -145,7 +153,7 @@ extension SearchViewController: UICollectionViewDataSource {
         }
         let heroesInfo = presenter.cellForRow(at: indexPath)
         let heroViewModel = HeroViewModel(hero: heroesInfo)
-        cell.bind(hero: heroViewModel, indexPath: indexPath, delegate: self)
+        cell.bind(hero: heroViewModel, indexPath: indexPath, delegate: self, isFavorite: heroesInfo.isFavorite)
         return cell
     }
 }
@@ -182,5 +190,7 @@ extension SearchViewController: TBEmptyDataSetDataSource {
 extension SearchViewController: SearchedCellDelegate {
     func buttonTapped(at indexPath: IndexPath) {
         generator.impactOccurred()
+//        presenter.favoritesButtonTapped(indexPath: indexPath)
+        
     }
 }

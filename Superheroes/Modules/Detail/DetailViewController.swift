@@ -27,7 +27,7 @@ final class DetailViewController: UIViewController {
     private var characteristicsButton: StatButton!
     private var commentsButton: StatButton!
     private var stackView: UIStackView!
-    private var buttonsStackView: UIView!
+    private var buttonsView: UIView!
     private var biographyView: CharacteristicsView!
     private var appearanceView: CharacteristicsView!
     private var workView: CharacteristicsView!
@@ -76,19 +76,19 @@ final class DetailViewController: UIViewController {
         let numCombat = Double(selectedHero?.powerstats.combat ?? "") ?? 0.0
         
         circlesFirstRowView.currentProgressCircleOne = numIntelligence
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             self.circlesFirstRowView.currentProgressCircleTwo = numStrength
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             self.circlesFirstRowView.currentProgressCircleThree = numSpeed
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.9) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             self.circlesSecondRowView.currentProgressCircleOne = numDurability
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
             self.circlesSecondRowView.currentProgressCircleTwo = numPower
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.circlesSecondRowView.currentProgressCircleThree = numCombat
         }
         self.heroStatsWebView.entries = [numIntelligence, numStrength, numSpeed, numDurability, numPower, numCombat]
@@ -109,8 +109,16 @@ final class DetailViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        let bottom = stackView.frame.maxY
-        scrollView.contentSize = CGSize(width: view.frame.width, height: bottom)
+        if stackView.isHidden && !circlesStackView.isHidden {
+            let bottom = heroStatsWebView.frame.maxY
+            scrollView.contentSize = CGSize(width: view.frame.width, height: bottom)
+        } else if stackView.isHidden && !commentsView.isHidden {
+            let bottom = commentsView.frame.maxY + 50
+            scrollView.contentSize = CGSize(width: view.frame.width, height: bottom)
+        } else {
+            let bottom = stackView.frame.maxY
+            scrollView.contentSize = CGSize(width: view.frame.width, height: bottom)
+        }
     }
     
     private func setup() {
@@ -121,7 +129,7 @@ final class DetailViewController: UIViewController {
         configureViewController()
         configureHeroImageView()
         configureHeroNameLabel()
-        configureButtonsStackView()
+        configureButtonsView()
         configurePowerstatsButton()
         configureCharacteristicButton()
         configureCommentsButton()
@@ -193,7 +201,7 @@ final class DetailViewController: UIViewController {
         headerContainerView.addSubview(heroImageView)
         heroImageView.addSubview(gradientView)
         
-        gradientView.colors = [.clear, .systemBackground.withAlphaComponent(1)]
+        gradientView.colors = [.clear, .clear, .systemBackground.withAlphaComponent(1)]
         gradientView.snp.makeConstraints { make in
             make.leading.bottom.centerX.equalToSuperview()
             make.top.equalTo(headerContainerView.snp.top)
@@ -237,12 +245,12 @@ final class DetailViewController: UIViewController {
         }
     }
     
-    private func configureButtonsStackView() {
-        buttonsStackView = UIView()
+    private func configureButtonsView() {
+        buttonsView = UIView()
         
-        scrollView.addSubview(buttonsStackView)
+        scrollView.addSubview(buttonsView)
         
-        buttonsStackView.snp.makeConstraints { make in
+        buttonsView.snp.makeConstraints { make in
             make.bottom.equalTo(headerContainerView.snp.bottom).offset(-25)
             make.leading.equalToSuperview().offset(16)
             make.centerX.equalToSuperview()
@@ -256,7 +264,7 @@ final class DetailViewController: UIViewController {
         powerstatButton.bind(buttonLabelText: L10n.DetailViewController.Powerstats.Button.title)
         powerstatButton.isSelected = true
         
-        buttonsStackView.addSubview(powerstatButton)
+        buttonsView.addSubview(powerstatButton)
         
         powerstatButton.snp.makeConstraints { make in
             if UIDevice.Devices.iPhoneSE1stGen {
@@ -275,14 +283,14 @@ final class DetailViewController: UIViewController {
         characteristicsButton.bind(buttonLabelText: L10n.DetailViewController.Characteristics.Button.title)
         characteristicsButton.isSelected = false
         
-        buttonsStackView.addSubview(characteristicsButton)
+        buttonsView.addSubview(characteristicsButton)
         
         characteristicsButton.snp.makeConstraints { make in
             if UIDevice.Devices.iPhoneSE1stGen {
                 make.width.equalTo(115)
             }
             make.centerY.equalToSuperview()
-            make.centerX.equalToSuperview()
+            make.leading.equalTo(powerstatButton.snp.trailing).offset(10)
             make.width.equalTo(118)
             make.height.equalTo(27)
         }
@@ -294,14 +302,14 @@ final class DetailViewController: UIViewController {
         commentsButton.bind(buttonLabelText: L10n.DetailViewController.Comments.Button.title)
         commentsButton.isSelected = false
         
-        buttonsStackView.addSubview(commentsButton)
+        buttonsView.addSubview(commentsButton)
         
         commentsButton.snp.makeConstraints { make in
             if UIDevice.Devices.iPhoneSE1stGen {
                 make.width.equalTo(85)
             }
+            make.leading.equalTo(characteristicsButton.snp.trailing).offset(10)
             make.centerY.equalToSuperview()
-            make.trailing.equalToSuperview()
             make.width.equalTo(96)
             make.height.equalTo(27)
         }
@@ -435,7 +443,7 @@ final class DetailViewController: UIViewController {
         scrollView.addSubview(circlesStackView)
         
         circlesStackView.snp.makeConstraints { make in
-            make.top.equalTo(buttonsStackView.snp.bottom).offset(10)
+            make.top.equalTo(buttonsView.snp.bottom).offset(10)
             make.leading.equalToSuperview().offset(16)
             make.centerX.equalToSuperview()
         }
@@ -480,6 +488,7 @@ final class DetailViewController: UIViewController {
             make.top.equalTo(circlesStackView.snp.bottom).offset(20)
             make.leading.equalTo(16)
             make.centerX.equalToSuperview()
+            make.height.equalTo(scrollView.snp.width)
         }
     }
     
@@ -488,16 +497,17 @@ final class DetailViewController: UIViewController {
         commentsView.isHidden = true
         scrollView.addSubview(commentsView)
         commentsView.snp.makeConstraints { make in
-            make.top.equalTo(buttonsStackView.snp.bottom).offset(20)
+            make.top.equalTo(buttonsView.snp.bottom).offset(20)
             make.centerX.equalToSuperview()
             make.leading.equalToSuperview().offset(16)
+            make.bottom.equalToSuperview().offset(-view.frame.height * 1.15)
         }
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             if self.view.frame.origin.y == 0 {
-                self.view.frame.origin.y -= keyboardSize.height * 0.30
+                self.view.frame.origin.y -= keyboardSize.height * 0.8
             }
         }
     }

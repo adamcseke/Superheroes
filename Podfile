@@ -19,6 +19,7 @@ target 'Superheroes' do
   pod 'SwiftGen'
   pod 'TBEmptyDataSet'
   pod 'Charts'
+  pod 'SQLite.swift'
 
 end
 

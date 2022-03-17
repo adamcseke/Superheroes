@@ -16,7 +16,11 @@ final class FavoritesViewController: UIViewController {
     private let generator = UIImpactFeedbackGenerator(style: .medium)
     private var searchVC: UISearchController!
     private var collectionView: UICollectionView!
-    private var heroes: Int = 0
+    private var favoriteHeroes: [Heroes] = [] {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
     
     private let statusBarFrame = UIApplication.shared.statusBarFrame
     private var statusBarView: UIView!
@@ -26,7 +30,7 @@ final class FavoritesViewController: UIViewController {
     var presenter: FavoritesPresenterInterface!
 
     // MARK: - Lifecycle -
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
@@ -45,6 +49,7 @@ final class FavoritesViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.prefersLargeTitles = true
+        presenter.viewWillAppear(animated: true)
     }
     
     private func setup() {
@@ -97,6 +102,10 @@ final class FavoritesViewController: UIViewController {
 // MARK: - Extensions -
 
 extension FavoritesViewController: FavoritesViewInterface {
+    func pushfavorites(favorites: [Heroes]) {
+        favoriteHeroes = favorites
+    }
+    
 }
 
 extension FavoritesViewController: UICollectionViewDelegate {
@@ -110,14 +119,16 @@ extension FavoritesViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        heroes
+        self.favoriteHeroes.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "searchedCell", for: indexPath) as? SearchedCollectionViewCell else {
             return UICollectionViewCell()
         }
-        
+//        let heroViewModel = HeroViewModel(name: heroesInfo.name, image: heroesInfo.image.url ?? "")
+        let hero = favoriteHeroes[indexPath.row]
+        cell.bind(name: hero.name, image: "", indexPath: indexPath, delegate: self, isFavorite: true)
         return cell
     }
 }
@@ -125,7 +136,7 @@ extension FavoritesViewController: UICollectionViewDataSource {
 extension FavoritesViewController: TBEmptyDataSetDelegate {
     
     func emptyDataSetShouldDisplay(in scrollView: UIScrollView) -> Bool {
-        return self.heroes == 0
+        return self.favoriteHeroes.isEmpty
     }
 }
 

@@ -17,7 +17,8 @@ final class FavoritesPresenter {
     private unowned let view: FavoritesViewInterface
     private let interactor: FavoritesInteractorInterface
     private let wireframe: FavoritesWireframeInterface
-
+    
+    private var favorites: [Heroes] = []
     // MARK: - Lifecycle -
 
     init(
@@ -29,9 +30,17 @@ final class FavoritesPresenter {
         self.interactor = interactor
         self.wireframe = wireframe
     }
+    
+    func viewWillAppear(animated: Bool) {
+//        view.pushfavorites(favorites: favorites)
+    }
 }
 
 // MARK: - Extensions -
 
 extension FavoritesPresenter: FavoritesPresenterInterface {
+//    func getFavorites() {
+//        favorites = DatabaseManager.main.getHeroes()
+//        print(favorites)
+//    }
 }

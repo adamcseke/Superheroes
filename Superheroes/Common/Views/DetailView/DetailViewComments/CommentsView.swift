@@ -13,6 +13,8 @@ class CommentsView: UIView {
     private var commentsTextView: UITextView!
     private var commentsButton: UIButton!
     private var commentsButtonLabel: UILabel!
+    private var countLabel: UILabel!
+    private let maxLength = 500
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -26,21 +28,30 @@ class CommentsView: UIView {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         if self.traitCollection.userInterfaceStyle == .light {
-            commentsButton.backgroundColor = Colors.grayHeroName.color
+            if commentsButton.isEnabled {
+                commentsButton.backgroundColor = Colors.grayHeroName.color
+            } else {
+                commentsButton.backgroundColor = Colors.grayHeroName.color.withAlphaComponent(0.5)
+            }
             commentsTextView.layer.borderColor = UIColor.black.cgColor
         } else {
-            commentsButton.backgroundColor = Colors.orange.color
+            if commentsButton.isEnabled {
+                commentsButton.backgroundColor = Colors.orange.color
+            } else {
+                commentsButton.backgroundColor = Colors.orange.color.withAlphaComponent(0.5)
+            }
             commentsTextView.layer.borderColor = Colors.orange.color.cgColor
         }
         
     }
     
     private func setup() {
-        configureTextfield()
         configureButton()
+        configureTextView()
+        configureCountLabel()
     }
     
-    private func configureTextfield() {
+    private func configureTextView() {
         commentsTextView = UITextView()
         commentsTextView.delegate = self
         commentsTextView.text = L10n.CommentsView.TextView.placeholder
@@ -50,6 +61,8 @@ class CommentsView: UIView {
         commentsTextView.layer.cornerRadius = 11
         commentsTextView.layer.borderWidth = 2
         commentsTextView.returnKeyType = .go
+        commentsTextView.isScrollEnabled = false
+        commentsTextView.sizeToFit()
         
         if self.traitCollection.userInterfaceStyle == .light {
             commentsTextView.layer.borderColor = UIColor.black.cgColor
@@ -61,7 +74,7 @@ class CommentsView: UIView {
         
         commentsTextView.snp.makeConstraints { make in
             make.centerX.top.leading.equalToSuperview()
-            make.height.equalTo(100)
+            make.bottom.equalTo(commentsButton.snp.top).offset(-30)
         }
     }
     
@@ -87,17 +100,18 @@ class CommentsView: UIView {
         commentsButton.layer.cornerRadius = 11
         
         if self.traitCollection.userInterfaceStyle == .light {
-            commentsButton.backgroundColor = Colors.grayHeroName.color
+            commentsButton.backgroundColor = Colors.grayHeroName.color.withAlphaComponent(0.5)
         } else {
-            commentsButton.backgroundColor = Colors.orange.color
+            commentsButton.backgroundColor = Colors.orange.color.withAlphaComponent(0.5)
         }
-        
+        commentsButton.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
+        commentsButton.isEnabled = false
         addSubview(commentsButton)
         commentsButton.addSubview(commentsButtonLabel)
         
         commentsButton.snp.makeConstraints { make in
             make.leading.centerX.bottom.equalToSuperview()
-            make.top.equalTo(commentsTextView.snp.bottom).offset(20)
+            make.bottom.equalToSuperview().offset(-20)
             make.height.equalTo(50)
         }
         
@@ -105,14 +119,45 @@ class CommentsView: UIView {
             make.edges.equalToSuperview()
         }
     }
+    
+    @objc func didTapButton() {
+        print("tapped button")
+    }
+    
+    private func configureCountLabel() {
+        countLabel = UILabel()
+        countLabel.font = FontFamily.Gotham.book.font(size: 10)
+        countLabel.textColor = .label
+        
+        addSubview(countLabel)
+        
+        countLabel.snp.makeConstraints { make in
+            make.top.equalTo(commentsTextView.snp.bottom).offset(5)
+            make.trailing.equalTo(commentsTextView.snp.trailing)
+        }
+    }
 }
 
 extension CommentsView: UITextViewDelegate {
+    
+    func textViewDidChange(_ textView: UITextView) {
+            countLabel.text = "\(maxLength - textView.text.count) characters left"
+        }
+        
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+           return textView.text.count + (text.count - range.length) <= maxLength
+       }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.textColor == UIColor.lightGray {
             textView.text = nil
             textView.textColor = .label
+            commentsButton.isEnabled = true
+            if self.traitCollection.userInterfaceStyle == .light {
+                commentsButton.backgroundColor = Colors.grayHeroName.color
+            } else {
+                commentsButton.backgroundColor = Colors.orange.color
+            }
         }
     }
     
@@ -120,6 +165,12 @@ extension CommentsView: UITextViewDelegate {
         if textView.text.isEmpty {
             textView.text = L10n.CommentsView.TextView.placeholder
             textView.textColor = UIColor.lightGray
+            commentsButton.isEnabled = false
+            if self.traitCollection.userInterfaceStyle == .light {
+                commentsButton.backgroundColor = Colors.grayHeroName.color.withAlphaComponent(0.5)
+            } else {
+                commentsButton.backgroundColor = Colors.orange.color.withAlphaComponent(0.5)
+            }
         }
     }
 }

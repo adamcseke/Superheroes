@@ -62,7 +62,7 @@ class CircleShapeView: UIView {
     
     private func configureShapeLayer() {
         progressShape = CAShapeLayer()
-        let circlePath = UIBezierPath(arcCenter: center, radius: 40, startAngle: -(.pi / 2), endAngle: 3 * .pi / 2, clockwise: true)
+        let circlePath = UIBezierPath(arcCenter: center, radius: 48, startAngle: -(.pi / 2), endAngle: 3 * .pi / 2, clockwise: true)
         trackShape = CAShapeLayer()
         trackShape.path = circlePath.cgPath
         trackShape.fillColor = UIColor.clear.cgColor
@@ -92,7 +92,7 @@ class CircleShapeView: UIView {
     private func configurePrecentageLabel() {
         precentageLabel = UILabel()
         precentageLabel.textAlignment = .center
-        precentageLabel.font = FontFamily.Gotham.book.font(size: 16)
+        precentageLabel.font = FontFamily.Gotham.medium.font(size: 12)
         precentageLabel.sizeToFit()
         addSubview(precentageLabel)
         precentageLabel.snp.makeConstraints { make in
@@ -104,7 +104,7 @@ class CircleShapeView: UIView {
         titleLabel = UILabel()
         titleLabel.textAlignment = .center
         titleLabel.text = title
-        titleLabel.font = FontFamily.Gotham.medium.font(size: 18)
+        titleLabel.font = FontFamily.Gotham.medium.font(size: 12)
         titleLabel.sizeToFit()
         addSubview(titleLabel)
         

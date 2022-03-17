@@ -16,6 +16,7 @@ protocol SearchWireframeInterface: WireframeInterface {
 
 protocol SearchViewInterface: ViewInterface {
     func reloadCollectionView()
+    func setSaveButton(buttonImage: NSAttributedString)
 }
 
 protocol SearchPresenterInterface: PresenterInterface {
@@ -26,8 +27,12 @@ protocol SearchPresenterInterface: PresenterInterface {
     func searchVCDismissed()
     func didTapOnCell(hero: Heroes)
     func pushToDetails(hero: Heroes)
+//    func favoritesButtonTapped(indexPath: IndexPath)
 }
 
 protocol SearchInteractorInterface: InteractorInterface {
     func getSuperheroes(name: String, completion: @escaping SuperheroesLoaded )
+//    func isInTheFavorites(name: String) -> Bool
+//    func delete(entity: Heroes, completion: BoolCompletition?)
+//    func insert(entity: Heroes, completion: BoolCompletition?)
 }

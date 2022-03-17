@@ -23,6 +23,16 @@ struct Heroes: Codable {
     let work: Work
     let connections: Connections
     let image: Image
+    var isFavorite: Bool {
+        get { _isFavorite ?? false }
+        set { _isFavorite = newValue }
+    }
+    
+    private var _isFavorite: Bool?
+    
+    static func == (lhs: Heroes, rhs: Heroes) -> Bool {
+        lhs.name == rhs.name
+    }
 }
 
 struct HeroViewModel {
