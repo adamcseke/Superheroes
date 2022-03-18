@@ -122,12 +122,4 @@ class SearchedCollectionViewCell: UICollectionViewCell {
         self.delegate = delegate
         saveButton.isSelected = isFavorite
     }
-    
-    func bind(name: String, image: String, indexPath: IndexPath, delegate: SearchedCellDelegate?, isFavorite: Bool) {
-        heroNameLabel.text = name
-        cellBackgroundImageView.sd_setImage(with: URL(string: image), placeholderImage: Images.superhero.image.withTintColor(UIColor.label))
-        self.indexPath = indexPath
-        self.delegate = delegate
-        saveButton.isSelected = isFavorite
-    }
 }

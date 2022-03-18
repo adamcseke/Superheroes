@@ -11,16 +11,18 @@
 import Foundation
 
 final class FavoritesPresenter {
-
+    
     // MARK: - Private properties -
-
+    
     private unowned let view: FavoritesViewInterface
     private let interactor: FavoritesInteractorInterface
     private let wireframe: FavoritesWireframeInterface
     
     private var favorites: [Heroes] = []
+    
+    private var isFavorite: Bool = false
     // MARK: - Lifecycle -
-
+    
     init(
         view: FavoritesViewInterface,
         interactor: FavoritesInteractorInterface,
@@ -32,15 +34,53 @@ final class FavoritesPresenter {
     }
     
     func viewWillAppear(animated: Bool) {
-//        view.pushfavorites(favorites: favorites)
+        view.reloadCollectionView()
     }
 }
 
 // MARK: - Extensions -
 
 extension FavoritesPresenter: FavoritesPresenterInterface {
-//    func getFavorites() {
-//        favorites = DatabaseManager.main.getHeroes()
-//        print(favorites)
-//    }
+    
+    func pushToDetails(hero: Heroes) {
+        wireframe.pushToDetails(hero: hero)
+    }
+    
+    
+    func numberOfSections() -> Int {
+        1
+    }
+    
+    func numberOfItem(in section: Int) -> Int {
+        favorites.count
+    }
+    
+    func cellForItem(at indexPath: IndexPath) -> Heroes {
+        return favorites[indexPath.row]
+    }
+    
+    func getFavorites() {
+        favorites = DatabaseManager.main.getHeroes()
+    }
+    
+    func favoritesButtonTapped(indexPath: IndexPath) {
+        favorites[indexPath.row].isFavorite.toggle()
+        isFavorite = interactor.isInTheFavorites(entity: favorites[indexPath.row])
+        var newFavorites: [Heroes] = []
+        favorites.forEach { hero in
+            if hero.isFavorite == true {
+                newFavorites.append(hero)
+            }
+        }
+        
+        if self.isFavorite {
+            interactor.delete(entity: favorites[indexPath.row]) { _ in
+                self.isFavorite = false
+            }
+        } else {
+            interactor.insert(entity: favorites[indexPath.row]) { _ in
+                self.isFavorite = true
+            }
+        }
+    }
 }

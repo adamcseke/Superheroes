@@ -12,7 +12,7 @@ import Foundation
 struct Biography: Codable {
     let fullName: String
     let alterEgos: String
-    let aliases: [String]
+    var aliases: [String]
     let placeOfBirth: String
     let firstAppearance: String
     let publisher: String
@@ -26,5 +26,13 @@ struct Biography: Codable {
         case firstAppearance = "first-appearance"
         case publisher
         case alignment
+    }
+}
+
+extension Biography {
+    
+    var alias: String {
+        get { return aliases.joined(separator: ", ") }
+        set { aliases = newValue.components(separatedBy: ", ") }
     }
 }

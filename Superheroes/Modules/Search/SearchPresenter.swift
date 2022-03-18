@@ -18,13 +18,10 @@ final class SearchPresenter {
     private let interactor: SearchInteractorInterface
     private let wireframe: SearchWireframeInterface
     
-    private var selectedHeroName: String = ""
-    private var selectedHeroImage: String = ""
     private var heroes: [Heroes] = []
     private var text: String = ""
     private var isFavorite: Bool = false
     private var favorites: [Heroes] = []
-    private var saveButtonImage: NSAttributedString?
     
     // MARK: - Lifecycle -
     
@@ -38,37 +35,50 @@ final class SearchPresenter {
         self.wireframe = wireframe
     }
     
-    func viewDidLoad() {
-        view.setSaveButton(buttonImage: saveButtonImage ?? NSAttributedString())
+    func viewWillAppear(animated: Bool) {
+        self.getFavorites()
     }
 }
 
 // MARK: - Extensions -
 
 extension SearchPresenter: SearchPresenterInterface {
+
+    func getFavorites() {
+        favorites = DatabaseManager.main.getHeroes()
+        heroes.enumerated().forEach({ index, hero in
+            var newHero = heroes[index]
+            if favorites.first(where: {$0.id == hero.id}) != nil {
+                newHero.isFavorite = true
+            } else {
+                newHero.isFavorite = false
+            }
+            heroes[index] = newHero
+        })
+    }
     
-//    func favoritesButtonTapped(indexPath: IndexPath) {
-//        isFavorite = interactor.isInTheFavorites(name: selectedHeroName)
-//        heroes[indexPath.row].isFavorite.toggle()
-//        heroes.forEach { hero in
-//            if hero.isFavorite == true && !favorites.contains(where: { $0 == hero }) {
-//                favorites.append(hero)
-//            } else if hero.isFavorite == false {
-//                favorites.removeAll(where: { $0 == hero })
-//            }
-//        }
-//        
-//        if self.isFavorite {
-//            interactor.delete(name: selectedHeroName) { _ in
-//                self.isFavorite = false
-//            }
-//        } else {
-//            interactor.insert(name: selectedHeroName, image: selectedHeroImage) { _ in
-//                self.isFavorite = true
-//            }
-//        }
-//        
-//    }
+    func favoritesButtonTapped(indexPath: IndexPath) {
+        heroes[indexPath.row].isFavorite.toggle()
+        isFavorite = interactor.isInTheFavorites(entity: heroes[indexPath.row])
+        heroes.forEach { hero in
+            if hero.isFavorite == true && !favorites.contains(where: { $0 == hero }) {
+                favorites.append(hero)
+            } else if hero.isFavorite == false {
+                favorites.removeAll(where: { $0 == hero })
+            }
+        }
+
+        if self.isFavorite {
+            interactor.delete(entity: heroes[indexPath.row]) { _ in
+                self.isFavorite = false
+            }
+        } else {
+            interactor.insert(entity: heroes[indexPath.row]) { _ in
+                self.isFavorite = true
+            }
+        }
+        
+    }
     
     func numberOfSections() -> Int {
         1
@@ -78,9 +88,7 @@ extension SearchPresenter: SearchPresenterInterface {
         heroes.count
     }
     
-    func cellForRow(at indexPath: IndexPath) -> Heroes {
-        selectedHeroImage = heroes[indexPath.row].image.url
-        selectedHeroName = heroes[indexPath.row].name
+    func cellForItem(at indexPath: IndexPath) -> Heroes {
         return heroes[indexPath.row]
     }
     
@@ -91,10 +99,6 @@ extension SearchPresenter: SearchPresenterInterface {
     
     func pushToDetails(hero: Heroes) {
         wireframe.pushToDetails(hero: hero)
-    }
-    
-    func didTapOnCell(hero: Heroes) {
-        pushToDetails(hero: hero)
     }
     
     func searchButtonTapped(name: String) {
@@ -112,9 +116,11 @@ extension SearchPresenter: SearchPresenterInterface {
             case .success(let heroes):
                 
                 self.heroes = heroes.results
+                self.getFavorites()
                 self.view.reloadCollectionView()
                 
             case .failure(let error):
+                self.wireframe.presentAlert(title: "Test", description: "test", buttonText: "Ok", alertImage: UIImage(named: Images.noSignal.name)?.withTintColor(Colors.orange.color) ?? UIImage())
                 print(error.localizedDescription)
             }
         }

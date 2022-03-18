@@ -11,15 +11,24 @@
 import UIKit
 
 protocol FavoritesWireframeInterface: WireframeInterface {
+    func pushToDetails(hero: Heroes)
 }
 
 protocol FavoritesViewInterface: ViewInterface {
-//    func pushfavorites(favorites: [Heroes])
+    func reloadCollectionView()
 }
 
 protocol FavoritesPresenterInterface: PresenterInterface {
-//    func getFavorites()
+    func numberOfSections() -> Int
+    func numberOfItem(in section: Int) -> Int
+    func cellForItem(at indexPath: IndexPath) -> Heroes
+    func getFavorites()
+    func favoritesButtonTapped(indexPath: IndexPath)
+    func pushToDetails(hero: Heroes)
 }
 
 protocol FavoritesInteractorInterface: InteractorInterface {
+    func isInTheFavorites(entity: Heroes) -> Bool
+    func delete(entity: Heroes, completion: BoolCompletition?)
+    func insert(entity: Heroes, completion: BoolCompletition?)
 }

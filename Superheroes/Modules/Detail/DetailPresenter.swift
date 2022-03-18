@@ -9,19 +9,23 @@
 //
 
 import Foundation
+import UIKit
 
 final class DetailPresenter {
-
+    
     // MARK: - Private properties -
-
+    
     private unowned let view: DetailViewInterface
     private let interactor: DetailInteractorInterface
     private let wireframe: DetailWireframeInterface
     
     private var hero: Heroes
-
+    private var isFavorite: Bool = false
+    private var favorites: [Heroes] = []
+    private var navBarImage: String = ""
+    
     // MARK: - Lifecycle -
-
+    
     init(
         view: DetailViewInterface,
         interactor: DetailInteractorInterface,
@@ -37,11 +41,49 @@ final class DetailPresenter {
     func viewDidLoad() {
         view.pushHeroName(hero: hero)
     }
+    
+    func viewWillAppear(animated: Bool) {
+        self.getFavorites()
+    }
 }
 
 // MARK: - Extensions -
 
 extension DetailPresenter: DetailPresenterInterface {
+    
+    func favoritesButtonTapped() {
+        hero.isFavorite.toggle()
+        isFavorite = interactor.isInTheFavorites(entity: hero)
+        var newFavorites: [Heroes] = []
+        favorites.forEach { hero in
+            if hero.isFavorite == true {
+                newFavorites.append(hero)
+            }
+        }
+        if self.isFavorite {
+            interactor.delete(entity: hero) { _ in
+                self.isFavorite = false
+            }
+        } else {
+            interactor.insert(entity: hero) { _ in
+                self.isFavorite = true
+            }
+        }
+        self.getFavorites()
+    }
+    
+    func getFavorites() {
+        favorites = DatabaseManager.main.getHeroes()
+        if favorites.first(where: {$0.id == hero.id}) != nil {
+            hero.isFavorite = true
+            navBarImage = "star.fill"
+        } else {
+            hero.isFavorite = false
+            navBarImage = "star"
+        }
+        self.view.setNavBarImage(image: navBarImage)
+    }
+    
     func powerstatsButtonTapped() {
         view.setPowerstatsButton(selected: true)
     }

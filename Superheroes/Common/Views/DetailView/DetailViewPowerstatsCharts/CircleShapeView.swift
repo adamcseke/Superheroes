@@ -62,7 +62,13 @@ class CircleShapeView: UIView {
     
     private func configureShapeLayer() {
         progressShape = CAShapeLayer()
-        let circlePath = UIBezierPath(arcCenter: center, radius: 48, startAngle: -(.pi / 2), endAngle: 3 * .pi / 2, clockwise: true)
+        var radius = CGFloat()
+        if UIDevice.Devices.iPhoneSE1stGen {
+            radius = 40
+        } else {
+            radius = 48
+        }
+        let circlePath = UIBezierPath(arcCenter: center, radius: radius, startAngle: -(.pi / 2), endAngle: 3 * .pi / 2, clockwise: true)
         trackShape = CAShapeLayer()
         trackShape.path = circlePath.cgPath
         trackShape.fillColor = UIColor.clear.cgColor

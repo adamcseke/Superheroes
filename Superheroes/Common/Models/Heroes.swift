@@ -18,8 +18,8 @@ struct Heroes: Codable {
     let id: String
     let name: String
     let powerstats: Powerstats
-    let biography: Biography
-    let appearance: Appearance
+    var biography: Biography
+    var appearance: Appearance
     let work: Work
     let connections: Connections
     let image: Image
@@ -27,11 +27,26 @@ struct Heroes: Codable {
         get { _isFavorite ?? false }
         set { _isFavorite = newValue }
     }
-    
+
     private var _isFavorite: Bool?
-    
+
     static func == (lhs: Heroes, rhs: Heroes) -> Bool {
-        lhs.name == rhs.name
+        lhs.id == rhs.id
+    }
+    
+    init(id: String, name: String, powerstats: Powerstats, biography: Biography, appearance: Appearance, work: Work, connections: Connections, image: Image, isFavorite: Bool, alias: String, height: String, weight: String) {
+        self.id = id
+        self.name = name
+        self.powerstats = powerstats
+        self.biography = biography
+        self.appearance = appearance
+        self.work = work
+        self.connections = connections
+        self.image = image
+        self.isFavorite = isFavorite
+        self.biography.alias = alias
+        self.appearance.heightMetric = height
+        self.appearance.weighttMetric = weight
     }
 }
 

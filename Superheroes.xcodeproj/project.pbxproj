@@ -38,7 +38,6 @@
 		3702619427DF1F9400965843 /* FightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3702618F27DF1F9400965843 /* FightViewController.swift */; };
 		3702619527DF1F9400965843 /* FightInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3702619027DF1F9400965843 /* FightInteractor.swift */; };
 		3702619627DF1F9400965843 /* FightWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3702619127DF1F9400965843 /* FightWireframe.swift */; };
-		3702619827DF204900965843 /* FavoritesButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3702619727DF204900965843 /* FavoritesButton.swift */; };
 		371D73C127D0C60800BF93EB /* RestClient+Superheroes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371D73C027D0C60800BF93EB /* RestClient+Superheroes.swift */; };
 		371D73C327D0C9CD00BF93EB /* Superheroes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371D73C227D0C9CD00BF93EB /* Superheroes.swift */; };
 		371D73C527D0C9F400BF93EB /* Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371D73C427D0C9F400BF93EB /* Appearance.swift */; };
@@ -84,6 +83,7 @@
 		37B5ED3F27E1CC8B00A28FEB /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B5ED3E27E1CC8B00A28FEB /* DatabaseManager.swift */; };
 		37B5ED4427E1CF0400A28FEB /* BoolCompletition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B5ED4327E1CF0400A28FEB /* BoolCompletition.swift */; };
 		37BDADE027D8D3F200C3AE2F /* NSTextAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BDADDF27D8D3F200C3AE2F /* NSTextAttachment.swift */; };
+		37CAEE1827E4702100E06B61 /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CAEE1727E4702100E06B61 /* AlertViewController.swift */; };
 		37ED519327DB5A4300E96829 /* SpiderWebChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37ED519227DB5A4300E96829 /* SpiderWebChartView.swift */; };
 		37EFE0AA27D1F594008F28EF /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37EFE0A927D1F594008F28EF /* Fonts.swift */; };
 		37EFE0AB27D1F6F0008F28EF /* Gotham-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 37EFE0A227D1F56C008F28EF /* Gotham-Black.otf */; };
@@ -145,7 +145,6 @@
 		3702618F27DF1F9400965843 /* FightViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FightViewController.swift; sourceTree = "<group>"; };
 		3702619027DF1F9400965843 /* FightInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FightInteractor.swift; sourceTree = "<group>"; };
 		3702619127DF1F9400965843 /* FightWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FightWireframe.swift; sourceTree = "<group>"; };
-		3702619727DF204900965843 /* FavoritesButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesButton.swift; sourceTree = "<group>"; };
 		371D73C027D0C60800BF93EB /* RestClient+Superheroes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RestClient+Superheroes.swift"; sourceTree = "<group>"; };
 		371D73C227D0C9CD00BF93EB /* Superheroes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Superheroes.swift; sourceTree = "<group>"; };
 		371D73C427D0C9F400BF93EB /* Appearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appearance.swift; sourceTree = "<group>"; };
@@ -191,6 +190,7 @@
 		37B5ED3E27E1CC8B00A28FEB /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		37B5ED4327E1CF0400A28FEB /* BoolCompletition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoolCompletition.swift; sourceTree = "<group>"; };
 		37BDADDF27D8D3F200C3AE2F /* NSTextAttachment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSTextAttachment.swift; sourceTree = "<group>"; };
+		37CAEE1727E4702100E06B61 /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
 		37ED519227DB5A4300E96829 /* SpiderWebChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiderWebChartView.swift; sourceTree = "<group>"; };
 		37EFE09927D1F56C008F28EF /* Gotham-BoldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-BoldItalic.otf"; sourceTree = "<group>"; };
 		37EFE09A27D1F56C008F28EF /* Gotham-Ultra.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-Ultra.otf"; sourceTree = "<group>"; };
@@ -436,6 +436,7 @@
 				37268EC427CF98B50000F942 /* Cell */,
 				37268EC727CFA5220000F942 /* EmptyView.swift */,
 				3798864827D79E9E00B8FBF5 /* GradientView.swift */,
+				37CAEE1727E4702100E06B61 /* AlertViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -569,7 +570,6 @@
 			isa = PBXGroup;
 			children = (
 				377CFF0827D2436200BA3A31 /* StatButton.swift */,
-				3702619727DF204900965843 /* FavoritesButton.swift */,
 			);
 			path = Button;
 			sourceTree = "<group>";
@@ -812,7 +812,6 @@
 				374B9B7327D6326D001BF4A5 /* Devices.swift in Sources */,
 				1B0BFB30233629890054E28A /* Initializable.swift in Sources */,
 				1B0BFB4D23362F950054E28A /* LoggerInitializer.swift in Sources */,
-				3702619827DF204900965843 /* FavoritesButton.swift in Sources */,
 				1B0BFB582336303F0054E28A /* TabbarInterfaces.swift in Sources */,
 				372301F327DA23AB008C5853 /* CirclesStackView.swift in Sources */,
 				371D73C727D0CA3B00BF93EB /* Biography.swift in Sources */,
@@ -869,6 +868,7 @@
 				3702619427DF1F9400965843 /* FightViewController.swift in Sources */,
 				37268EC827CFA5220000F942 /* EmptyView.swift in Sources */,
 				37268E8727CF722D0000F942 /* String.swift in Sources */,
+				37CAEE1827E4702100E06B61 /* AlertViewController.swift in Sources */,
 				1BB2479223E6ED0500EBFD39 /* APIError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

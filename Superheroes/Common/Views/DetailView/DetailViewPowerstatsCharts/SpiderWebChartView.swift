@@ -55,6 +55,7 @@ class SpiderWebChartView: UIView {
         chartView.webColor = .lightGray
         chartView.innerWebColor = .lightGray
         chartView.legend.enabled = false
+        chartView.rotationEnabled = false
         chartView.animate(xAxisDuration: 1.6, yAxisDuration: 1.6, easingOption: .easeInOutBack)
         
         addSubview(chartView)

@@ -16,11 +16,7 @@ final class FavoritesViewController: UIViewController {
     private let generator = UIImpactFeedbackGenerator(style: .medium)
     private var searchVC: UISearchController!
     private var collectionView: UICollectionView!
-    private var favoriteHeroes: [Heroes] = [] {
-        didSet {
-            collectionView.reloadData()
-        }
-    }
+    private var favoriteHeroes: Int = 0
     
     private let statusBarFrame = UIApplication.shared.statusBarFrame
     private var statusBarView: UIView!
@@ -34,6 +30,7 @@ final class FavoritesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+        view.layoutIfNeeded()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -49,7 +46,9 @@ final class FavoritesViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.prefersLargeTitles = true
+        presenter.getFavorites()
         presenter.viewWillAppear(animated: true)
+        tabBarController?.tabBar.isHidden = false
     }
     
     private func setup() {
@@ -102,33 +101,37 @@ final class FavoritesViewController: UIViewController {
 // MARK: - Extensions -
 
 extension FavoritesViewController: FavoritesViewInterface {
-    func pushfavorites(favorites: [Heroes]) {
-        favoriteHeroes = favorites
+    func reloadCollectionView() {
+        self.collectionView.reloadData()
     }
-    
 }
 
 extension FavoritesViewController: UICollectionViewDelegate {
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectedHero = presenter.cellForItem(at: indexPath)
+        presenter.pushToDetails(hero: selectedHero)
+    }
 }
 
 extension FavoritesViewController: UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        1
+        presenter.numberOfSections()
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        self.favoriteHeroes.count
+        self.favoriteHeroes = presenter.numberOfItem(in: section)
+        return presenter.numberOfItem(in: section)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "searchedCell", for: indexPath) as? SearchedCollectionViewCell else {
             return UICollectionViewCell()
         }
-//        let heroViewModel = HeroViewModel(name: heroesInfo.name, image: heroesInfo.image.url ?? "")
-        let hero = favoriteHeroes[indexPath.row]
-        cell.bind(name: hero.name, image: "", indexPath: indexPath, delegate: self, isFavorite: true)
+        let hero = presenter.cellForItem(at: indexPath)
+        let heroViewModel = HeroViewModel(hero: hero)
+        cell.bind(hero: heroViewModel, indexPath: indexPath, delegate: self, isFavorite: hero.isFavorite)
         return cell
     }
 }
@@ -136,7 +139,7 @@ extension FavoritesViewController: UICollectionViewDataSource {
 extension FavoritesViewController: TBEmptyDataSetDelegate {
     
     func emptyDataSetShouldDisplay(in scrollView: UIScrollView) -> Bool {
-        return self.favoriteHeroes.isEmpty
+        return self.favoriteHeroes == 0
     }
 }
 
@@ -151,7 +154,8 @@ extension FavoritesViewController: TBEmptyDataSetDataSource {
 
 extension FavoritesViewController: SearchedCellDelegate {
     func buttonTapped(at indexPath: IndexPath) {
-        print("Button tapped")
+        generator.impactOccurred()
+        presenter.favoritesButtonTapped(indexPath: indexPath)
     }
     
 }

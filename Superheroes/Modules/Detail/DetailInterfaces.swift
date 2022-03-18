@@ -18,13 +18,19 @@ protocol DetailViewInterface: ViewInterface {
     func setPowerstatsButton(selected: Bool)
     func setCharacteristicsButton(selected: Bool)
     func setCommentsButton(selected: Bool)
+    func setNavBarImage(image: String)
 }
 
 protocol DetailPresenterInterface: PresenterInterface {
     func powerstatsButtonTapped()
     func characteristicsButtonTapped()
     func commentsButtonTapped()
+    func getFavorites()
+    func favoritesButtonTapped()
 }
 
 protocol DetailInteractorInterface: InteractorInterface {
+    func isInTheFavorites(entity: Heroes) -> Bool
+    func delete(entity: Heroes, completion: BoolCompletition?)
+    func insert(entity: Heroes, completion: BoolCompletition?)
 }

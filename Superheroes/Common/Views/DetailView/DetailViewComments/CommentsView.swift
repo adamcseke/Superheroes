@@ -110,8 +110,8 @@ class CommentsView: UIView {
         commentsButton.addSubview(commentsButtonLabel)
         
         commentsButton.snp.makeConstraints { make in
-            make.leading.centerX.bottom.equalToSuperview()
-            make.bottom.equalToSuperview().offset(-20)
+            make.leading.centerX.equalToSuperview()
+            make.bottom.equalToSuperview()
             make.height.equalTo(50)
         }
         
@@ -141,23 +141,32 @@ class CommentsView: UIView {
 extension CommentsView: UITextViewDelegate {
     
     func textViewDidChange(_ textView: UITextView) {
-            countLabel.text = "\(maxLength - textView.text.count) characters left"
+        if textView.text.count >= 1 {
+            if self.traitCollection.userInterfaceStyle == .light {
+                commentsButton.backgroundColor = Colors.grayHeroName.color
+            } else {
+                commentsButton.backgroundColor = Colors.orange.color
+            }
+        } else {
+            commentsButton.isEnabled = false
+            if self.traitCollection.userInterfaceStyle == .light {
+                commentsButton.backgroundColor = Colors.grayHeroName.color.withAlphaComponent(0.5)
+            } else {
+                commentsButton.backgroundColor = Colors.orange.color.withAlphaComponent(0.5)
+            }
         }
-        
+        countLabel.text = "\(maxLength - textView.text.count) characters left"
+    }
+    
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-           return textView.text.count + (text.count - range.length) <= maxLength
-       }
+        return textView.text.count + (text.count - range.length) <= maxLength
+    }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.textColor == UIColor.lightGray {
             textView.text = nil
             textView.textColor = .label
             commentsButton.isEnabled = true
-            if self.traitCollection.userInterfaceStyle == .light {
-                commentsButton.backgroundColor = Colors.grayHeroName.color
-            } else {
-                commentsButton.backgroundColor = Colors.orange.color
-            }
         }
     }
     
@@ -165,12 +174,6 @@ extension CommentsView: UITextViewDelegate {
         if textView.text.isEmpty {
             textView.text = L10n.CommentsView.TextView.placeholder
             textView.textColor = UIColor.lightGray
-            commentsButton.isEnabled = false
-            if self.traitCollection.userInterfaceStyle == .light {
-                commentsButton.backgroundColor = Colors.grayHeroName.color.withAlphaComponent(0.5)
-            } else {
-                commentsButton.backgroundColor = Colors.orange.color.withAlphaComponent(0.5)
-            }
         }
     }
 }

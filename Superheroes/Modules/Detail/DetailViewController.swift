@@ -22,7 +22,6 @@ final class DetailViewController: UIViewController {
     private var gradientView: GradientView!
     private var heroImageView: UIImageView!
     private var heroNameLabel: UILabel!
-    private var saveButton: FavoritesButton!
     private var powerstatButton: StatButton!
     private var characteristicsButton: StatButton!
     private var commentsButton: StatButton!
@@ -37,6 +36,7 @@ final class DetailViewController: UIViewController {
     private var circlesSecondRowView: CirclesStackView!
     private var heroStatsWebView: SpiderWebChartView!
     private var commentsView: CommentsView!
+    private var navBarButton = UIButton(type: UIButton.ButtonType.custom)
     
     private var selectedHero: Heroes?
     
@@ -64,6 +64,7 @@ final class DetailViewController: UIViewController {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         tabBarController?.tabBar.isHidden = true
+        presenter.getFavorites()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -99,11 +100,11 @@ final class DetailViewController: UIViewController {
         if self.traitCollection.userInterfaceStyle == .light {
             heroNameLabel.textColor = Colors.grayHeroName.color
             navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: Colors.grayHeroName.color]
-            saveButton.layer.backgroundColor = Colors.white.color.cgColor
+            navBarButton.layer.backgroundColor = Colors.white.color.cgColor
         } else {
             heroNameLabel.textColor = Colors.orange.color
             navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: Colors.orange.color]
-            saveButton.layer.backgroundColor = Colors.saveButtonBackground.color.cgColor
+            navBarButton.layer.backgroundColor = Colors.saveButtonBackground.color.cgColor
         }
     }
     
@@ -113,7 +114,12 @@ final class DetailViewController: UIViewController {
             let bottom = heroStatsWebView.frame.maxY
             scrollView.contentSize = CGSize(width: view.frame.width, height: bottom)
         } else if stackView.isHidden && !commentsView.isHidden {
-            let bottom = commentsView.frame.maxY + 50
+            var bottom = CGFloat()
+            if UIDevice.Devices.iPhoneSE1stGen {
+                bottom = commentsView.frame.maxY + 50
+            } else {
+                bottom = commentsView.frame.maxY + 100
+            }
             scrollView.contentSize = CGSize(width: view.frame.width, height: bottom)
         } else {
             let bottom = stackView.frame.maxY
@@ -148,22 +154,22 @@ final class DetailViewController: UIViewController {
     func setNavigationBar() {
         let screenSize: CGRect = UIScreen.main.bounds
         let navBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: 44))
-        saveButton = FavoritesButton()
-        
-        saveButton.layer.cornerRadius = 18.5
-        saveButton.addTarget(self, action: #selector(didTapNavBarButton), for: UIControl.Event.touchUpInside)
-        
-        let barButton = UIBarButtonItem(customView: saveButton)
-        self.navigationItem.rightBarButtonItem = barButton
         
         self.view.addSubview(navBar)
         
+        navBarButton.setImage(UIImage(systemName: "star"), for: .normal)
+        navBarButton.addTarget(self, action:#selector(didTapNavBarButton), for: .touchUpInside)
+        navBarButton.layer.cornerRadius = 18.5
+        navBarButton.frame = CGRect(x: 0, y: 0, width: 37, height: 37)
+        let barButton = UIBarButtonItem(customView: navBarButton)
+        self.navigationItem.rightBarButtonItems = [barButton]
+        
         if self.traitCollection.userInterfaceStyle == .light {
             navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: Colors.grayHeroName.color]
-            saveButton.layer.backgroundColor = Colors.white.color.cgColor
+            navBarButton.layer.backgroundColor = Colors.white.color.cgColor
         } else {
             navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: Colors.orange.color]
-            saveButton.layer.backgroundColor = Colors.saveButtonBackground.color.cgColor
+            navBarButton.layer.backgroundColor = Colors.saveButtonBackground.color.cgColor
         }
         
         navigationController?.navigationBar.isTranslucent = true
@@ -172,6 +178,7 @@ final class DetailViewController: UIViewController {
     
     @objc private func didTapNavBarButton() {
         generator.impactOccurred()
+        presenter.favoritesButtonTapped()
     }
     
     private func configureScrollView() {
@@ -288,6 +295,7 @@ final class DetailViewController: UIViewController {
         characteristicsButton.snp.makeConstraints { make in
             if UIDevice.Devices.iPhoneSE1stGen {
                 make.width.equalTo(115)
+                make.leading.equalTo(powerstatButton.snp.trailing).offset(5)
             }
             make.centerY.equalToSuperview()
             make.leading.equalTo(powerstatButton.snp.trailing).offset(10)
@@ -307,6 +315,7 @@ final class DetailViewController: UIViewController {
         commentsButton.snp.makeConstraints { make in
             if UIDevice.Devices.iPhoneSE1stGen {
                 make.width.equalTo(85)
+                make.leading.equalTo(characteristicsButton.snp.trailing).offset(5)
             }
             make.leading.equalTo(characteristicsButton.snp.trailing).offset(10)
             make.centerY.equalToSuperview()
@@ -340,7 +349,7 @@ final class DetailViewController: UIViewController {
         stackView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(view.frame.height * 0.75)
             make.leading.equalToSuperview().offset(16)
-            make.bottom.equalToSuperview().offset(-5)
+            make.bottom.equalToSuperview().offset(-20)
             make.centerX.equalToSuperview()
         }
     }
@@ -390,7 +399,7 @@ final class DetailViewController: UIViewController {
             if let propertyName = attr.label as String? {
                 if let arrayString = attr.value as? [String] {
                     biographyView.addItem(title: "detailViewController.biographyView.\(propertyName)".localized,
-                                          info: "\(arrayString.joined())")
+                                          info:  "\(arrayString.joined(separator: ", "))")
                 } else {
                     biographyView.addItem(title: "detailViewController.biographyView.\(propertyName)".localized,
                                           info: "\(attr.value)")
@@ -423,7 +432,7 @@ final class DetailViewController: UIViewController {
             if let propertyName = attr.label as String? {
                 if let arrayString = attr.value as? [String] {
                     connectionsView.addItem(title: "detailViewController.connectionsView.\(propertyName)".localized,
-                                            info: "\(arrayString.joined())")
+                                            info:  "\(arrayString.joined(separator: ", "))")
                 } else {
                     connectionsView.addItem(title: "detailViewController.connectionsView.\(propertyName)".localized,
                                             info: "\(attr.value)")
@@ -500,7 +509,13 @@ final class DetailViewController: UIViewController {
             make.top.equalTo(buttonsView.snp.bottom).offset(20)
             make.centerX.equalToSuperview()
             make.leading.equalToSuperview().offset(16)
-            make.bottom.equalToSuperview().offset(-view.frame.height * 1.15)
+            if UIDevice.Devices.iPhoneSE1stGen {
+                make.bottom.equalToSuperview().offset(-view.frame.height * 1.55)
+            } else if UIDevice.Devices.iPhone8 {
+                make.bottom.equalToSuperview().offset(-view.frame.height * 1.15)
+            } else {
+                make.bottom.equalToSuperview().offset(-view.frame.height * 0.85)
+            }
         }
     }
     
@@ -523,6 +538,11 @@ final class DetailViewController: UIViewController {
 // MARK: - Extensions -
 
 extension DetailViewController: DetailViewInterface {
+    
+    func setNavBarImage(image: String) {
+        navBarButton.setImage(UIImage(systemName: image), for: .normal)
+    }
+    
     func setPowerstatsButton(selected: Bool) {
         stackView.isHidden = true
         powerstatButton.isSelected = true
@@ -563,7 +583,7 @@ extension DetailViewController: UIScrollViewDelegate {
         let maxHeight = scrollView.frame.height * 0.55
         if offsetY > maxHeight {
             UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseIn, animations: {
-                self.saveButton.layer.backgroundColor = UIColor.clear.cgColor
+                self.navBarButton.layer.backgroundColor = UIColor.clear.cgColor
                 self.statusBarView.frame = self.statusBarFrame
                 self.statusBarView.backgroundColor = UIColor.systemBackground
                 self.heroNameLabel.alpha = 0.0
@@ -573,9 +593,9 @@ extension DetailViewController: UIScrollViewDelegate {
         } else {
             UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseIn, animations: {
                 if self.traitCollection.userInterfaceStyle == .light {
-                    self.saveButton.layer.backgroundColor = Colors.white.color.cgColor
+                    self.navBarButton.layer.backgroundColor = Colors.white.color.cgColor
                 } else {
-                    self.saveButton.layer.backgroundColor = Colors.saveButtonBackground.color.cgColor
+                    self.navBarButton.layer.backgroundColor = Colors.saveButtonBackground.color.cgColor
                 }
                 self.statusBarView.frame = self.statusBarFrame
                 self.statusBarView.backgroundColor = UIColor.clear

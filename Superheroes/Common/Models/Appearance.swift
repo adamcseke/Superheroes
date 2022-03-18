@@ -12,8 +12,8 @@ import Foundation
 struct Appearance: Codable {
     let gender: String
     let race: String
-    let height: [String]
-    let weight: [String]
+    var height: [String]
+    var weight: [String]
     let eyeColor: String
     let hairColor: String
     
@@ -24,5 +24,18 @@ struct Appearance: Codable {
         case weight
         case eyeColor = "eye-color"
         case hairColor = "hair-color"
+    }
+}
+
+extension Appearance {
+    
+    var heightMetric: String {
+        get { return height.last ?? "" }
+        set { height[height.count - 1] = newValue }
+    }
+    
+    var weighttMetric: String {
+        get { return weight.last ?? "" }
+        set { weight[weight.count - 1] = newValue }
     }
 }

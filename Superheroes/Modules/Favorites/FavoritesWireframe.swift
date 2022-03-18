@@ -28,4 +28,8 @@ final class FavoritesWireframe: BaseWireframe {
 // MARK: - Extensions -
 
 extension FavoritesWireframe: FavoritesWireframeInterface {
+    func pushToDetails(hero: Heroes) {
+        let detailWF = DetailWireframe(hero: hero)
+        navigationController?.pushWireframe(detailWF)
+    }
 }

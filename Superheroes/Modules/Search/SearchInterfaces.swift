@@ -12,27 +12,27 @@ import UIKit
 
 protocol SearchWireframeInterface: WireframeInterface {
     func pushToDetails(hero: Heroes)
+    func presentAlert(title: String, description: String, buttonText: String, alertImage: UIImage)
 }
 
 protocol SearchViewInterface: ViewInterface {
     func reloadCollectionView()
-    func setSaveButton(buttonImage: NSAttributedString)
 }
 
 protocol SearchPresenterInterface: PresenterInterface {
     func numberOfSections() -> Int
     func numberOfItem(in section: Int) -> Int
-    func cellForRow(at indexPath: IndexPath) -> Heroes
+    func cellForItem(at indexPath: IndexPath) -> Heroes
     func searchButtonTapped(name: String)
     func searchVCDismissed()
-    func didTapOnCell(hero: Heroes)
     func pushToDetails(hero: Heroes)
-//    func favoritesButtonTapped(indexPath: IndexPath)
+    func favoritesButtonTapped(indexPath: IndexPath)
+    func getFavorites()
 }
 
 protocol SearchInteractorInterface: InteractorInterface {
     func getSuperheroes(name: String, completion: @escaping SuperheroesLoaded )
-//    func isInTheFavorites(name: String) -> Bool
-//    func delete(entity: Heroes, completion: BoolCompletition?)
-//    func insert(entity: Heroes, completion: BoolCompletition?)
+    func isInTheFavorites(entity: Heroes) -> Bool
+    func delete(entity: Heroes, completion: BoolCompletition?)
+    func insert(entity: Heroes, completion: BoolCompletition?)
 }

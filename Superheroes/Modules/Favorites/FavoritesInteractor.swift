@@ -11,11 +11,25 @@
 import Foundation
 
 final class FavoritesInteractor {
-//    let dataProvider: SuperheroesDatabaseManager = DatabaseManager.main
+    let dataProvider: SuperheroesDatabaseManager = DatabaseManager.main
 }
 
 // MARK: - Extensions -
 
 extension FavoritesInteractor: FavoritesInteractorInterface {
-   
+    func delete(entity: Heroes, completion: BoolCompletition?) {
+        dataProvider.delete(entity: entity, completion: completion)
+    }
+    
+    func insert(entity: Heroes, completion: BoolCompletition?) {
+        dataProvider.insert(entity: entity, completion: completion)
+    }
+    
+    func isInTheFavorites(entity: Heroes) -> Bool {
+        if DatabaseManager.main.getHeroes().first(where: { $0.id == entity.id }) != nil {
+            return true
+        } else {
+            return false
+        }
+    }
 }
