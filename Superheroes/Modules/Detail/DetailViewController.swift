@@ -114,12 +114,7 @@ final class DetailViewController: UIViewController {
             let bottom = heroStatsWebView.frame.maxY
             scrollView.contentSize = CGSize(width: view.frame.width, height: bottom)
         } else if stackView.isHidden && !commentsView.isHidden {
-            var bottom = CGFloat()
-            if UIDevice.Devices.iPhoneSE1stGen {
-                bottom = commentsView.frame.maxY + 50
-            } else {
-                bottom = commentsView.frame.maxY + 100
-            }
+            let bottom = commentsView.frame.maxY + 100
             scrollView.contentSize = CGSize(width: view.frame.width, height: bottom)
         } else {
             let bottom = stackView.frame.maxY
@@ -509,20 +504,13 @@ final class DetailViewController: UIViewController {
             make.top.equalTo(buttonsView.snp.bottom).offset(20)
             make.centerX.equalToSuperview()
             make.leading.equalToSuperview().offset(16)
-            if UIDevice.Devices.iPhoneSE1stGen {
-                make.bottom.equalToSuperview().offset(-view.frame.height * 1.55)
-            } else if UIDevice.Devices.iPhone8 {
-                make.bottom.equalToSuperview().offset(-view.frame.height * 1.15)
-            } else {
-                make.bottom.equalToSuperview().offset(-view.frame.height * 0.85)
-            }
         }
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             if self.view.frame.origin.y == 0 {
-                self.view.frame.origin.y -= keyboardSize.height * 0.8
+                self.view.frame.origin.y -= keyboardSize.height * 0.6
             }
         }
     }

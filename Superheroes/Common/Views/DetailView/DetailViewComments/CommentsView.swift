@@ -75,6 +75,7 @@ class CommentsView: UIView {
         commentsTextView.snp.makeConstraints { make in
             make.centerX.top.leading.equalToSuperview()
             make.bottom.equalTo(commentsButton.snp.top).offset(-30)
+            make.height.equalTo(100)
         }
     }
     
@@ -141,7 +142,19 @@ class CommentsView: UIView {
 extension CommentsView: UITextViewDelegate {
     
     func textViewDidChange(_ textView: UITextView) {
-        if textView.text.count >= 1 {
+        
+        let size = CGSize(width: frame.width, height: .infinity)
+        let estimatedSize = textView.sizeThatFits(size)
+        
+        UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseIn, animations: {
+            textView.snp.updateConstraints { make in
+                make.height.equalTo(estimatedSize.height)
+            }
+        }, completion: nil)
+        
+        let cleanInput = textView.text.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        if cleanInput.count >= 1 {
             if self.traitCollection.userInterfaceStyle == .light {
                 commentsButton.backgroundColor = Colors.grayHeroName.color
             } else {
@@ -159,6 +172,7 @@ extension CommentsView: UITextViewDelegate {
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        
         return textView.text.count + (text.count - range.length) <= maxLength
     }
     
@@ -174,6 +188,9 @@ extension CommentsView: UITextViewDelegate {
         if textView.text.isEmpty {
             textView.text = L10n.CommentsView.TextView.placeholder
             textView.textColor = UIColor.lightGray
+            textView.snp.updateConstraints { make in
+                make.height.equalTo(100)
+            }
         }
     }
 }

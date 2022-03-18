@@ -27,8 +27,8 @@ class DatabaseManager: SuperheroesDatabaseManager {
     private let databaseName = "hero"
 
     fileprivate let hero = Table("heroes")
-    fileprivate let heroID = Expression<String?>("id")
-    fileprivate let heroName = Expression<String>("name")
+    fileprivate let heroID = Expression<String>("id")
+    fileprivate let heroName = Expression<String?>("name")
     fileprivate let url = Expression<String?>("url")
     fileprivate let intelligence = Expression<String?>("intelligence")
     fileprivate let strength = Expression<String?>("strength")
@@ -71,9 +71,9 @@ class DatabaseManager: SuperheroesDatabaseManager {
                 self.database = database
 
                 try database.run(hero.create { tColoumn in
-                    tColoumn.column(heroName, primaryKey: true)
+                    tColoumn.column(heroName)
                     tColoumn.column(url)
-                    tColoumn.column(heroID)
+                    tColoumn.column(heroID, primaryKey: true)
                     tColoumn.column(intelligence)
                     tColoumn.column(strength)
                     tColoumn.column(speed)
@@ -195,7 +195,7 @@ class DatabaseManager: SuperheroesDatabaseManager {
                     
                     let image = Image(url: hero[url] ?? "")
                     
-                    let superhero = Heroes(id: hero[heroID] ?? "", name: hero[heroName], powerstats: powerstats, biography: biography, appearance: appearance, work: work, connections: connections, image: image, isFavorite: hero[isFavorite] ?? false, alias: hero[alias] ?? "", height: hero[heightMetric] ?? "", weight: hero[weightMetric] ?? "")
+                    let superhero = Heroes(id: hero[heroID] ?? "", name: hero[heroName] ?? "", powerstats: powerstats, biography: biography, appearance: appearance, work: work, connections: connections, image: image, isFavorite: hero[isFavorite] ?? false, alias: hero[alias] ?? "", height: hero[heightMetric] ?? "", weight: hero[weightMetric] ?? "")
                     
                     heroes.append(superhero)
                     print("Hero name: \(hero[heroName]), image: \(image)")

@@ -120,7 +120,7 @@ extension SearchPresenter: SearchPresenterInterface {
                 self.view.reloadCollectionView()
                 
             case .failure(let error):
-                self.wireframe.presentAlert(title: "Test", description: "test", buttonText: "Ok", alertImage: UIImage(named: Images.noSignal.name)?.withTintColor(Colors.orange.color) ?? UIImage())
+//                self.wireframe.presentAlert(title: "Test", description: "test", buttonText: "Ok", alertImage: UIImage(named: Images.noSignal.name)?.withTintColor(Colors.orange.color) ?? UIImage())
                 print(error.localizedDescription)
             }
         }

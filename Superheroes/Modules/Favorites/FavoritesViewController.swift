@@ -16,7 +16,6 @@ final class FavoritesViewController: UIViewController {
     private let generator = UIImpactFeedbackGenerator(style: .medium)
     private var searchVC: UISearchController!
     private var collectionView: UICollectionView!
-    private var favoriteHeroes: Int = 0
     
     private let statusBarFrame = UIApplication.shared.statusBarFrame
     private var statusBarView: UIView!
@@ -121,7 +120,6 @@ extension FavoritesViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        self.favoriteHeroes = presenter.numberOfItem(in: section)
         return presenter.numberOfItem(in: section)
     }
     
@@ -139,7 +137,7 @@ extension FavoritesViewController: UICollectionViewDataSource {
 extension FavoritesViewController: TBEmptyDataSetDelegate {
     
     func emptyDataSetShouldDisplay(in scrollView: UIScrollView) -> Bool {
-        return self.favoriteHeroes == 0
+        return presenter.numberOfItem(in: 1) == 0
     }
 }
 

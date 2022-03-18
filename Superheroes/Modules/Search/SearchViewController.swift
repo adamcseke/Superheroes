@@ -19,7 +19,6 @@ final class SearchViewController: UIViewController {
     
     private var searchVC: UISearchController!
     private var collectionView: UICollectionView!
-    private var heroes: Int = 0
     private let itemsPerRow: CGFloat = 2
     private var selectedHero: Heroes?
     private var saveButtonImage: NSAttributedString?
@@ -33,7 +32,7 @@ final class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        view.layoutIfNeeded()
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -139,7 +138,6 @@ extension SearchViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        self.heroes = presenter.numberOfItem(in: section)
         return presenter.numberOfItem(in: section)
     }
     
@@ -170,13 +168,14 @@ extension SearchViewController: UISearchBarDelegate {
 extension SearchViewController: TBEmptyDataSetDelegate {
     
     func emptyDataSetShouldDisplay(in scrollView: UIScrollView) -> Bool {
-        return self.heroes == 0
+        return presenter.numberOfItem(in: 1) == 0
     }
 }
 
 extension SearchViewController: TBEmptyDataSetDataSource {
     
     func customViewForEmptyDataSet(in scrollView: UIScrollView) -> UIView? {
+        view.layoutIfNeeded()
         let view = EmptyView(frame: scrollView.frame)
         view.bind(text: L10n.SearchViewController.EmptyStateView.label)
         return view

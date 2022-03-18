@@ -8,10 +8,6 @@
 
 import Foundation
 
-enum GithubError: Error {
-    case wrongURL
-}
-
 final class RestClient {
     static let shared = RestClient()
     
@@ -24,7 +20,7 @@ final class RestClient {
    
     func request<T: Codable>(urlString: String, completion: @escaping (Result<T, Error>) -> Void) {
         guard let url = URL(string: urlString) else {
-            completion(.failure(GithubError.wrongURL))
+            
             return
         }
         let task = URLSession.shared.dataTask(with: url) { data, _, error in
@@ -54,7 +50,6 @@ final class RestClient {
     
     func request<T: Codable>(urlString: String, completion: @escaping (Result<[T], Error>) -> Void) {
         guard let url = URL(string: urlString) else {
-            completion(.failure(GithubError.wrongURL))
             return
         }
         let task = URLSession.shared.dataTask(with: url) { data, _, error in

@@ -46,7 +46,6 @@ extension FavoritesPresenter: FavoritesPresenterInterface {
         wireframe.pushToDetails(hero: hero)
     }
     
-    
     func numberOfSections() -> Int {
         1
     }
