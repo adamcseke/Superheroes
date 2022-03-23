@@ -11,4 +11,8 @@ import Foundation
 // MARK: - Image
 struct Image: Codable {
     let url: String
+    
+    init(url: String?) {
+        self.url = url ?? ""
+    }
 }

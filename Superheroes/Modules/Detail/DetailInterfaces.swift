@@ -19,6 +19,7 @@ protocol DetailViewInterface: ViewInterface {
     func setCharacteristicsButton(selected: Bool)
     func setCommentsButton(selected: Bool)
     func setNavBarImage(image: String)
+    func pushComments(comments: [String])
 }
 
 protocol DetailPresenterInterface: PresenterInterface {
@@ -27,10 +28,15 @@ protocol DetailPresenterInterface: PresenterInterface {
     func commentsButtonTapped()
     func getFavorites()
     func favoritesButtonTapped()
+    func commentPushButtonTapped(comment: String, date: Date)
+    func getComments()
+    func binButtonTapped()
 }
 
 protocol DetailInteractorInterface: InteractorInterface {
     func isInTheFavorites(entity: Heroes) -> Bool
     func delete(entity: Heroes, completion: BoolCompletition?)
     func insert(entity: Heroes, completion: BoolCompletition?)
+    func insertComment(entity: Heroes, comment: String, date: Date, completion: BoolCompletition?)
+    func deleteComment(entity: Heroes, completion: BoolCompletition?)
 }

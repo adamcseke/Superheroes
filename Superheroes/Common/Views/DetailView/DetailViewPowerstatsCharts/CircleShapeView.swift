@@ -14,6 +14,15 @@ class CircleShapeView: UIView {
     private var precentageLabel: UILabel!
     private var titleLabel: UILabel!
     private var trackShape: CAShapeLayer!
+    private var circleRadius: CGFloat = 0.0
+    private var circlePath: UIBezierPath!
+    
+    var radius: CGFloat = 0.0 {
+        didSet {
+            circleRadius = radius
+            setup()
+        }
+    }
     
     // MARK: Properties
     public var currentProgress: Double = 0.0 {
@@ -41,7 +50,7 @@ class CircleShapeView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setup()
+        
     }
     
     required init?(coder: NSCoder) {
@@ -62,13 +71,7 @@ class CircleShapeView: UIView {
     
     private func configureShapeLayer() {
         progressShape = CAShapeLayer()
-        var radius = CGFloat()
-        if UIDevice.Devices.iPhoneSE1stGen {
-            radius = 40
-        } else {
-            radius = 48
-        }
-        let circlePath = UIBezierPath(arcCenter: center, radius: radius, startAngle: -(.pi / 2), endAngle: 3 * .pi / 2, clockwise: true)
+        circlePath = UIBezierPath(arcCenter: center, radius: circleRadius, startAngle: -(.pi / 2), endAngle: 3 * .pi / 2, clockwise: true)
         trackShape = CAShapeLayer()
         trackShape.path = circlePath.cgPath
         trackShape.fillColor = UIColor.clear.cgColor
@@ -119,5 +122,4 @@ class CircleShapeView: UIView {
             make.bottom.equalToSuperview()
         }
     }
-    
 }

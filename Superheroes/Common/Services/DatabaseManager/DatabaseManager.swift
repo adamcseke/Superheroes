@@ -13,6 +13,9 @@ protocol SuperheroesDatabaseManager: AnyObject {
     func insert(entity: Heroes, completion: BoolCompletition?)
     func getHeroes() -> [Heroes]
     func delete(entity: Heroes, completion: BoolCompletition?)
+    func insertComment(entity: Heroes, comment: String, date: Date, completion: BoolCompletition?)
+    func getComments(entity: Heroes) -> [String]
+    func deleteComment(entity: Heroes, completion: BoolCompletition?)
 }
 
 class DatabaseManager: SuperheroesDatabaseManager {
@@ -21,11 +24,11 @@ class DatabaseManager: SuperheroesDatabaseManager {
     init() {
         openIfNeeded()
     }
-
+    
     internal var database: Connection?
-
+    
     private let databaseName = "hero"
-
+    
     fileprivate let hero = Table("heroes")
     fileprivate let heroID = Expression<String>("id")
     fileprivate let heroName = Expression<String?>("name")
@@ -54,8 +57,12 @@ class DatabaseManager: SuperheroesDatabaseManager {
     fileprivate let groupAffiliation = Expression<String?>("groupAffiliation")
     fileprivate let relatives = Expression<String?>("relatives")
     fileprivate let isFavorite = Expression<Bool?>("isFavorite")
-
-
+    
+    fileprivate let userComments = Table("comments")
+    fileprivate let userComment = Expression<String?>("comment")
+    fileprivate let dateOfComment = Expression<Date>("date")
+    
+    
     internal func openIfNeeded() {
         if self.database != nil {
             return
@@ -69,7 +76,7 @@ class DatabaseManager: SuperheroesDatabaseManager {
                 let database = try Connection("\(path)/\(databaseName).sqlite")
                 print("Database opened...")
                 self.database = database
-
+                
                 try database.run(hero.create { tColoumn in
                     tColoumn.column(heroName)
                     tColoumn.column(url)
@@ -99,27 +106,34 @@ class DatabaseManager: SuperheroesDatabaseManager {
                     tColoumn.column(heightMetric)
                     tColoumn.column(weightMetric)
                 })
-
+                
+                try database.run(userComments.create { tColoumn in
+                    tColoumn.column(heroID)
+                    tColoumn.column(dateOfComment)
+                    tColoumn.column(userComment)
+                    tColoumn.primaryKey(heroID, dateOfComment)
+                })
+                
             } catch {
                 print(error.localizedDescription)
             }
         }
     }
-
+    
     private func copyDatabaseIfNeeded(_ database: String) {
         let fileManager = FileManager.default
         let documentsUrl = fileManager.urls(for: .libraryDirectory, in: .userDomainMask)
         if documentsUrl.isEmpty { return }
-
+        
         guard let finalDatabaseURL = documentsUrl.first?.appendingPathComponent("\(database).sqlite") else {
             print("finalDatabaseURL is nil")
             return
         }
-
+        
         if !( (try? finalDatabaseURL.checkResourceIsReachable()) ?? false) {
             print("DB does not exist in documents folder")
             let databaseInMainBundleURL = Bundle.main.resourceURL?.appendingPathComponent("\(database).sqlite")
-
+            
             do {
                 guard let fromPath = databaseInMainBundleURL?.path else {
                     print("fromPath is nil")
@@ -133,7 +147,7 @@ class DatabaseManager: SuperheroesDatabaseManager {
             print("Database file found at path: \(finalDatabaseURL.path)")
         }
     }
-
+    
     func insert(entity: Heroes, completion: BoolCompletition?) {
         self.openIfNeeded()
         let insert = hero.insert(
@@ -165,7 +179,7 @@ class DatabaseManager: SuperheroesDatabaseManager {
             heightMetric <- entity.appearance.heightMetric,
             weightMetric <- entity.appearance.weighttMetric
         )
-
+        
         do {
             _ = try database?.run(insert)
             print("Hero inserted to database... \(entity.name)")
@@ -175,25 +189,25 @@ class DatabaseManager: SuperheroesDatabaseManager {
             completion?(false)
         }
     }
-
+    
     func getHeroes() -> [Heroes] {
         var heroes: [Heroes] = []
         if let db = database {
-
+            
             do {
                 for hero in try db.prepare(hero) {
                     
-                    let powerstats = Powerstats(intelligence: hero[intelligence]  ?? "", strength: hero[strength]  ?? "", speed: hero[speed]  ?? "", durability: hero[durability]  ?? "", power: hero[power]  ?? "", combat: hero[combat]  ?? "")
+                    let powerstats = Powerstats(intelligence: hero[intelligence], strength: hero[strength], speed: hero[speed], durability: hero[durability], power: hero[power], combat: hero[combat])
                     
-                    let biography = Biography(fullName: hero[fullName] ?? "", alterEgos: hero[alterEgos] ?? "", aliases: [""], placeOfBirth: hero[placeOfBirth] ?? "", firstAppearance: hero[firstAppearance]  ?? "", publisher: hero[publisher]  ?? "", alignment: hero[alignment]  ?? "")
+                    let biography = Biography(fullName: hero[fullName], alterEgos: hero[alterEgos], placeOfBirth: hero[placeOfBirth], firstAppearance: hero[firstAppearance], publisher: hero[publisher], alignment: hero[alignment])
                     
-                    let appearance = Appearance(gender: hero[gender] ?? "", race: hero[race] ?? "", height: [""], weight: [""], eyeColor: hero[eyeColor] ?? "", hairColor: hero[hairColor] ?? "")
+                    let appearance = Appearance(gender: hero[gender], race: hero[race], eyeColor: hero[eyeColor], hairColor: hero[hairColor])
                     
-                    let work = Work(occupation: hero[occupation] ?? "", base: hero[base] ?? "")
+                    let work = Work(occupation: hero[occupation], base: hero[base])
                     
-                    let connections = Connections(groupAffiliation: hero[groupAffiliation] ?? "", relatives: hero[relatives] ?? "")
+                    let connections = Connections(groupAffiliation: hero[groupAffiliation], relatives: hero[relatives])
                     
-                    let image = Image(url: hero[url] ?? "")
+                    let image = Image(url: hero[url])
                     
                     let superhero = Heroes(id: hero[heroID] ?? "", name: hero[heroName] ?? "", powerstats: powerstats, biography: biography, appearance: appearance, work: work, connections: connections, image: image, isFavorite: hero[isFavorite] ?? false, alias: hero[alias] ?? "", height: hero[heightMetric] ?? "", weight: hero[weightMetric] ?? "")
                     
@@ -204,10 +218,10 @@ class DatabaseManager: SuperheroesDatabaseManager {
                 print (error)
             }
         }
-
+        
         return heroes
     }
-
+    
     func delete(entity: Heroes, completion: BoolCompletition?) {
         self.openIfNeeded()
         let item = self.hero.filter(heroID == entity.id)
@@ -220,5 +234,62 @@ class DatabaseManager: SuperheroesDatabaseManager {
             completion?(false)
         }
     }
-
+    
+    func insertComment(entity: Heroes, comment: String, date: Date, completion: BoolCompletition?) {
+        self.openIfNeeded()
+        let insert = userComments.insert(
+            heroID <- entity.id,
+            userComment <- comment,
+            dateOfComment <- date
+        )
+        
+        do {
+            _ = try database?.run(insert)
+            print("Comment saved to database...\(comment)")
+            completion?(true)
+        } catch let error {
+            print(error.localizedDescription)
+            print(String(describing: error))
+            completion?(false)
+        }
+    }
+    
+    func getComments(entity: Heroes) -> [String] {
+        var uComments: [String] = []
+        if let db = database {
+            
+            do {
+                for comment in try db.prepare(userComments) {
+                    
+                    var allComments = ""
+                    if comment[heroID] == entity.id {
+                        allComments = comment[userComment] ?? ""
+                    } else {
+                        allComments = ""
+                    }
+                    
+                    uComments.append(allComments)
+                    print("Hero id: \(hero[heroID]), comment: \(userComment), \(allComments)")
+                }
+            } catch {
+                print(error)
+            }
+        }
+        
+        return uComments
+    }
+    
+    func deleteComment(entity: Heroes, completion: BoolCompletition?) {
+        self.openIfNeeded()
+        let item = self.userComments.filter(heroID == entity.id)
+        do {
+            try database?.run(item.delete())
+            print("Hero's comment deleted from database... \(userComment)")
+            completion?(true)
+        } catch let error {
+            print(error)
+            completion?(false)
+        }
+    }
+    
 }

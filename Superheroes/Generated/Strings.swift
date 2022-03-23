@@ -114,6 +114,54 @@ internal enum L10n {
     }
   }
 
+  internal enum FightViewController {
+    internal enum Button {
+      /// Fight
+      internal static let title = L10n.tr("Localizable", "fightViewController.button.title")
+    }
+    internal enum EmptyView {
+      /// You need to have at least two favorite heroes to start a fight.
+      internal static let title = L10n.tr("Localizable", "fightViewController.emptyView.title")
+    }
+    internal enum Loser {
+      /// Loser
+      internal static let title = L10n.tr("Localizable", "fightViewController.loser.title")
+    }
+    internal enum Points {
+      /// Total points
+      internal static let title = L10n.tr("Localizable", "fightViewController.points.title")
+    }
+    internal enum ResetButton {
+      /// Reset
+      internal static let title = L10n.tr("Localizable", "fightViewController.resetButton.title")
+    }
+    internal enum Winner {
+      /// Winner
+      internal static let title = L10n.tr("Localizable", "fightViewController.winner.title")
+    }
+  }
+
+  internal enum SearchPresenter {
+    internal enum AlertViewController {
+      internal enum Button {
+        /// Ok
+        internal static let title = L10n.tr("Localizable", "searchPresenter.alertViewController.button.title")
+      }
+      internal enum HeroNotFound {
+        /// Please check the hero's name.
+        internal static let description = L10n.tr("Localizable", "searchPresenter.alertViewController.heroNotFound.description")
+        /// Hero not found 
+        internal static let title = L10n.tr("Localizable", "searchPresenter.alertViewController.heroNotFound.title")
+      }
+      internal enum NoInternet {
+        /// Please check your internet connection.
+        internal static let description = L10n.tr("Localizable", "searchPresenter.alertViewController.noInternet.description")
+        /// No internet connection
+        internal static let title = L10n.tr("Localizable", "searchPresenter.alertViewController.noInternet.title")
+      }
+    }
+  }
+
   internal enum SearchViewController {
     internal enum EmptyStateView {
       /// The World is in danger and no superhero to save it...

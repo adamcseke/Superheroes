@@ -20,6 +20,7 @@ target 'Superheroes' do
   pod 'TBEmptyDataSet'
   pod 'Charts'
   pod 'SQLite.swift'
+  pod 'lottie-ios'
 
 end
 

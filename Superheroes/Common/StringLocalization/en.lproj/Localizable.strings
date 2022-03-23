@@ -36,3 +36,14 @@
 "commentsView.button.title" = " Push to comment";
 "commentsView.textView.placeholder" = "Write down your thoughts...";
 "favoritesViewController.emptyStateView.label" = "You don't have any favorites.";
+"searchPresenter.alertViewController.noInternet.title" = "No internet connection";
+"searchPresenter.alertViewController.noInternet.description" = "Please check your internet connection.";
+"searchPresenter.alertViewController.button.title" = "Ok";
+"searchPresenter.alertViewController.heroNotFound.title" = "Hero not found ";
+"searchPresenter.alertViewController.heroNotFound.description" = "Please check the hero's name.";
+"fightViewController.button.title" = "Fight";
+"fightViewController.points.title" = "Total points";
+"fightViewController.emptyView.title" = "You need to have at least two favorite heroes to start a fight.";
+"fightViewController.winner.title" = "Winner";
+"fightViewController.loser.title" = "Loser";
+"fightViewController.resetButton.title" = "Reset";

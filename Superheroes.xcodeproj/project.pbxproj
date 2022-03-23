@@ -38,6 +38,7 @@
 		3702619427DF1F9400965843 /* FightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3702618F27DF1F9400965843 /* FightViewController.swift */; };
 		3702619527DF1F9400965843 /* FightInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3702619027DF1F9400965843 /* FightInteractor.swift */; };
 		3702619627DF1F9400965843 /* FightWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3702619127DF1F9400965843 /* FightWireframe.swift */; };
+		3704B4B727E8A7E3006E3AF6 /* empty.json in Resources */ = {isa = PBXBuildFile; fileRef = 3704B4B627E8A7E3006E3AF6 /* empty.json */; };
 		371D73C127D0C60800BF93EB /* RestClient+Superheroes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371D73C027D0C60800BF93EB /* RestClient+Superheroes.swift */; };
 		371D73C327D0C9CD00BF93EB /* Superheroes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371D73C227D0C9CD00BF93EB /* Superheroes.swift */; };
 		371D73C527D0C9F400BF93EB /* Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371D73C427D0C9F400BF93EB /* Appearance.swift */; };
@@ -78,12 +79,17 @@
 		374B9B7327D6326D001BF4A5 /* Devices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374B9B7227D6326D001BF4A5 /* Devices.swift */; };
 		374B9B7627D6367C001BF4A5 /* CharacteristicsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374B9B7527D6367C001BF4A5 /* CharacteristicsView.swift */; };
 		374B9B7827D637C1001BF4A5 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374B9B7727D637C1001BF4A5 /* InfoView.swift */; };
+		3759BC5B27E4BEE300F1D915 /* FighterSelectorButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3759BC5A27E4BEE300F1D915 /* FighterSelectorButton.swift */; };
+		3759BC5E27E4C6D500F1D915 /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3759BC5D27E4C6D500F1D915 /* UIView+Ext.swift */; };
+		375D6D4927E9BB610052389A /* Comments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375D6D4827E9BB610052389A /* Comments.swift */; };
 		377CFF0927D2436200BA3A31 /* StatButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377CFF0827D2436200BA3A31 /* StatButton.swift */; };
 		3798864927D79E9E00B8FBF5 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3798864827D79E9E00B8FBF5 /* GradientView.swift */; };
+		37B5412C27E8C25F00550FEC /* fight.json in Resources */ = {isa = PBXBuildFile; fileRef = 37B5412B27E8C25F00550FEC /* fight.json */; };
 		37B5ED3F27E1CC8B00A28FEB /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B5ED3E27E1CC8B00A28FEB /* DatabaseManager.swift */; };
 		37B5ED4427E1CF0400A28FEB /* BoolCompletition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B5ED4327E1CF0400A28FEB /* BoolCompletition.swift */; };
 		37BDADE027D8D3F200C3AE2F /* NSTextAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BDADDF27D8D3F200C3AE2F /* NSTextAttachment.swift */; };
 		37CAEE1827E4702100E06B61 /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CAEE1727E4702100E06B61 /* AlertViewController.swift */; };
+		37E7F9EB27E85EB700BA303C /* FavoriteFightersCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E7F9EA27E85EB700BA303C /* FavoriteFightersCollectionViewCell.swift */; };
 		37ED519327DB5A4300E96829 /* SpiderWebChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37ED519227DB5A4300E96829 /* SpiderWebChartView.swift */; };
 		37EFE0AA27D1F594008F28EF /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37EFE0A927D1F594008F28EF /* Fonts.swift */; };
 		37EFE0AB27D1F6F0008F28EF /* Gotham-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 37EFE0A227D1F56C008F28EF /* Gotham-Black.otf */; };
@@ -145,6 +151,7 @@
 		3702618F27DF1F9400965843 /* FightViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FightViewController.swift; sourceTree = "<group>"; };
 		3702619027DF1F9400965843 /* FightInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FightInteractor.swift; sourceTree = "<group>"; };
 		3702619127DF1F9400965843 /* FightWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FightWireframe.swift; sourceTree = "<group>"; };
+		3704B4B627E8A7E3006E3AF6 /* empty.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = empty.json; path = ../../../../../../Downloads/empty.json; sourceTree = "<group>"; };
 		371D73C027D0C60800BF93EB /* RestClient+Superheroes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RestClient+Superheroes.swift"; sourceTree = "<group>"; };
 		371D73C227D0C9CD00BF93EB /* Superheroes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Superheroes.swift; sourceTree = "<group>"; };
 		371D73C427D0C9F400BF93EB /* Appearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appearance.swift; sourceTree = "<group>"; };
@@ -185,12 +192,17 @@
 		374B9B7227D6326D001BF4A5 /* Devices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Devices.swift; sourceTree = "<group>"; };
 		374B9B7527D6367C001BF4A5 /* CharacteristicsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacteristicsView.swift; sourceTree = "<group>"; };
 		374B9B7727D637C1001BF4A5 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
+		3759BC5A27E4BEE300F1D915 /* FighterSelectorButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FighterSelectorButton.swift; sourceTree = "<group>"; };
+		3759BC5D27E4C6D500F1D915 /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
+		375D6D4827E9BB610052389A /* Comments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comments.swift; sourceTree = "<group>"; };
 		377CFF0827D2436200BA3A31 /* StatButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatButton.swift; sourceTree = "<group>"; };
 		3798864827D79E9E00B8FBF5 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		37B5412B27E8C25F00550FEC /* fight.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = fight.json; path = ../../../../../../Downloads/fight.json; sourceTree = "<group>"; };
 		37B5ED3E27E1CC8B00A28FEB /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		37B5ED4327E1CF0400A28FEB /* BoolCompletition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoolCompletition.swift; sourceTree = "<group>"; };
 		37BDADDF27D8D3F200C3AE2F /* NSTextAttachment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSTextAttachment.swift; sourceTree = "<group>"; };
 		37CAEE1727E4702100E06B61 /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
+		37E7F9EA27E85EB700BA303C /* FavoriteFightersCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteFightersCollectionViewCell.swift; sourceTree = "<group>"; };
 		37ED519227DB5A4300E96829 /* SpiderWebChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiderWebChartView.swift; sourceTree = "<group>"; };
 		37EFE09927D1F56C008F28EF /* Gotham-BoldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-BoldItalic.otf"; sourceTree = "<group>"; };
 		37EFE09A27D1F56C008F28EF /* Gotham-Ultra.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-Ultra.otf"; sourceTree = "<group>"; };
@@ -405,6 +417,7 @@
 		1BDD469E23AFFCAE0020AC54 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				3759BC5C27E4C6C800F1D915 /* View */,
 				37268E8527CF721E0000F942 /* String */,
 				1BB2479323E6EE6E00EBFD39 /* Foundation */,
 				37BDADDF27D8D3F200C3AE2F /* NSTextAttachment.swift */,
@@ -431,6 +444,8 @@
 		1BDD46A023AFFCBA0020AC54 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				3704B4B527E8A7D0006E3AF6 /* Animations */,
+				3759BC5927E4BE8D00F1D915 /* FighterView */,
 				37F77A8A27DE07C600A6D58F /* DetailView */,
 				377CFF0727D2433B00BA3A31 /* Button */,
 				37268EC427CF98B50000F942 /* Cell */,
@@ -439,6 +454,15 @@
 				37CAEE1727E4702100E06B61 /* AlertViewController.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		3704B4B527E8A7D0006E3AF6 /* Animations */ = {
+			isa = PBXGroup;
+			children = (
+				37B5412B27E8C25F00550FEC /* fight.json */,
+				3704B4B627E8A7E3006E3AF6 /* empty.json */,
+			);
+			path = Animations;
 			sourceTree = "<group>";
 		};
 		371D73DE27D102B500BF93EB /* Detail */ = {
@@ -530,6 +554,7 @@
 			isa = PBXGroup;
 			children = (
 				37268EC527CF99970000F942 /* SearchedCollectionViewCell.swift */,
+				37E7F9EA27E85EB700BA303C /* FavoriteFightersCollectionViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -566,6 +591,22 @@
 			path = DetailViewCharacteristics;
 			sourceTree = "<group>";
 		};
+		3759BC5927E4BE8D00F1D915 /* FighterView */ = {
+			isa = PBXGroup;
+			children = (
+				3759BC5A27E4BEE300F1D915 /* FighterSelectorButton.swift */,
+			);
+			path = FighterView;
+			sourceTree = "<group>";
+		};
+		3759BC5C27E4C6C800F1D915 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3759BC5D27E4C6D500F1D915 /* UIView+Ext.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		377CFF0727D2433B00BA3A31 /* Button */ = {
 			isa = PBXGroup;
 			children = (
@@ -596,6 +637,7 @@
 			isa = PBXGroup;
 			children = (
 				37F77A8C27DE07F400A6D58F /* CommentsView.swift */,
+				375D6D4827E9BB610052389A /* Comments.swift */,
 			);
 			path = DetailViewComments;
 			sourceTree = "<group>";
@@ -698,11 +740,13 @@
 				37EFE0B327D1F6F0008F28EF /* Gotham-Medium.otf in Resources */,
 				37EFE0B427D1F6F0008F28EF /* Gotham-MediumItalic.otf in Resources */,
 				37EFE0B527D1F6F0008F28EF /* Gotham-Thin.otf in Resources */,
+				3704B4B727E8A7E3006E3AF6 /* empty.json in Resources */,
 				37EFE0B627D1F6F0008F28EF /* Gotham-ThinItalic.otf in Resources */,
 				37EFE0B727D1F6F0008F28EF /* Gotham-Ultra.otf in Resources */,
 				37EFE0B827D1F6F0008F28EF /* Gotham-UltraItalic.otf in Resources */,
 				37EFE0B927D1F6F0008F28EF /* Gotham-XLight.otf in Resources */,
 				37EFE0BA27D1F6F0008F28EF /* Gotham-XLightItalic.otf in Resources */,
+				37B5412C27E8C25F00550FEC /* fight.json in Resources */,
 				37268E6B27CF679B0000F942 /* Colors.xcassets in Resources */,
 				37268E9027CF74A00000F942 /* Localizable.strings in Resources */,
 				37268E6E27CF6AC60000F942 /* swiftgen.yml in Resources */,
@@ -819,6 +863,7 @@
 				374B9B7827D637C1001BF4A5 /* InfoView.swift in Sources */,
 				1B0BFB3A23362A000054E28A /* UIStoryboardExtension.swift in Sources */,
 				37ED519327DB5A4300E96829 /* SpiderWebChartView.swift in Sources */,
+				37E7F9EB27E85EB700BA303C /* FavoriteFightersCollectionViewCell.swift in Sources */,
 				37268EC627CF99970000F942 /* SearchedCollectionViewCell.swift in Sources */,
 				371D73DC27D102AF00BF93EB /* DetailInteractor.swift in Sources */,
 				3702619627DF1F9400965843 /* FightWireframe.swift in Sources */,
@@ -840,6 +885,7 @@
 				371D73CB27D0CA6A00BF93EB /* Image.swift in Sources */,
 				1B0BFB5B2336303F0054E28A /* TabbarInteractor.swift in Sources */,
 				371D73CD27D0CA7F00BF93EB /* Powerstats.swift in Sources */,
+				3759BC5E27E4C6D500F1D915 /* UIView+Ext.swift in Sources */,
 				37268E9C27CF75CB0000F942 /* FavoritesViewController.swift in Sources */,
 				1B0BFB4123362B240054E28A /* BaseNavigationController.swift in Sources */,
 				37268E7D27CF6DCF0000F942 /* SearchPresenter.swift in Sources */,
@@ -847,6 +893,7 @@
 				374B9B7627D6367C001BF4A5 /* CharacteristicsView.swift in Sources */,
 				37268E9E27CF75CB0000F942 /* FavoritesWireframe.swift in Sources */,
 				37B5ED3F27E1CC8B00A28FEB /* DatabaseManager.swift in Sources */,
+				3759BC5B27E4BEE300F1D915 /* FighterSelectorButton.swift in Sources */,
 				37F77A8D27DE07F400A6D58F /* CommentsView.swift in Sources */,
 				1B0BFB3B23362A000054E28A /* BaseWireframe.swift in Sources */,
 				371D73D927D102AF00BF93EB /* DetailInterfaces.swift in Sources */,
@@ -858,6 +905,7 @@
 				37268E7C27CF6DCF0000F942 /* SearchInterfaces.swift in Sources */,
 				37268E9A27CF75CB0000F942 /* FavoritesInterfaces.swift in Sources */,
 				37BDADE027D8D3F200C3AE2F /* NSTextAttachment.swift in Sources */,
+				375D6D4927E9BB610052389A /* Comments.swift in Sources */,
 				37268E9D27CF75CB0000F942 /* FavoritesInteractor.swift in Sources */,
 				372301F127D9EF04008C5853 /* CircleShapeView.swift in Sources */,
 				371D73DD27D102AF00BF93EB /* DetailWireframe.swift in Sources */,

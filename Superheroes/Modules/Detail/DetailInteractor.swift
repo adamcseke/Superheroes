@@ -17,6 +17,14 @@ final class DetailInteractor {
 // MARK: - Extensions -
 
 extension DetailInteractor: DetailInteractorInterface {
+    func deleteComment(entity: Heroes, completion: BoolCompletition?) {
+        dataProvider.deleteComment(entity: entity, completion: completion)
+    }
+    
+    func insertComment(entity: Heroes, comment: String, date: Date, completion: BoolCompletition?) {
+        dataProvider.insertComment(entity: entity, comment: comment, date: date, completion: completion)
+    }
+    
     func delete(entity: Heroes, completion: BoolCompletition?) {
         dataProvider.delete(entity: entity, completion: completion)
     }

@@ -19,7 +19,6 @@ final class FavoritesPresenter {
     private let wireframe: FavoritesWireframeInterface
     
     private var favorites: [Heroes] = []
-    
     private var isFavorite: Bool = false
     // MARK: - Lifecycle -
     

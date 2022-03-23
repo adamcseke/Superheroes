@@ -25,6 +25,16 @@ struct Appearance: Codable {
         case eyeColor = "eye-color"
         case hairColor = "hair-color"
     }
+    
+    init(gender: String?, race: String?, eyeColor: String?, hairColor: String?, height: [String]? = nil, weight: [String]? = nil) {
+        self.gender = gender ?? ""
+        self.race = race ?? ""
+        self.height = height ?? [""]
+        self.weight = weight ?? [""]
+        self.eyeColor = eyeColor ?? ""
+        self.hairColor = hairColor ?? ""
+        
+    }
 }
 
 extension Appearance {

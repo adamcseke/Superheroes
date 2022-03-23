@@ -27,6 +27,16 @@ struct Biography: Codable {
         case publisher
         case alignment
     }
+    
+    init(fullName: String?, alterEgos: String?, placeOfBirth: String?, firstAppearance: String?, publisher: String?, alignment: String?, aliases: [String]? = nil) {
+        self.fullName = fullName ?? ""
+        self.alterEgos = alterEgos ?? ""
+        self.placeOfBirth = placeOfBirth ?? ""
+        self.firstAppearance = firstAppearance ?? ""
+        self.publisher = publisher ?? ""
+        self.alignment = alignment ?? ""
+        self.aliases = aliases ?? [""]
+    }
 }
 
 extension Biography {

@@ -80,7 +80,7 @@ class AlertViewController: UIViewController {
     private func configureContainerView() {
         containerView = UIStackView()
         containerView.layer.cornerRadius = 16
-        containerView.backgroundColor = Colors.gray.color
+        containerView.backgroundColor = .secondarySystemBackground
         view.addSubview(containerView)
         
         containerView.snp.makeConstraints { make in

@@ -8,7 +8,14 @@
 
 import UIKit
 
+protocol CommentViewDelegate: AnyObject {
+    func buttonTapped()
+    func textviewDidChange(text: String)
+}
+
 class CommentsView: UIView {
+    
+    weak var delegate: CommentViewDelegate?
     
     private var commentsTextView: UITextView!
     private var commentsButton: UIButton!
@@ -75,7 +82,7 @@ class CommentsView: UIView {
         commentsTextView.snp.makeConstraints { make in
             make.centerX.top.leading.equalToSuperview()
             make.bottom.equalTo(commentsButton.snp.top).offset(-30)
-            make.height.equalTo(100)
+            make.height.greaterThanOrEqualTo(100)
         }
     }
     
@@ -122,7 +129,32 @@ class CommentsView: UIView {
     }
     
     @objc func didTapButton() {
+        if let delegate = delegate {
+            delegate.buttonTapped()
+        }
         print("tapped button")
+        commentsTextView.text = ""
+        let cleanInput = commentsTextView.text.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        if cleanInput.count >= 1 {
+            if self.traitCollection.userInterfaceStyle == .light {
+                commentsButton.backgroundColor = Colors.grayHeroName.color
+            } else {
+                commentsButton.backgroundColor = Colors.orange.color
+            }
+        } else {
+            commentsButton.isEnabled = false
+            if self.traitCollection.userInterfaceStyle == .light {
+                commentsButton.backgroundColor = Colors.grayHeroName.color.withAlphaComponent(0.5)
+            } else {
+                commentsButton.backgroundColor = Colors.orange.color.withAlphaComponent(0.5)
+            }
+        }
+        commentsTextView.text = L10n.CommentsView.TextView.placeholder
+        commentsTextView.textColor = UIColor.lightGray
+        commentsTextView.snp.updateConstraints { make in
+            make.height.greaterThanOrEqualTo(100)
+        }
     }
     
     private func configureCountLabel() {
@@ -137,20 +169,36 @@ class CommentsView: UIView {
             make.trailing.equalTo(commentsTextView.snp.trailing)
         }
     }
+    
+    func bind(delegate: CommentViewDelegate?) {
+        self.delegate = delegate
+    }
 }
 
 extension CommentsView: UITextViewDelegate {
     
     func textViewDidChange(_ textView: UITextView) {
         
+        delegate?.textviewDidChange(text: textView.text ?? "")
+        
         let size = CGSize(width: frame.width, height: .infinity)
         let estimatedSize = textView.sizeThatFits(size)
         
-        UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseIn, animations: {
-            textView.snp.updateConstraints { make in
-                make.height.equalTo(estimatedSize.height)
-            }
-        }, completion: nil)
+        func returnStringWidth(font: UIFont, text: String) -> CGSize {
+            let fontAttributes = [NSAttributedString.Key.font: font]
+            let size = (text as NSString).size(withAttributes: fontAttributes)
+
+            return size
+        }
+        
+        if size.height == 100 {
+            UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseIn, animations: {
+                textView.snp.updateConstraints { make in
+                    make.height.greaterThanOrEqualTo(estimatedSize.height)
+                }
+            }, completion: nil)
+            
+        }
         
         let cleanInput = textView.text.trimmingCharacters(in: .whitespacesAndNewlines)
         
@@ -189,7 +237,7 @@ extension CommentsView: UITextViewDelegate {
             textView.text = L10n.CommentsView.TextView.placeholder
             textView.textColor = UIColor.lightGray
             textView.snp.updateConstraints { make in
-                make.height.equalTo(100)
+                make.height.greaterThanOrEqualTo(100)
             }
         }
     }

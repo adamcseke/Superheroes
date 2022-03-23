@@ -12,4 +12,9 @@ import Foundation
 struct Work: Codable {
     let occupation: String
     let base: String
+    
+    init(occupation: String?, base: String?) {
+        self.occupation = occupation ?? ""
+        self.base = base ?? ""
+    }
 }

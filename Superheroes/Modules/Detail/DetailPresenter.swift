@@ -23,6 +23,7 @@ final class DetailPresenter {
     private var isFavorite: Bool = false
     private var favorites: [Heroes] = []
     private var navBarImage: String = ""
+    private var comments: [String] = []
     
     // MARK: - Lifecycle -
     
@@ -43,13 +44,29 @@ final class DetailPresenter {
     }
     
     func viewWillAppear(animated: Bool) {
-        self.getFavorites()
+        view.pushComments(comments: comments)
     }
 }
 
 // MARK: - Extensions -
 
 extension DetailPresenter: DetailPresenterInterface {
+    func binButtonTapped() {
+        interactor.deleteComment(entity: self.hero) { _ in
+            self.view.pushComments(comments: self.comments)
+            print("Delete done...")
+        }
+    }
+    
+    func getComments() {
+        comments = DatabaseManager.main.getComments(entity: self.hero)
+    }
+    
+    func commentPushButtonTapped(comment: String, date: Date ) {
+        interactor.insertComment(entity: self.hero, comment: comment, date: date) { _ in
+            print("Done...")
+        }
+    }
     
     func favoritesButtonTapped() {
         hero.isFavorite.toggle()

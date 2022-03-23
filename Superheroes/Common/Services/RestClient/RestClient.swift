@@ -8,6 +8,11 @@
 
 import Foundation
 
+enum SuperheroesError: Error {
+    case noInternetConnection
+    case wrongURL
+}
+
 final class RestClient {
     static let shared = RestClient()
     
@@ -26,7 +31,7 @@ final class RestClient {
         let task = URLSession.shared.dataTask(with: url) { data, _, error in
             if let error = error {
                 DispatchQueue.main.async {
-                    completion(.failure(error))
+                    completion(.failure(SuperheroesError.noInternetConnection))
                     print(error.localizedDescription)
                 }
             } else if let data = data {
@@ -39,36 +44,7 @@ final class RestClient {
                     }
                 } catch let exepction {
                     DispatchQueue.main.async {
-                        completion(.failure(exepction))
-                        print(String(describing: exepction))
-                    }
-                }
-            }
-        }
-        task.resume()
-    }
-    
-    func request<T: Codable>(urlString: String, completion: @escaping (Result<[T], Error>) -> Void) {
-        guard let url = URL(string: urlString) else {
-            return
-        }
-        let task = URLSession.shared.dataTask(with: url) { data, _, error in
-            if let error = error {
-                DispatchQueue.main.async {
-                    completion(.failure(error))
-                    print(error.localizedDescription)
-                }
-            } else if let data = data {
-                do {
-                    let decoder = JSONDecoder()
-                    decoder.dateDecodingStrategy = .iso8601
-                    let result = try decoder.decode([T].self, from: data)
-                    DispatchQueue.main.async {
-                        completion(.success(result))
-                    }
-                } catch let exepction {
-                    DispatchQueue.main.async {
-                        completion(.failure(exepction))
+                        completion(.failure(SuperheroesError.wrongURL))
                         print(String(describing: exepction))
                     }
                 }

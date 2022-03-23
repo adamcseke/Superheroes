@@ -17,4 +17,9 @@ struct Connections: Codable {
         case groupAffiliation = "group-affiliation"
         case relatives
     }
+    
+    init(groupAffiliation: String?, relatives: String?) {
+        self.groupAffiliation = groupAffiliation ?? ""
+        self.relatives = relatives ?? ""
+    }
 }

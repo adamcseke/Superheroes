@@ -86,9 +86,20 @@ class CirclesStackView: UIStackView {
     }
     
     private func configureCirclesView() {
+        var radius = CGFloat()
+        if UIDevice.Devices.iPhoneSE1stGen {
+            radius = 40
+        } else {
+            radius = 48
+        }
+        
         circleOne = CircleShapeView()
         circleTwo = CircleShapeView()
         circleThree = CircleShapeView()
+        
+        circleOne.radius = radius
+        circleTwo.radius = radius
+        circleThree.radius = radius
         
         addArrangedSubview(circleOne)
         addArrangedSubview(circleTwo)

@@ -37,6 +37,9 @@ final class DetailViewController: UIViewController {
     private var heroStatsWebView: SpiderWebChartView!
     private var commentsView: CommentsView!
     private var navBarButton = UIButton(type: UIButton.ButtonType.custom)
+    private var input: String?
+    private var commentsStackView: UIStackView!
+    private var deleteCommentsButton: UIButton!
     
     private var selectedHero: Heroes?
     
@@ -65,6 +68,8 @@ final class DetailViewController: UIViewController {
         navigationController?.navigationBar.shadowImage = UIImage()
         tabBarController?.tabBar.isHidden = true
         presenter.getFavorites()
+        presenter.getComments()
+        presenter.viewWillAppear(animated: true)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -114,7 +119,7 @@ final class DetailViewController: UIViewController {
             let bottom = heroStatsWebView.frame.maxY
             scrollView.contentSize = CGSize(width: view.frame.width, height: bottom)
         } else if stackView.isHidden && !commentsView.isHidden {
-            let bottom = commentsView.frame.maxY + 100
+            let bottom = commentsStackView.frame.maxY + 60
             scrollView.contentSize = CGSize(width: view.frame.width, height: bottom)
         } else {
             let bottom = stackView.frame.maxY
@@ -139,6 +144,8 @@ final class DetailViewController: UIViewController {
         configureCirclesRow()
         configureHeroStatsWebView()
         configureCommentsView()
+        configureCommentsStackView()
+        configureDeleteCommentsButton()
     }
     
     private func keyboardWillShowHide() {
@@ -498,6 +505,7 @@ final class DetailViewController: UIViewController {
     
     private func configureCommentsView() {
         commentsView = CommentsView()
+        commentsView.bind(delegate: self)
         commentsView.isHidden = true
         scrollView.addSubview(commentsView)
         commentsView.snp.makeConstraints { make in
@@ -505,6 +513,53 @@ final class DetailViewController: UIViewController {
             make.centerX.equalToSuperview()
             make.leading.equalToSuperview().offset(16)
         }
+    }
+    
+    private func configureCommentsStackView() {
+        commentsStackView = UIStackView()
+        commentsStackView.axis = .vertical
+        commentsStackView.spacing = 8
+        commentsStackView.alignment = .leading
+        commentsStackView.distribution = .equalSpacing
+        commentsStackView.isHidden = true
+        
+        scrollView.addSubview(commentsStackView)
+        
+        commentsStackView.snp.makeConstraints { make in
+            make.top.equalTo(commentsView.snp.bottom).offset(20)
+            make.centerX.equalToSuperview()
+            make.leading.equalToSuperview().offset(16)
+        }
+    }
+    
+    func addComments(items: [String]) {
+        for item in items {
+            let commentsView = Comments()
+            commentsView.text = item
+            commentsStackView.addArrangedSubview(commentsView)
+        }
+    }
+    
+    private func configureDeleteCommentsButton() {
+        deleteCommentsButton = UIButton()
+        deleteCommentsButton.setImage(UIImage(named: Images.bin.name)?.withTintColor(Colors.orange.color), for: .normal)
+        deleteCommentsButton.isHidden = true
+        deleteCommentsButton.addTarget(self, action: #selector(binButtonTapped), for: .touchUpInside)
+        
+        scrollView.addSubview(deleteCommentsButton)
+        
+        deleteCommentsButton.snp.makeConstraints { make in
+            make.top.equalTo(commentsStackView.snp.bottom).offset(20)
+            make.trailing.equalTo(commentsButton.snp.trailing)
+            make.height.width.equalTo(30)
+        }
+    }
+    
+    @objc private func binButtonTapped() {
+        deleteCommentsButton.isHidden = true
+        commentsStackView.isHidden = true
+        presenter.binButtonTapped()
+        presenter.getComments()
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
@@ -526,6 +581,9 @@ final class DetailViewController: UIViewController {
 // MARK: - Extensions -
 
 extension DetailViewController: DetailViewInterface {
+    func pushComments(comments: [String]) {
+        self.addComments(items: comments)
+    }
     
     func setNavBarImage(image: String) {
         navBarButton.setImage(UIImage(systemName: image), for: .normal)
@@ -539,6 +597,8 @@ extension DetailViewController: DetailViewInterface {
         circlesStackView.isHidden = false
         heroStatsWebView.isHidden = false
         commentsView.isHidden = true
+        commentsStackView.isHidden = true
+        deleteCommentsButton.isHidden = true
     }
     
     func setCharacteristicsButton(selected: Bool) {
@@ -549,6 +609,8 @@ extension DetailViewController: DetailViewInterface {
         circlesStackView.isHidden = true
         heroStatsWebView.isHidden = true
         commentsView.isHidden = true
+        commentsStackView.isHidden = true
+        deleteCommentsButton.isHidden = true
     }
     func setCommentsButton(selected: Bool) {
         stackView.isHidden = true
@@ -558,6 +620,8 @@ extension DetailViewController: DetailViewInterface {
         circlesStackView.isHidden = true
         heroStatsWebView.isHidden = true
         commentsView.isHidden = false
+        commentsStackView.isHidden = false
+        deleteCommentsButton.isHidden = false
     }
     
     func pushHeroName(hero: Heroes) {
@@ -605,5 +669,17 @@ extension DetailViewController {
     
     @objc func dismissKeyboard() {
         view.endEditing(true)
+    }
+}
+
+extension DetailViewController: CommentViewDelegate {
+    func textviewDidChange(text: String) {
+        let cleanInput = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        self.input = cleanInput
+    }
+    
+    func buttonTapped() {
+        let currentDateTime = Date()
+        presenter.commentPushButtonTapped(comment: self.input ?? "", date: currentDateTime)
     }
 }
