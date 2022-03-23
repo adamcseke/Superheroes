@@ -11,9 +11,17 @@
 import Foundation
 
 final class FightInteractor {
+    let dataProvider: SuperheroesDatabaseManager = DatabaseManager.main
 }
 
 // MARK: - Extensions -
 
 extension FightInteractor: FightInteractorInterface {
+    func isInTheFavorites(entity: Heroes) -> Bool {
+            if DatabaseManager.main.getHeroes().first(where: { $0.id == entity.id }) != nil {
+                return true
+            } else {
+                return false
+            }
+        }
 }

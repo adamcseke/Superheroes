@@ -11,13 +11,30 @@
 import UIKit
 
 protocol FightWireframeInterface: WireframeInterface {
+    func presentAlert(title: String, description: String, buttonText: String, alertImage: UIImage)
 }
 
 protocol FightViewInterface: ViewInterface {
+    func reloadCollectionView()
+    func pushFavoriteHeroes(heroes: [Heroes])
+    func setSelectedFighter(hero: Heroes)
+    func setHeroTwoLife(life: Double)
+    func setHeroOneLife(life: Double)
+    func timerStopped()
+    func pushHeroOneLife()
+    func pushHeroTwoLife()
 }
 
 protocol FightPresenterInterface: PresenterInterface {
+    func numberOfSections() -> Int
+    func numberOfItem(in section: Int) -> Int
+    func cellForItem(at indexPath: IndexPath) -> Heroes
+    func getFavorites()
+    func setTwoHeroesToFight()
+    func setSelectedHero(hero: Heroes)
+    func fightButtonTapped(heroOne: Heroes, heroTwo: Heroes)
 }
 
 protocol FightInteractorInterface: InteractorInterface {
+    func isInTheFavorites(entity: Heroes) -> Bool
 }
