@@ -55,8 +55,6 @@ final class FightViewController: UIViewController {
         navigationController?.navigationBar.isHidden = true
         presenter.getFavorites()
         presenter.stopTimers()
-        self.pushFavoriteHeroes(heroes: favoriteHeroes)
-        presenter.setTwoHeroesToFight()
         presenter.viewWillAppear(animated: true)
         fighterOne.isSelected = false
         fighterTwo.isSelected = false
@@ -97,6 +95,9 @@ final class FightViewController: UIViewController {
         configureFightersLifeCount()
         configureWinnerLoser()
         configureResetButton()
+        presenter.getFavorites()
+        self.pushFavoriteHeroes(heroes: favoriteHeroes)
+        presenter.setTwoHeroesToFight()
     }
     
     private func configureNotificationCenter() {
@@ -461,7 +462,6 @@ final class FightViewController: UIViewController {
     }
     
     @objc private func resetButtonTapped() {
-        self.pushFavoriteHeroes(heroes: favoriteHeroes)
         resetButton.isHidden = true
         fightButton.isHidden = false
         fightButton.isEnabled = true
@@ -472,6 +472,23 @@ final class FightViewController: UIViewController {
         fighterTwoLifeView.isHidden = true
         fighterOneLifeCounter.isHidden = true
         fighterTwoLifeCounter.isHidden = true
+        
+        fighterOne.bind(name: fighterOneChosen?.name ?? "", imageURL: fighterOneChosen?.image.url ?? "")
+        fighterTwo.bind(name: fighterTwoChosen?.name ?? "", imageURL: fighterTwoChosen?.image.url ?? "")
+        
+        let fighterOneStat = fighterOneChosen?.powerstats.totalStat
+        let fighterTwoStat = fighterTwoChosen?.powerstats.totalStat
+        
+        circleOne.currentProgress = fighterOneStat ?? 0.0
+        circleTwo.currentProgress = fighterTwoStat ?? 0.0
+        
+        emptyAnimationView.isHidden = true
+        emptyViewTitle.isHidden = true
+        favoritesCollectionView.isHidden = false
+        fighterOne.isHidden = false
+        fighterTwo.isHidden = false
+        pointsStackView.isHidden = false
+        fightButton.isHidden = false
     }
     
     private func setupDrawAnimation() {
