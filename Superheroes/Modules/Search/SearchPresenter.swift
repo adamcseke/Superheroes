@@ -124,6 +124,7 @@ extension SearchPresenter: SearchPresenterInterface {
                     switch error {
                     case .wrongURL:
                         self.wireframe.presentAlert(title: L10n.SearchPresenter.AlertViewController.HeroNotFound.title, description: L10n.SearchPresenter.AlertViewController.HeroNotFound.description, buttonText: L10n.SearchPresenter.AlertViewController.Button.title, alertImage: UIImage(named: Images.notFound.name)?.withTintColor(Colors.orange.color) ?? UIImage())
+                        self.view.setSearchbarTextClear()
                     case .noInternetConnection:
                         self.wireframe.presentAlert(title: L10n.SearchPresenter.AlertViewController.NoInternet.title, description: L10n.SearchPresenter.AlertViewController.NoInternet.description, buttonText: L10n.SearchPresenter.AlertViewController.Button.title, alertImage: UIImage(named: Images.noSignal.name)?.withTintColor(Colors.orange.color) ?? UIImage())
                     }

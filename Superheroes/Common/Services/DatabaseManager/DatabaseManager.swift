@@ -212,7 +212,6 @@ class DatabaseManager: SuperheroesDatabaseManager {
                     let superhero = Heroes(id: hero[heroID] ?? "", name: hero[heroName] ?? "", powerstats: powerstats, biography: biography, appearance: appearance, work: work, connections: connections, image: image, isFavorite: hero[isFavorite] ?? false, alias: hero[alias] ?? "", height: hero[heightMetric] ?? "", weight: hero[weightMetric] ?? "")
                     
                     heroes.append(superhero)
-                    print("Hero name: \(hero[heroName]), image: \(image)")
                 }
             } catch {
                 print (error)
@@ -261,15 +260,13 @@ class DatabaseManager: SuperheroesDatabaseManager {
             do {
                 for comment in try db.prepare(userComments) {
                     
-                    var allComments = ""
-                    if comment[heroID] == entity.id {
-                        allComments = comment[userComment] ?? ""
-                    } else {
-                        allComments = ""
-                    }
+                    let allComments = comment[userComment] ?? ""
                     
-                    uComments.append(allComments)
-                    print("Hero id: \(hero[heroID]), comment: \(userComment), \(allComments)")
+                    if comment[heroID] == entity.id {
+                        uComments.append(allComments)
+                    } else {
+                        uComments.removeAll()
+                    }
                 }
             } catch {
                 print(error)

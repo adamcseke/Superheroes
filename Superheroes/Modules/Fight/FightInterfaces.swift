@@ -33,6 +33,7 @@ protocol FightPresenterInterface: PresenterInterface {
     func setTwoHeroesToFight()
     func setSelectedHero(hero: Heroes)
     func fightButtonTapped(heroOne: Heroes, heroTwo: Heroes)
+    func stopTimers()
 }
 
 protocol FightInteractorInterface: InteractorInterface {

@@ -32,6 +32,7 @@ final class FightViewController: UIViewController {
     private var winnerLabel: UILabel!
     private var loserLabel: UILabel!
     private var resetButton: UIButton!
+    private var drawAnimation = AnimationView(name: "boom")
     
     private var fighterOneChosen: Heroes?
     private var fighterTwoChosen: Heroes?
@@ -53,20 +54,31 @@ final class FightViewController: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
         presenter.getFavorites()
+        presenter.stopTimers()
+        self.pushFavoriteHeroes(heroes: favoriteHeroes)
         presenter.setTwoHeroesToFight()
         presenter.viewWillAppear(animated: true)
         fighterOne.isSelected = false
         fighterTwo.isSelected = false
         configureNotificationCenter()
         emptyAnimationView.play()
-        fightAnimationView.play()
         fightButton.isEnabled = true
         fightButton.backgroundColor = Colors.orange.color
+        fightAnimationView.play()
         fightAnimationView.isHidden = true
         fighterOneLifeView.isHidden = true
         fighterTwoLifeView.isHidden = true
         fighterOneLifeCounter.isHidden = true
         fighterTwoLifeCounter.isHidden = true
+        winnerLabel.isHidden = true
+        loserLabel.isHidden = true
+        resetButton.isHidden = true
+        drawAnimation.isHidden = true
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        presenter.stopTimers()
     }
     
     private func setup() {
@@ -177,7 +189,6 @@ final class FightViewController: UIViewController {
         pointsStackView.addArrangedSubview(circleOne)
         
         circleOne.snp.makeConstraints { make in
-            make.height.equalTo(30)
             make.width.equalTo(80)
         }
     }
@@ -196,7 +207,6 @@ final class FightViewController: UIViewController {
         circleTwo.color = UIColor.red.cgColor
         
         circleTwo.snp.makeConstraints { make in
-            make.height.equalTo(30)
             make.width.equalTo(80)
         }
     }
@@ -242,32 +252,50 @@ final class FightViewController: UIViewController {
         
         fightButton.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(16)
-            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-20)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-15)
             make.centerX.equalToSuperview()
             make.height.equalTo(50)
         }
     }
     
     @objc private func fightButtonTapped() {
-        fightButton.isEnabled = false
-        fightButton.backgroundColor = Colors.orange.color.withAlphaComponent(0.5)
-        favoritesCollectionView.isHidden = true
-        fightAnimationView.isHidden = false
-        fighterOneLifeView.isHidden = false
-        fighterTwoLifeView.isHidden = false
-        fighterOneLifeCounter.isHidden = false
-        fighterTwoLifeCounter.isHidden = false
-        fightAnimationView.isHidden = false
-        guard let fighterOneChosen = fighterOneChosen else {
-            return
-        }
         
-        guard let fighterTwoChosen = fighterTwoChosen else {
-            return
+        if fighterOneChosen?.id == fighterTwoChosen?.id {
+            setupDrawAnimation()
+            drawAnimation.isHidden = false
+            fightButton.isEnabled = false
+            fightButton.backgroundColor = Colors.orange.color.withAlphaComponent(0.5)
+        } else {
+            fightButton.isEnabled = false
+            fightButton.backgroundColor = Colors.orange.color.withAlphaComponent(0.5)
+            favoritesCollectionView.isHidden = true
+            fighterOneLifeView.isHidden = false
+            fighterTwoLifeView.isHidden = false
+            fighterOneLifeCounter.isHidden = false
+            fighterTwoLifeCounter.isHidden = false
+            fightAnimationView.isHidden = false
+            fightAnimationView.play()
+            guard let fighterOneChosen = fighterOneChosen else {
+                return
+            }
+            
+            guard let fighterTwoChosen = fighterTwoChosen else {
+                return
+            }
+            presenter.fightButtonTapped(heroOne: fighterOneChosen, heroTwo: fighterTwoChosen)
+            fighterOneLifeCounter.text = "100%"
+            fighterTwoLifeCounter.text = "100%"
+            
+            self.fighterOneLifeView.snp.remakeConstraints { make in
+                make.leading.centerX.bottom.equalToSuperview()
+                make.height.equalToSuperview()
+            }
+            
+            self.fighterTwoLifeView.snp.remakeConstraints { make in
+                make.leading.centerX.bottom.equalToSuperview()
+                make.height.equalToSuperview()
+            }
         }
-        presenter.fightButtonTapped(heroOne: fighterOneChosen, heroTwo: fighterTwoChosen)
-        fighterOneLifeCounter.text = "100%"
-        fighterTwoLifeCounter.text = "100%"
     }
     
     private func setupFightAnimation() {
@@ -278,7 +306,6 @@ final class FightViewController: UIViewController {
         fightAnimationView.loopMode = .loop
         fightAnimationView.animationSpeed = 1
         fightAnimationView.backgroundColor = .clear
-        fightAnimationView.play()
         fightAnimationView.isHidden = true
         view.addSubview(fightAnimationView)
         
@@ -426,7 +453,7 @@ final class FightViewController: UIViewController {
         
         resetButton.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(16)
-            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-20)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-15)
             make.centerX.equalToSuperview()
             make.height.equalTo(50)
         }
@@ -447,6 +474,20 @@ final class FightViewController: UIViewController {
         fighterTwoLifeCounter.isHidden = true
     }
     
+    private func setupDrawAnimation() {
+        drawAnimation.frame = view.bounds
+        drawAnimation.contentMode = .scaleAspectFit
+        drawAnimation.loopMode = .playOnce
+        drawAnimation.animationSpeed = 1
+        drawAnimation.backgroundColor = .clear
+        drawAnimation.play()
+        view.addSubview(drawAnimation)
+        
+        drawAnimation.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+    }
+    
 }
 
 // MARK: - Extensions -
@@ -456,6 +497,8 @@ extension FightViewController: FightViewInterface {
         fighterOneLifeCounter.text = "0%"
         winnerLabel.isHidden = false
         loserLabel.isHidden = false
+        presenter.stopTimers()
+        self.timerStopped()
         
         loserLabel.snp.remakeConstraints { make in
             make.centerX.equalTo(fighterOne.snp.centerX)
@@ -478,6 +521,8 @@ extension FightViewController: FightViewInterface {
         fighterTwoLifeCounter.text = "0%"
         winnerLabel.isHidden = false
         loserLabel.isHidden = false
+        presenter.stopTimers()
+        self.timerStopped()
         
         loserLabel.snp.remakeConstraints { make in
             make.centerX.equalTo(fighterTwo.snp.centerX)
@@ -497,7 +542,6 @@ extension FightViewController: FightViewInterface {
     }
     
     func timerStopped() {
-        fightAnimationView.stop()
         fightAnimationView.isHidden = true
         fightButton.isHidden = true
         resetButton.isHidden = false

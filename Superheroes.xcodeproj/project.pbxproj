@@ -56,6 +56,7 @@
 		371D73DD27D102AF00BF93EB /* DetailWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371D73D827D102AF00BF93EB /* DetailWireframe.swift */; };
 		372301F127D9EF04008C5853 /* CircleShapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372301F027D9EF04008C5853 /* CircleShapeView.swift */; };
 		372301F327DA23AB008C5853 /* CirclesStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372301F227DA23AB008C5853 /* CirclesStackView.swift */; };
+		37233DBE27EB2AE800AA4D27 /* boom.json in Resources */ = {isa = PBXBuildFile; fileRef = 37233DBD27EB2AE800AA4D27 /* boom.json */; };
 		37268E6B27CF679B0000F942 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37268E6A27CF679B0000F942 /* Colors.xcassets */; };
 		37268E6E27CF6AC60000F942 /* swiftgen.yml in Resources */ = {isa = PBXBuildFile; fileRef = 37268E6D27CF6AC60000F942 /* swiftgen.yml */; };
 		37268E7427CF6D390000F942 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37268E7227CF6D390000F942 /* Images.swift */; };
@@ -169,6 +170,7 @@
 		371D73D827D102AF00BF93EB /* DetailWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailWireframe.swift; sourceTree = "<group>"; };
 		372301F027D9EF04008C5853 /* CircleShapeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleShapeView.swift; sourceTree = "<group>"; };
 		372301F227DA23AB008C5853 /* CirclesStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CirclesStackView.swift; sourceTree = "<group>"; };
+		37233DBD27EB2AE800AA4D27 /* boom.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = boom.json; path = ../../../../../../Downloads/boom.json; sourceTree = "<group>"; };
 		37268E6A27CF679B0000F942 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		37268E6D27CF6AC60000F942 /* swiftgen.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = swiftgen.yml; sourceTree = "<group>"; };
 		37268E7227CF6D390000F942 /* Images.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
@@ -459,6 +461,7 @@
 		3704B4B527E8A7D0006E3AF6 /* Animations */ = {
 			isa = PBXGroup;
 			children = (
+				37233DBD27EB2AE800AA4D27 /* boom.json */,
 				37B5412B27E8C25F00550FEC /* fight.json */,
 				3704B4B627E8A7E3006E3AF6 /* empty.json */,
 			);
@@ -747,6 +750,7 @@
 				37EFE0B927D1F6F0008F28EF /* Gotham-XLight.otf in Resources */,
 				37EFE0BA27D1F6F0008F28EF /* Gotham-XLightItalic.otf in Resources */,
 				37B5412C27E8C25F00550FEC /* fight.json in Resources */,
+				37233DBE27EB2AE800AA4D27 /* boom.json in Resources */,
 				37268E6B27CF679B0000F942 /* Colors.xcassets in Resources */,
 				37268E9027CF74A00000F942 /* Localizable.strings in Resources */,
 				37268E6E27CF6AC60000F942 /* swiftgen.yml in Resources */,

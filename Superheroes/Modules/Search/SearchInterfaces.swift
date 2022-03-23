@@ -17,6 +17,7 @@ protocol SearchWireframeInterface: WireframeInterface {
 
 protocol SearchViewInterface: ViewInterface {
     func reloadCollectionView()
+    func setSearchbarTextClear()
 }
 
 protocol SearchPresenterInterface: PresenterInterface {

@@ -32,7 +32,7 @@ class Comments: UIView {
     }
     
     private func configureView() {
-        layer.cornerRadius = 5
+        layer.cornerRadius = 12
         backgroundColor = Colors.orange.color
     }
     
@@ -43,8 +43,9 @@ class Comments: UIView {
         addSubview(label)
         
         label.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.leading.top.equalToSuperview().offset(10)
+            make.centerX.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-10)
         }
-        
     }
 }

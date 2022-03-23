@@ -21,7 +21,7 @@ class CommentsView: UIView {
     private var commentsButton: UIButton!
     private var commentsButtonLabel: UILabel!
     private var countLabel: UILabel!
-    private let maxLength = 500
+    private let maxLength = 501
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -70,6 +70,7 @@ class CommentsView: UIView {
         commentsTextView.returnKeyType = .go
         commentsTextView.isScrollEnabled = false
         commentsTextView.sizeToFit()
+        commentsTextView.textContainerInset = UIEdgeInsets(top: 10, left: 5, bottom: 10, right: 5)
         
         if self.traitCollection.userInterfaceStyle == .light {
             commentsTextView.layer.borderColor = UIColor.black.cgColor
@@ -178,6 +179,22 @@ class CommentsView: UIView {
 extension CommentsView: UITextViewDelegate {
     
     func textViewDidChange(_ textView: UITextView) {
+        let animation = CABasicAnimation(keyPath: "position")
+        animation.duration = 0.07
+        animation.repeatCount = 4
+        animation.autoreverses = true
+        animation.fromValue = NSValue(cgPoint: CGPoint(x: textView.center.x - 10, y: textView.center.y))
+        animation.toValue = NSValue(cgPoint: CGPoint(x: textView.center.x + 10, y: textView.center.y))
+        
+        if textView.text.count == self.maxLength {
+            textView.layer.add(animation, forKey: "position")
+            self.commentsTextView.layer.borderColor = UIColor.systemRed.cgColor
+            textView.text.removeLast()
+            self.countLabel.text = "\((self.maxLength - 1) - textView.text.count) characters left"
+            let timer = Timer.scheduledTimer(withTimeInterval: 1.5, repeats: false) { (timer) in
+                self.commentsTextView.layer.borderColor = Colors.orange.color.cgColor
+            }
+        }
         
         delegate?.textviewDidChange(text: textView.text ?? "")
         
@@ -216,11 +233,10 @@ extension CommentsView: UITextViewDelegate {
                 commentsButton.backgroundColor = Colors.orange.color.withAlphaComponent(0.5)
             }
         }
-        countLabel.text = "\(maxLength - textView.text.count) characters left"
+        countLabel.text = "\((maxLength - 1) - textView.text.count) characters left"
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        
         return textView.text.count + (text.count - range.length) <= maxLength
     }
     

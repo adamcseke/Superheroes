@@ -119,7 +119,7 @@ final class DetailViewController: UIViewController {
             let bottom = heroStatsWebView.frame.maxY
             scrollView.contentSize = CGSize(width: view.frame.width, height: bottom)
         } else if stackView.isHidden && !commentsView.isHidden {
-            let bottom = commentsStackView.frame.maxY + 60
+            let bottom = deleteCommentsButton.frame.maxY + 20
             scrollView.contentSize = CGSize(width: view.frame.width, height: bottom)
         } else {
             let bottom = stackView.frame.maxY
@@ -542,16 +542,19 @@ final class DetailViewController: UIViewController {
     
     private func configureDeleteCommentsButton() {
         deleteCommentsButton = UIButton()
-        deleteCommentsButton.setImage(UIImage(named: Images.bin.name)?.withTintColor(Colors.orange.color), for: .normal)
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 22, weight: .black, scale: .large)
+        let image = UIImage(systemName: "trash.circle.fill", withConfiguration: imageConfig)
+        deleteCommentsButton.setImage(image, for: .normal)
+        deleteCommentsButton.tintColor = Colors.orange.color
         deleteCommentsButton.isHidden = true
         deleteCommentsButton.addTarget(self, action: #selector(binButtonTapped), for: .touchUpInside)
         
         scrollView.addSubview(deleteCommentsButton)
         
         deleteCommentsButton.snp.makeConstraints { make in
-            make.top.equalTo(commentsStackView.snp.bottom).offset(20)
-            make.trailing.equalTo(commentsButton.snp.trailing)
-            make.height.width.equalTo(30)
+            make.top.equalTo(commentsStackView.snp.bottom).offset(10)
+            make.trailing.equalToSuperview().offset(-16)
+            
         }
     }
     
@@ -583,6 +586,11 @@ final class DetailViewController: UIViewController {
 extension DetailViewController: DetailViewInterface {
     func pushComments(comments: [String]) {
         self.addComments(items: comments)
+        if comments.isEmpty {
+            deleteCommentsButton.isHidden = true
+        } else {
+            deleteCommentsButton.isHidden = false
+        }
     }
     
     func setNavBarImage(image: String) {
@@ -621,7 +629,6 @@ extension DetailViewController: DetailViewInterface {
         heroStatsWebView.isHidden = true
         commentsView.isHidden = false
         commentsStackView.isHidden = false
-        deleteCommentsButton.isHidden = false
     }
     
     func pushHeroName(hero: Heroes) {

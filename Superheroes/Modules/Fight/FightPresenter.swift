@@ -25,8 +25,8 @@ final class FightPresenter {
     private var heroOneLife: Double = 0.0
     private var heroTwoLife: Double = 0.0
     
-    private var timerOne: Timer!
-    private var timerTwo: Timer!
+    private var timerOne = Timer()
+    private var timerTwo = Timer()
     
     // MARK: - Lifecycle -
 
@@ -48,6 +48,10 @@ final class FightPresenter {
 // MARK: - Extensions -
 
 extension FightPresenter: FightPresenterInterface {
+    func stopTimers() {
+        timerOne.invalidate()
+        timerTwo.invalidate()
+    }
     
     func fightButtonTapped(heroOne: Heroes, heroTwo: Heroes) {
         
@@ -57,32 +61,25 @@ extension FightPresenter: FightPresenterInterface {
         heroOneLife = heroOne.powerstats.healthPoint
         heroTwoLife = heroTwo.powerstats.healthPoint
         
-        timerOne = Timer()
         timerOne = Timer.scheduledTimer(withTimeInterval: heroOne.powerstats.hitSpeed, repeats: true) { _ in
             self.heroTwoLife = (self.heroTwoLife - heroOne.powerstats.damage)
             self.view.setHeroTwoLife(life: self.heroTwoLife / self.originalLifeTwo)
-            print("Hero two life: \(self.heroTwoLife), speed: \(heroOne.powerstats.hitSpeed)")
             if self.heroTwoLife <= 0 {
-                self.timerOne.invalidate()
-                self.timerTwo.invalidate()
-                self.view.timerStopped()
                 self.view.pushHeroTwoLife()
             }
         }
         
-        timerTwo = Timer()
         timerTwo = Timer.scheduledTimer(withTimeInterval: heroTwo.powerstats.hitSpeed, repeats: true) { _ in
             self.heroOneLife = (self.heroOneLife - heroTwo.powerstats.damage)
             self.view.setHeroOneLife(life: self.heroOneLife / self.originalLifeOne)
-            print("Hero one life: \(self.heroOneLife), speed: \(heroTwo.powerstats.hitSpeed)")
             if self.heroOneLife <= 0 {
-                self.timerTwo.invalidate()
-                self.timerOne.invalidate()
-                self.view.timerStopped()
                 self.view.pushHeroOneLife()
             }
         }
         
+        RunLoop.current.add(timerOne, forMode: .common)
+        RunLoop.current.add(timerTwo, forMode: .common)
+
         print("Heroes: \(heroOne.name) - \(heroOneLife) - Damage: \(heroOne.powerstats.damage), \(heroTwo.name) - \(heroTwoLife) - Damage: \(heroTwo.powerstats.damage)")
     }
     

@@ -14,7 +14,7 @@ protocol SearchedCollectionViewCellBindable {
 }
 
 // MARK: - Result
-struct Heroes: Codable {
+struct Heroes: Codable, Hashable {
     let id: String
     let name: String
     let powerstats: Powerstats
@@ -48,6 +48,11 @@ struct Heroes: Codable {
         self.appearance.heightMetric = height
         self.appearance.weighttMetric = weight
     }
+    
+    func hash(into hasher: inout Hasher) {
+      hasher.combine(id)
+    }
+    
 }
 
 struct HeroViewModel {

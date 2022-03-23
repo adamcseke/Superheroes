@@ -116,6 +116,9 @@ final class SearchViewController: UIViewController {
 // MARK: - Extensions -
 
 extension SearchViewController: SearchViewInterface {
+    func setSearchbarTextClear() {
+        searchVC.searchBar.text = ""
+    }
     
     func reloadCollectionView() {
         self.collectionView.reloadData()
@@ -159,10 +162,14 @@ extension SearchViewController: UISearchBarDelegate {
         searchVC.dismiss(animated: true, completion: nil)
     }
     
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         presenter.searchVCDismissed()
     }
     
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        presenter.searchButtonTapped(name: searchBar.text ?? "")
+        self.reloadCollectionView()
+    }
 }
 
 extension SearchViewController: TBEmptyDataSetDelegate {
