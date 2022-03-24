@@ -24,6 +24,8 @@ final class DetailPresenter {
     private var favorites: [Heroes] = []
     private var navBarImage: String = ""
     private var comments: [String] = []
+    private var textOfTextview: String = ""
+    private var cutText: String?
     
     // MARK: - Lifecycle -
     
@@ -49,8 +51,29 @@ final class DetailPresenter {
 }
 
 // MARK: - Extensions -
-
 extension DetailPresenter: DetailPresenterInterface {
+    func buttonCutTapped(range: NSRange, text: String) {
+        let newText = (textOfTextview as NSString).replacingCharacters(in: range, with: text)
+        if newText.count > 500 {
+            textOfTextview = String(newText.prefix(500))
+        }
+        self.view.pushCutText(text: textOfTextview)
+    }
+    
+    func checkIfLongText(text: String, delegate: AlertViewDelegate?) {
+        if text.count > 501 {
+            textOfTextview = text
+            wireframe.presentAlert(title: L10n.DetailViewController.Comments.Alert.title,
+                                   description: L10n.DetailViewController.Comments.Alert.description,
+                                   buttonText: L10n.DetailViewController.Comments.Alert.Button.One.title,
+                                   alertImage: UIImage(systemName: "scissors") ?? UIImage(),
+                                   buttonTwoLabel: L10n.DetailViewController.Comments.Alert.Button.Two.title,
+                                   buttonTwoIsHidden: false,
+                                   delegate: delegate)
+        }
+        
+    }
+    
     func binButtonTapped() {
         interactor.deleteComment(entity: self.hero) { _ in
             self.view.pushComments(comments: self.comments)

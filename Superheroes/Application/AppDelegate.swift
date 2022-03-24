@@ -19,7 +19,7 @@ let log = SwiftyBeaver.self
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
-
+    
     // MARK: - Init -
     
     lazy var initializers: [Initializable] = [
@@ -27,11 +27,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     ]
     
     // MARK: - Lifecycle -
-
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         initializers.forEach { $0.performInitialization() }
         setRoot(wireframe: TabbarWireframe())
-        UIApplication.shared.isStatusBarHidden = false 
+        UIApplication.shared.isStatusBarHidden = false
         return true
     }
     

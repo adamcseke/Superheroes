@@ -11,6 +11,7 @@
 import UIKit
 
 final class FightWireframe: BaseWireframe {
+    
 
     // MARK: - Module setup -
 
@@ -28,8 +29,8 @@ final class FightWireframe: BaseWireframe {
 // MARK: - Extensions -
 
 extension FightWireframe: FightWireframeInterface {
-    func presentAlert(title: String, description: String, buttonText: String, alertImage: UIImage) {
-            let alertVC = AlertViewController(title: title, message: description, buttonLabel: buttonText, alertImage: alertImage)
+    func presentAlert(title: String, description: String, buttonText: String, alertImage: UIImage, buttonTwoLabel: String, buttonTwoIsHidden: Bool) {
+        let alertVC = AlertViewController(title: title, message: description, buttonLabel: buttonText, alertImage: alertImage, buttonLabelTwo: buttonTwoLabel, buttonHidden: buttonTwoIsHidden)
             alertVC.modalTransitionStyle = .crossDissolve
             alertVC.modalPresentationStyle = .overFullScreen
             navigationController?.present(alertVC, animated: true)

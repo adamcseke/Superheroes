@@ -41,6 +41,10 @@ final class DetailViewController: UIViewController {
     private var commentsStackView: UIStackView!
     private var deleteCommentsButton: UIButton!
     private var comments: [String] = []
+    private var range: NSRange?
+    private var text: String?
+    private var cutText: String?
+    private var backButtonBackground: UIView!
     
     private var selectedHero: Heroes?
     
@@ -99,7 +103,6 @@ final class DetailViewController: UIViewController {
             self.circlesSecondRowView.currentProgressCircleThree = numCombat
         }
         self.heroStatsWebView.entries = [numIntelligence, numStrength, numSpeed, numDurability, numPower, numCombat]
-        
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -578,12 +581,12 @@ final class DetailViewController: UIViewController {
             self.view.frame.origin.y = 0
         }
     }
-    
 }
 
 // MARK: - Extensions -
 
 extension DetailViewController: DetailViewInterface {
+   
     func pushComments(comments: [String]) {
         self.comments = comments
         self.addComments(items: comments)
@@ -630,10 +633,23 @@ extension DetailViewController: DetailViewInterface {
         } else {
             deleteCommentsButton.isHidden = false
         }
+        scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
     }
     
     func pushHeroName(hero: Heroes) {
         selectedHero = hero
+    }
+    
+    func pushCutText(text: String) {
+        commentsView.commentText = text
+        commentsView.countText = "0 character left"
+        commentsView.commentButtonEnabled = true
+        if self.traitCollection.userInterfaceStyle == .light {
+            commentsView.buttonColor = Colors.grayHeroName.color
+        } else {
+            commentsView.buttonColor = Colors.orange.color
+        }
+        self.input = text
     }
 }
 
@@ -681,7 +697,14 @@ extension DetailViewController {
 }
 
 extension DetailViewController: CommentViewDelegate {
+    
+    func textAndRange(shouldChangeTextIn range: NSRange, replacementText text: String) {
+        self.range = range
+        self.text = text
+    }
+    
     func textviewDidChange(text: String) {
+        presenter.checkIfLongText(text: text, delegate: self)
         let cleanInput = text.trimmingCharacters(in: .whitespacesAndNewlines)
         self.input = cleanInput
     }
@@ -689,5 +712,13 @@ extension DetailViewController: CommentViewDelegate {
     func buttonTapped() {
         let currentDateTime = Date()
         presenter.commentPushButtonTapped(comment: self.input ?? "", date: currentDateTime)
+        print(self.input ?? "")
     }
 }
+
+extension DetailViewController: AlertViewDelegate {
+    func buttonOneTapped() {
+        presenter.buttonCutTapped(range: self.range ?? NSRange(), text: self.text ?? "")
+    }
+}
+

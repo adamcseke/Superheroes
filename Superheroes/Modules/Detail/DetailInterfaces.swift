@@ -11,6 +11,7 @@
 import UIKit
 
 protocol DetailWireframeInterface: WireframeInterface {
+    func presentAlert(title: String, description: String, buttonText: String, alertImage: UIImage, buttonTwoLabel: String, buttonTwoIsHidden: Bool, delegate: AlertViewDelegate?)
 }
 
 protocol DetailViewInterface: ViewInterface {
@@ -20,6 +21,7 @@ protocol DetailViewInterface: ViewInterface {
     func setCommentsButton(selected: Bool)
     func setNavBarImage(image: String)
     func pushComments(comments: [String])
+    func pushCutText(text: String)
 }
 
 protocol DetailPresenterInterface: PresenterInterface {
@@ -31,6 +33,8 @@ protocol DetailPresenterInterface: PresenterInterface {
     func commentPushButtonTapped(comment: String, date: Date)
     func getComments()
     func binButtonTapped()
+    func checkIfLongText(text: String, delegate: AlertViewDelegate?)
+    func buttonCutTapped(range: NSRange, text: String)
 }
 
 protocol DetailInteractorInterface: InteractorInterface {

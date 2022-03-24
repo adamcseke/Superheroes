@@ -11,7 +11,6 @@
 import UIKit
 
 final class DetailWireframe: BaseWireframe {
-
     // MARK: - Module setup -
 
     init(hero: Heroes) {
@@ -28,4 +27,11 @@ final class DetailWireframe: BaseWireframe {
 // MARK: - Extensions -
 
 extension DetailWireframe: DetailWireframeInterface {
+    func presentAlert(title: String, description: String, buttonText: String, alertImage: UIImage, buttonTwoLabel: String, buttonTwoIsHidden: Bool, delegate: AlertViewDelegate?) {
+        let alertVC = AlertViewController(title: title, message: description, buttonLabel: buttonText, alertImage: alertImage, buttonLabelTwo: buttonTwoLabel, buttonHidden: buttonTwoIsHidden)
+        alertVC.modalTransitionStyle = .crossDissolve
+        alertVC.modalPresentationStyle = .overFullScreen
+        alertVC.alertDelegate = delegate
+        navigationController?.present(alertVC, animated: true)
+    }
 }

@@ -264,8 +264,6 @@ class DatabaseManager: SuperheroesDatabaseManager {
                     
                     if comment[heroID] == entity.id {
                         uComments.append(allComments)
-                    } else {
-                        uComments.removeAll()
                     }
                 }
             } catch {

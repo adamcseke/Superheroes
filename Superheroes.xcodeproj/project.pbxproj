@@ -38,7 +38,6 @@
 		3702619427DF1F9400965843 /* FightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3702618F27DF1F9400965843 /* FightViewController.swift */; };
 		3702619527DF1F9400965843 /* FightInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3702619027DF1F9400965843 /* FightInteractor.swift */; };
 		3702619627DF1F9400965843 /* FightWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3702619127DF1F9400965843 /* FightWireframe.swift */; };
-		3704B4B727E8A7E3006E3AF6 /* empty.json in Resources */ = {isa = PBXBuildFile; fileRef = 3704B4B627E8A7E3006E3AF6 /* empty.json */; };
 		371D73C127D0C60800BF93EB /* RestClient+Superheroes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371D73C027D0C60800BF93EB /* RestClient+Superheroes.swift */; };
 		371D73C327D0C9CD00BF93EB /* Superheroes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371D73C227D0C9CD00BF93EB /* Superheroes.swift */; };
 		371D73C527D0C9F400BF93EB /* Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371D73C427D0C9F400BF93EB /* Appearance.swift */; };
@@ -56,7 +55,6 @@
 		371D73DD27D102AF00BF93EB /* DetailWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371D73D827D102AF00BF93EB /* DetailWireframe.swift */; };
 		372301F127D9EF04008C5853 /* CircleShapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372301F027D9EF04008C5853 /* CircleShapeView.swift */; };
 		372301F327DA23AB008C5853 /* CirclesStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372301F227DA23AB008C5853 /* CirclesStackView.swift */; };
-		37233DBE27EB2AE800AA4D27 /* boom.json in Resources */ = {isa = PBXBuildFile; fileRef = 37233DBD27EB2AE800AA4D27 /* boom.json */; };
 		37268E6B27CF679B0000F942 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37268E6A27CF679B0000F942 /* Colors.xcassets */; };
 		37268E6E27CF6AC60000F942 /* swiftgen.yml in Resources */ = {isa = PBXBuildFile; fileRef = 37268E6D27CF6AC60000F942 /* swiftgen.yml */; };
 		37268E7427CF6D390000F942 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37268E7227CF6D390000F942 /* Images.swift */; };
@@ -85,7 +83,9 @@
 		375D6D4927E9BB610052389A /* Comments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375D6D4827E9BB610052389A /* Comments.swift */; };
 		377CFF0927D2436200BA3A31 /* StatButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377CFF0827D2436200BA3A31 /* StatButton.swift */; };
 		3798864927D79E9E00B8FBF5 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3798864827D79E9E00B8FBF5 /* GradientView.swift */; };
-		37B5412C27E8C25F00550FEC /* fight.json in Resources */ = {isa = PBXBuildFile; fileRef = 37B5412B27E8C25F00550FEC /* fight.json */; };
+		37AE99A727ECAF7B0065184E /* empty.json in Resources */ = {isa = PBXBuildFile; fileRef = 37AE99A427ECAF7A0065184E /* empty.json */; };
+		37AE99A827ECAF7B0065184E /* fight.json in Resources */ = {isa = PBXBuildFile; fileRef = 37AE99A527ECAF7A0065184E /* fight.json */; };
+		37AE99A927ECAF7B0065184E /* boom.json in Resources */ = {isa = PBXBuildFile; fileRef = 37AE99A627ECAF7B0065184E /* boom.json */; };
 		37B5ED3F27E1CC8B00A28FEB /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B5ED3E27E1CC8B00A28FEB /* DatabaseManager.swift */; };
 		37B5ED4427E1CF0400A28FEB /* BoolCompletition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B5ED4327E1CF0400A28FEB /* BoolCompletition.swift */; };
 		37BDADE027D8D3F200C3AE2F /* NSTextAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BDADDF27D8D3F200C3AE2F /* NSTextAttachment.swift */; };
@@ -152,7 +152,6 @@
 		3702618F27DF1F9400965843 /* FightViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FightViewController.swift; sourceTree = "<group>"; };
 		3702619027DF1F9400965843 /* FightInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FightInteractor.swift; sourceTree = "<group>"; };
 		3702619127DF1F9400965843 /* FightWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FightWireframe.swift; sourceTree = "<group>"; };
-		3704B4B627E8A7E3006E3AF6 /* empty.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = empty.json; path = ../../../../../../Downloads/empty.json; sourceTree = "<group>"; };
 		371D73C027D0C60800BF93EB /* RestClient+Superheroes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RestClient+Superheroes.swift"; sourceTree = "<group>"; };
 		371D73C227D0C9CD00BF93EB /* Superheroes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Superheroes.swift; sourceTree = "<group>"; };
 		371D73C427D0C9F400BF93EB /* Appearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appearance.swift; sourceTree = "<group>"; };
@@ -170,7 +169,6 @@
 		371D73D827D102AF00BF93EB /* DetailWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailWireframe.swift; sourceTree = "<group>"; };
 		372301F027D9EF04008C5853 /* CircleShapeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleShapeView.swift; sourceTree = "<group>"; };
 		372301F227DA23AB008C5853 /* CirclesStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CirclesStackView.swift; sourceTree = "<group>"; };
-		37233DBD27EB2AE800AA4D27 /* boom.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = boom.json; path = ../../../../../../Downloads/boom.json; sourceTree = "<group>"; };
 		37268E6A27CF679B0000F942 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		37268E6D27CF6AC60000F942 /* swiftgen.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = swiftgen.yml; sourceTree = "<group>"; };
 		37268E7227CF6D390000F942 /* Images.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
@@ -199,7 +197,9 @@
 		375D6D4827E9BB610052389A /* Comments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comments.swift; sourceTree = "<group>"; };
 		377CFF0827D2436200BA3A31 /* StatButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatButton.swift; sourceTree = "<group>"; };
 		3798864827D79E9E00B8FBF5 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
-		37B5412B27E8C25F00550FEC /* fight.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = fight.json; path = ../../../../../../Downloads/fight.json; sourceTree = "<group>"; };
+		37AE99A427ECAF7A0065184E /* empty.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = empty.json; sourceTree = "<group>"; };
+		37AE99A527ECAF7A0065184E /* fight.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = fight.json; sourceTree = "<group>"; };
+		37AE99A627ECAF7B0065184E /* boom.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = boom.json; sourceTree = "<group>"; };
 		37B5ED3E27E1CC8B00A28FEB /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		37B5ED4327E1CF0400A28FEB /* BoolCompletition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoolCompletition.swift; sourceTree = "<group>"; };
 		37BDADDF27D8D3F200C3AE2F /* NSTextAttachment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSTextAttachment.swift; sourceTree = "<group>"; };
@@ -461,9 +461,9 @@
 		3704B4B527E8A7D0006E3AF6 /* Animations */ = {
 			isa = PBXGroup;
 			children = (
-				37233DBD27EB2AE800AA4D27 /* boom.json */,
-				37B5412B27E8C25F00550FEC /* fight.json */,
-				3704B4B627E8A7E3006E3AF6 /* empty.json */,
+				37AE99A627ECAF7B0065184E /* boom.json */,
+				37AE99A427ECAF7A0065184E /* empty.json */,
+				37AE99A527ECAF7A0065184E /* fight.json */,
 			);
 			path = Animations;
 			sourceTree = "<group>";
@@ -743,20 +743,20 @@
 				37EFE0B327D1F6F0008F28EF /* Gotham-Medium.otf in Resources */,
 				37EFE0B427D1F6F0008F28EF /* Gotham-MediumItalic.otf in Resources */,
 				37EFE0B527D1F6F0008F28EF /* Gotham-Thin.otf in Resources */,
-				3704B4B727E8A7E3006E3AF6 /* empty.json in Resources */,
 				37EFE0B627D1F6F0008F28EF /* Gotham-ThinItalic.otf in Resources */,
+				37AE99A827ECAF7B0065184E /* fight.json in Resources */,
 				37EFE0B727D1F6F0008F28EF /* Gotham-Ultra.otf in Resources */,
 				37EFE0B827D1F6F0008F28EF /* Gotham-UltraItalic.otf in Resources */,
+				37AE99A727ECAF7B0065184E /* empty.json in Resources */,
 				37EFE0B927D1F6F0008F28EF /* Gotham-XLight.otf in Resources */,
 				37EFE0BA27D1F6F0008F28EF /* Gotham-XLightItalic.otf in Resources */,
-				37B5412C27E8C25F00550FEC /* fight.json in Resources */,
-				37233DBE27EB2AE800AA4D27 /* boom.json in Resources */,
 				37268E6B27CF679B0000F942 /* Colors.xcassets in Resources */,
 				37268E9027CF74A00000F942 /* Localizable.strings in Resources */,
 				37268E6E27CF6AC60000F942 /* swiftgen.yml in Resources */,
 				1B0BFB5A2336303F0054E28A /* Tabbar.storyboard in Resources */,
 				1B0BFB08233628870054E28A /* LaunchScreen.storyboard in Resources */,
 				1B0BFB05233628870054E28A /* Assets.xcassets in Resources */,
+				37AE99A927ECAF7B0065184E /* boom.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

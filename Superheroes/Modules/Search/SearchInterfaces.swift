@@ -12,7 +12,7 @@ import UIKit
 
 protocol SearchWireframeInterface: WireframeInterface {
     func pushToDetails(hero: Heroes)
-    func presentAlert(title: String, description: String, buttonText: String, alertImage: UIImage)
+    func presentAlert(title: String, description: String, buttonText: String, alertImage: UIImage, buttonTwoLabel: String, buttonIsHidden: Bool)
 }
 
 protocol SearchViewInterface: ViewInterface {

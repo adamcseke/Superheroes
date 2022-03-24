@@ -11,6 +11,7 @@
 import UIKit
 
 final class SearchWireframe: BaseWireframe {
+    
 
     // MARK: - Module setup -
 
@@ -33,8 +34,8 @@ extension SearchWireframe: SearchWireframeInterface {
         navigationController?.pushWireframe(detailWF)
     }
     
-    func presentAlert(title: String, description: String, buttonText: String, alertImage: UIImage) {
-        let alertVC = AlertViewController(title: title, message: description, buttonLabel: buttonText, alertImage: alertImage)
+    func presentAlert(title: String, description: String, buttonText: String, alertImage: UIImage, buttonTwoLabel: String, buttonIsHidden: Bool) {
+        let alertVC = AlertViewController(title: title, message: description, buttonLabel: buttonText, alertImage: alertImage, buttonLabelTwo: buttonTwoLabel, buttonHidden: buttonIsHidden)
         alertVC.modalTransitionStyle = .crossDissolve
         alertVC.modalPresentationStyle = .overFullScreen
         navigationController?.present(alertVC, animated: true)

@@ -11,6 +11,7 @@ import UIKit
 protocol CommentViewDelegate: AnyObject {
     func buttonTapped()
     func textviewDidChange(text: String)
+    func textAndRange(shouldChangeTextIn range: NSRange, replacementText text: String)
 }
 
 class CommentsView: UIView {
@@ -22,6 +23,31 @@ class CommentsView: UIView {
     private var commentsButtonLabel: UILabel!
     private var countLabel: UILabel!
     private let maxLength = 501
+    
+    var commentText: String = "" {
+        didSet {
+            commentsTextView.text = commentText
+            print(commentText)
+        }
+    }
+    
+    var countText: String = "" {
+        didSet {
+            countLabel.text = countText
+        }
+    }
+    
+    var commentButtonEnabled: Bool = false {
+        didSet {
+            commentsButton.isEnabled = commentButtonEnabled
+        }
+    }
+    
+    var buttonColor: UIColor? {
+        didSet {
+            commentsButton.backgroundColor = buttonColor
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -179,6 +205,7 @@ class CommentsView: UIView {
 extension CommentsView: UITextViewDelegate {
     
     func textViewDidChange(_ textView: UITextView) {
+        
         let animation = CABasicAnimation(keyPath: "position")
         animation.duration = 0.07
         animation.repeatCount = 4
@@ -186,12 +213,14 @@ extension CommentsView: UITextViewDelegate {
         animation.fromValue = NSValue(cgPoint: CGPoint(x: textView.center.x - 10, y: textView.center.y))
         animation.toValue = NSValue(cgPoint: CGPoint(x: textView.center.x + 10, y: textView.center.y))
         
-        if textView.text.count == self.maxLength {
+        print(textView.text.count)
+        
+        if textView.text.count > 500 {
             textView.layer.add(animation, forKey: "position")
             self.commentsTextView.layer.borderColor = UIColor.systemRed.cgColor
             textView.text.removeLast()
-            self.countLabel.text = "\((self.maxLength - 1) - textView.text.count) characters left"
-            let timer = Timer.scheduledTimer(withTimeInterval: 1.5, repeats: false) { (timer) in
+            self.countLabel.text = "\(maxLength - textView.text.count) characters left"
+            let timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (timer) in
                 self.commentsTextView.layer.borderColor = Colors.orange.color.cgColor
             }
         }
@@ -204,7 +233,7 @@ extension CommentsView: UITextViewDelegate {
         func returnStringWidth(font: UIFont, text: String) -> CGSize {
             let fontAttributes = [NSAttributedString.Key.font: font]
             let size = (text as NSString).size(withAttributes: fontAttributes)
-
+            
             return size
         }
         
@@ -237,6 +266,9 @@ extension CommentsView: UITextViewDelegate {
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        let newText = (textView.text as NSString).replacingCharacters(in: range, with: text)
+        delegate?.textviewDidChange(text: newText)
+        delegate?.textAndRange(shouldChangeTextIn: range, replacementText: text)
         return textView.text.count + (text.count - range.length) <= maxLength
     }
     

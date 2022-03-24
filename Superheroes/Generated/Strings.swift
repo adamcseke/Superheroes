@@ -70,6 +70,22 @@ internal enum L10n {
       }
     }
     internal enum Comments {
+      internal enum Alert {
+        /// Your text was too long. Should we cut the end and paste it in a shorter version, or not?
+        internal static let description = L10n.tr("Localizable", "detailViewController.comments.alert.description")
+        /// Oops
+        internal static let title = L10n.tr("Localizable", "detailViewController.comments.alert.title")
+        internal enum Button {
+          internal enum One {
+            /// Cut
+            internal static let title = L10n.tr("Localizable", "detailViewController.comments.alert.button.one.title")
+          }
+          internal enum Two {
+            /// Cancel
+            internal static let title = L10n.tr("Localizable", "detailViewController.comments.alert.button.two.title")
+          }
+        }
+      }
       internal enum Button {
         /// Comments
         internal static let title = L10n.tr("Localizable", "detailViewController.comments.button.title")

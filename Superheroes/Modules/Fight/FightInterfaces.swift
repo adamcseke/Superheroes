@@ -11,7 +11,7 @@
 import UIKit
 
 protocol FightWireframeInterface: WireframeInterface {
-    func presentAlert(title: String, description: String, buttonText: String, alertImage: UIImage)
+    func presentAlert(title: String, description: String, buttonText: String, alertImage: UIImage, buttonTwoLabel: String, buttonTwoIsHidden: Bool)
 }
 
 protocol FightViewInterface: ViewInterface {

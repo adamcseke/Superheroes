@@ -33,6 +33,10 @@
 "detailViewController.powerstats.Duranility" = "Durability";
 "detailViewController.powerstats.Power" = "Power";
 "detailViewController.powerstats.Combat" = "Combat";
+"detailViewController.comments.alert.title" = "Oops";
+"detailViewController.comments.alert.description" = "Your text was too long. Should we cut the end and paste it in a shorter version, or not?";
+"detailViewController.comments.alert.button.one.title" = "Cut";
+"detailViewController.comments.alert.button.two.title" = "Cancel";
 "commentsView.button.title" = " Push to comment";
 "commentsView.textView.placeholder" = "Write down your thoughts...";
 "favoritesViewController.emptyStateView.label" = "You don't have any favorites.";
