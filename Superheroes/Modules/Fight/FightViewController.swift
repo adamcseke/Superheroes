@@ -54,6 +54,7 @@ final class FightViewController: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
         presenter.getFavorites()
+        self.resetButtonTapped()
         presenter.stopTimers()
         presenter.viewWillAppear(animated: true)
         fighterOne.isSelected = false

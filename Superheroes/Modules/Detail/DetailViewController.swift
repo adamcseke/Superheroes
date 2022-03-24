@@ -40,6 +40,7 @@ final class DetailViewController: UIViewController {
     private var input: String?
     private var commentsStackView: UIStackView!
     private var deleteCommentsButton: UIButton!
+    private var comments: [String] = []
     
     private var selectedHero: Heroes?
     
@@ -554,7 +555,6 @@ final class DetailViewController: UIViewController {
         deleteCommentsButton.snp.makeConstraints { make in
             make.top.equalTo(commentsStackView.snp.bottom).offset(10)
             make.trailing.equalToSuperview().offset(-16)
-            
         }
     }
     
@@ -585,12 +585,8 @@ final class DetailViewController: UIViewController {
 
 extension DetailViewController: DetailViewInterface {
     func pushComments(comments: [String]) {
+        self.comments = comments
         self.addComments(items: comments)
-        if comments.isEmpty {
-            deleteCommentsButton.isHidden = true
-        } else {
-            deleteCommentsButton.isHidden = false
-        }
     }
     
     func setNavBarImage(image: String) {
@@ -629,6 +625,11 @@ extension DetailViewController: DetailViewInterface {
         heroStatsWebView.isHidden = true
         commentsView.isHidden = false
         commentsStackView.isHidden = false
+        if comments.isEmpty {
+            deleteCommentsButton.isHidden = true
+        } else {
+            deleteCommentsButton.isHidden = false
+        }
     }
     
     func pushHeroName(hero: Heroes) {
