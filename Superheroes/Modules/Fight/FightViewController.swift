@@ -38,6 +38,8 @@ final class FightViewController: UIViewController {
     private var fighterTwoChosen: Heroes?
     private var favoriteHeroes: [Heroes] = []
     
+    private var healthOriginalHeight: CGFloat = 0
+    
     // MARK: - Public properties -
     
     var presenter: FightPresenterInterface!
@@ -153,6 +155,8 @@ final class FightViewController: UIViewController {
         let width =  self.view.bounds.width
         let availableWidth = width - 50
         let itemWidth = availableWidth / 2.1
+        
+        healthOriginalHeight = itemWidth + 70
         
         fighterOne.snp.makeConstraints { make in
             make.width.equalTo(itemWidth)
@@ -302,12 +306,12 @@ final class FightViewController: UIViewController {
             
             self.fighterOneLifeView.snp.remakeConstraints { make in
                 make.leading.centerX.bottom.equalToSuperview()
-                make.height.equalToSuperview()
+                make.height.equalTo(self.healthOriginalHeight)
             }
             
             self.fighterTwoLifeView.snp.remakeConstraints { make in
                 make.leading.centerX.bottom.equalToSuperview()
-                make.height.equalToSuperview()
+                make.height.equalTo(self.healthOriginalHeight)
             }
             let timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { timer in
                 self.presenter.fightButtonTapped(heroOne: fighterOneChosen, heroTwo: fighterTwoChosen)
@@ -370,15 +374,16 @@ final class FightViewController: UIViewController {
         fighterOne.addSubview(fighterOneLifeCounter)
         fighterTwo.addSubview(fighterTwoLifeCounter)
         
+        fighterOne.layoutIfNeeded()
         
         fighterOneLifeView.snp.makeConstraints { make in
             make.leading.centerX.bottom.equalToSuperview()
-            make.height.equalToSuperview()
+            make.height.equalTo(self.healthOriginalHeight)
         }
         
         fighterTwoLifeView.snp.makeConstraints { make in
             make.leading.centerX.bottom.equalToSuperview()
-            make.height.equalToSuperview()
+            make.height.equalTo(self.healthOriginalHeight)
         }
         
         fighterOneLifeCounter.snp.makeConstraints { make in
@@ -522,23 +527,6 @@ final class FightViewController: UIViewController {
             make.edges.equalToSuperview()
         }
     }
-//
-//    private func setHeroes() {
-//        if favoriteHeroes.count >= 2 {
-//            fighterOneChosen = favoriteHeroes[0]
-//            fighterTwoChosen = favoriteHeroes[1]
-//
-//            fighterOne.bind(name: favoriteHeroes[0].name, imageURL: favoriteHeroes[0].image.url)
-//            fighterTwo.bind(name: favoriteHeroes[1].name, imageURL: favoriteHeroes[1].image.url)
-//
-//            let fighterOneStat = favoriteHeroes[0].powerstats.totalStat
-//            let fighterTwoStat = favoriteHeroes[1].powerstats.totalStat
-//
-//            circleOne.currentProgress = fighterOneStat
-//            circleTwo.currentProgress = fighterTwoStat
-//        }
-//    }
-        
 }
 
 // MARK: - Extensions -
@@ -601,23 +589,23 @@ extension FightViewController: FightViewInterface {
     func setHeroOneLife(life: Double) {
         fighterOneLifeCounter.text = "\(Int(life * 100))%"
         
-        // TODO - Animate life view
-        UIView.animate(withDuration: 1, delay: 0, options: .curveEaseInOut) {
-            self.fighterOneLifeView.snp.remakeConstraints { make in
-                make.leading.centerX.bottom.equalToSuperview()
-                make.height.equalToSuperview().multipliedBy(life)
-            }
+        self.fighterOneLifeView.snp.updateConstraints { make in
+            make.height.equalTo(self.healthOriginalHeight * life)
+        }
+        
+        UIView.animate(withDuration: (fighterTwoChosen?.powerstats.hitSpeed ?? 0.0) * 0.8, delay: 0, options: .curveEaseIn) {
+            self.view.layoutIfNeeded()
         }
     }
     
     func setHeroTwoLife(life: Double) {
-        // TODO - Animate life view
         fighterTwoLifeCounter.text = "\(Int(life * 100))%"
-        UIView.animate(withDuration: 1, delay: 0.0, options: .curveEaseInOut, animations: {
-            self.fighterTwoLifeView.snp.remakeConstraints { make in
-                make.leading.centerX.bottom.equalToSuperview()
-                make.height.equalToSuperview().multipliedBy(life)
-            }
+        self.fighterTwoLifeView.snp.updateConstraints { make in
+            make.height.equalTo(self.healthOriginalHeight * life)
+        }
+        
+        UIView.animate(withDuration: (fighterOneChosen?.powerstats.hitSpeed ?? 0.0) * 0.8, delay: 0.0, options: .curveEaseIn, animations: {
+            self.view.layoutIfNeeded()
         }, completion: nil)
     }
     
@@ -626,14 +614,10 @@ extension FightViewController: FightViewInterface {
             fighterOne.bind(name: hero.name, imageURL: hero.image.url)
             circleOne.currentProgress = hero.powerstats.totalStat
             fighterOneChosen = hero
-            fighterOne.isSelected = false
         } else if fighterTwo.isSelected {
             fighterTwo.bind(name: hero.name, imageURL: hero.image.url)
             circleTwo.currentProgress = hero.powerstats.totalStat
             fighterTwoChosen = hero
-            fighterTwo.isSelected = false
-        } else {
-            
         }
     }
     

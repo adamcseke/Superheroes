@@ -569,9 +569,11 @@ final class DetailViewController: UIViewController {
     
     @objc private func binButtonTapped() {
         deleteCommentsButton.isHidden = true
+        commentsStackView.removeAllArrangedSubviews()
         commentsStackView.isHidden = true
         presenter.binButtonTapped()
         self.comments.removeAll()
+        presenter.getComments()
         scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
     }
     
@@ -634,11 +636,7 @@ extension DetailViewController: DetailViewInterface {
         circlesStackView.isHidden = true
         heroStatsWebView.isHidden = true
         commentsView.isHidden = false
-        if comments.isEmpty {
-            commentsStackView.isHidden = true
-        } else {
-            commentsStackView.isHidden = false
-        }
+        commentsStackView.isHidden = false
         if comments.isEmpty {
             deleteCommentsButton.isHidden = true
         } else {
@@ -731,12 +729,8 @@ extension DetailViewController: CommentViewDelegate {
         comments.append(self.input ?? "")
         self.addComment(item: comments.last ?? "")
         deleteCommentsButton.isHidden = false
-        if comments.isEmpty {
-            commentsStackView.isHidden = true
-        } else {
-            commentsStackView.isHidden = false
-        }
-        print(self.input ?? "")
+        self.commentsStackView.isHidden = false
+        print(comments)
     }
 }
 

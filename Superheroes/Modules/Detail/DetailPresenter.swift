@@ -71,7 +71,7 @@ extension DetailPresenter: DetailPresenterInterface {
             wireframe.presentAlert(title: L10n.DetailViewController.Comments.Alert.title,
                                    description: L10n.DetailViewController.Comments.Alert.description,
                                    buttonText: L10n.DetailViewController.Comments.Alert.Button.One.title,
-                                   alertImage: UIImage(systemName: "scissors") ?? UIImage(),
+                                   alertImage: UIImage(named: Images.cuttingWithAScissorOnBrokenLine.name)?.withTintColor(Colors.orange.color) ?? UIImage(),
                                    buttonTwoLabel: L10n.DetailViewController.Comments.Alert.Button.Two.title,
                                    buttonTwoIsHidden: false,
                                    delegate: delegate)
