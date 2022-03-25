@@ -40,6 +40,9 @@
 		3702619627DF1F9400965843 /* FightWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3702619127DF1F9400965843 /* FightWireframe.swift */; };
 		3717C89C27EDCFD2000868F2 /* bomb-explode.json in Resources */ = {isa = PBXBuildFile; fileRef = 3717C89B27EDCFD2000868F2 /* bomb-explode.json */; };
 		3717C89E27EDE736000868F2 /* StackView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3717C89D27EDE736000868F2 /* StackView+Ext.swift */; };
+		3717C8A027EDFA15000868F2 /* PointsStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3717C89F27EDFA15000868F2 /* PointsStackView.swift */; };
+		3717C8A227EDFD85000868F2 /* FightersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3717C8A127EDFD85000868F2 /* FightersView.swift */; };
+		3717C8A727EE0D2D000868F2 /* WinnerLoserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3717C8A627EE0D2D000868F2 /* WinnerLoserView.swift */; };
 		371D73C127D0C60800BF93EB /* RestClient+Superheroes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371D73C027D0C60800BF93EB /* RestClient+Superheroes.swift */; };
 		371D73C327D0C9CD00BF93EB /* Superheroes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371D73C227D0C9CD00BF93EB /* Superheroes.swift */; };
 		371D73C527D0C9F400BF93EB /* Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371D73C427D0C9F400BF93EB /* Appearance.swift */; };
@@ -155,6 +158,9 @@
 		3702619127DF1F9400965843 /* FightWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FightWireframe.swift; sourceTree = "<group>"; };
 		3717C89B27EDCFD2000868F2 /* bomb-explode.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "bomb-explode.json"; sourceTree = "<group>"; };
 		3717C89D27EDE736000868F2 /* StackView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StackView+Ext.swift"; sourceTree = "<group>"; };
+		3717C89F27EDFA15000868F2 /* PointsStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointsStackView.swift; sourceTree = "<group>"; };
+		3717C8A127EDFD85000868F2 /* FightersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FightersView.swift; sourceTree = "<group>"; };
+		3717C8A627EE0D2D000868F2 /* WinnerLoserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WinnerLoserView.swift; sourceTree = "<group>"; };
 		371D73C027D0C60800BF93EB /* RestClient+Superheroes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RestClient+Superheroes.swift"; sourceTree = "<group>"; };
 		371D73C227D0C9CD00BF93EB /* Superheroes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Superheroes.swift; sourceTree = "<group>"; };
 		371D73C427D0C9F400BF93EB /* Appearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appearance.swift; sourceTree = "<group>"; };
@@ -471,6 +477,16 @@
 			path = Animations;
 			sourceTree = "<group>";
 		};
+		3717C8A327EDFDA6000868F2 /* FightersView */ = {
+			isa = PBXGroup;
+			children = (
+				3717C8A127EDFD85000868F2 /* FightersView.swift */,
+				3759BC5A27E4BEE300F1D915 /* FighterSelectorButton.swift */,
+				3717C8A627EE0D2D000868F2 /* WinnerLoserView.swift */,
+			);
+			path = FightersView;
+			sourceTree = "<group>";
+		};
 		371D73DE27D102B500BF93EB /* Detail */ = {
 			isa = PBXGroup;
 			children = (
@@ -600,7 +616,8 @@
 		3759BC5927E4BE8D00F1D915 /* FighterView */ = {
 			isa = PBXGroup;
 			children = (
-				3759BC5A27E4BEE300F1D915 /* FighterSelectorButton.swift */,
+				3717C8A327EDFDA6000868F2 /* FightersView */,
+				3717C89F27EDFA15000868F2 /* PointsStackView.swift */,
 			);
 			path = FighterView;
 			sourceTree = "<group>";
@@ -901,6 +918,7 @@
 				37268E9E27CF75CB0000F942 /* FavoritesWireframe.swift in Sources */,
 				37B5ED3F27E1CC8B00A28FEB /* DatabaseManager.swift in Sources */,
 				3759BC5B27E4BEE300F1D915 /* FighterSelectorButton.swift in Sources */,
+				3717C8A727EE0D2D000868F2 /* WinnerLoserView.swift in Sources */,
 				3717C89E27EDE736000868F2 /* StackView+Ext.swift in Sources */,
 				37F77A8D27DE07F400A6D58F /* CommentsView.swift in Sources */,
 				1B0BFB3B23362A000054E28A /* BaseWireframe.swift in Sources */,
@@ -914,7 +932,9 @@
 				37268E9A27CF75CB0000F942 /* FavoritesInterfaces.swift in Sources */,
 				37BDADE027D8D3F200C3AE2F /* NSTextAttachment.swift in Sources */,
 				375D6D4927E9BB610052389A /* Comments.swift in Sources */,
+				3717C8A027EDFA15000868F2 /* PointsStackView.swift in Sources */,
 				37268E9D27CF75CB0000F942 /* FavoritesInteractor.swift in Sources */,
+				3717C8A227EDFD85000868F2 /* FightersView.swift in Sources */,
 				372301F127D9EF04008C5853 /* CircleShapeView.swift in Sources */,
 				371D73DD27D102AF00BF93EB /* DetailWireframe.swift in Sources */,
 				3702619327DF1F9400965843 /* FightPresenter.swift in Sources */,
