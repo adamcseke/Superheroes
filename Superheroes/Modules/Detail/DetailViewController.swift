@@ -544,6 +544,12 @@ final class DetailViewController: UIViewController {
         }
     }
     
+    func addComment(item: String) {
+        let commentsView = Comments()
+        commentsView.text = item
+        commentsStackView.addArrangedSubview(commentsView)
+    }
+    
     private func configureDeleteCommentsButton() {
         deleteCommentsButton = UIButton()
         let imageConfig = UIImage.SymbolConfiguration(pointSize: 22, weight: .black, scale: .large)
@@ -565,7 +571,8 @@ final class DetailViewController: UIViewController {
         deleteCommentsButton.isHidden = true
         commentsStackView.isHidden = true
         presenter.binButtonTapped()
-        presenter.getComments()
+        self.comments.removeAll()
+        scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
@@ -627,7 +634,11 @@ extension DetailViewController: DetailViewInterface {
         circlesStackView.isHidden = true
         heroStatsWebView.isHidden = true
         commentsView.isHidden = false
-        commentsStackView.isHidden = false
+        if comments.isEmpty {
+            commentsStackView.isHidden = true
+        } else {
+            commentsStackView.isHidden = false
+        }
         if comments.isEmpty {
             deleteCommentsButton.isHidden = true
         } else {
@@ -641,15 +652,20 @@ extension DetailViewController: DetailViewInterface {
     }
     
     func pushCutText(text: String) {
-        commentsView.commentText = text
-        commentsView.countText = "0 character left"
-        commentsView.commentButtonEnabled = true
-        if self.traitCollection.userInterfaceStyle == .light {
-            commentsView.buttonColor = Colors.grayHeroName.color
+        if text.count == 500{
+            commentsView.commentText = text
+            commentsView.countText = "0 character left"
+            commentsView.commentButtonEnabled = true
+            if self.traitCollection.userInterfaceStyle == .light {
+                commentsView.buttonColor = Colors.grayHeroName.color
+            } else {
+                commentsView.buttonColor = Colors.orange.color
+            }
+            self.input = commentsView.commentText
         } else {
-            commentsView.buttonColor = Colors.orange.color
+            commentsView.commentText = text
+            self.input = commentsView.commentText
         }
-        self.input = text
     }
 }
 
@@ -658,7 +674,7 @@ extension DetailViewController: UIScrollViewDelegate {
         let offsetY = scrollView.contentOffset.y
         let maxHeight = scrollView.frame.height * 0.55
         if offsetY > maxHeight {
-            UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseIn, animations: {
+            UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseIn, animations: {
                 self.navBarButton.layer.backgroundColor = UIColor.clear.cgColor
                 self.statusBarView.frame = self.statusBarFrame
                 self.statusBarView.backgroundColor = UIColor.systemBackground
@@ -667,7 +683,7 @@ extension DetailViewController: UIScrollViewDelegate {
                 self.navigationController?.navigationBar.backgroundColor = .systemBackground
             }, completion: nil)
         } else {
-            UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseIn, animations: {
+            UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseIn, animations: {
                 if self.traitCollection.userInterfaceStyle == .light {
                     self.navBarButton.layer.backgroundColor = Colors.white.color.cgColor
                 } else {
@@ -712,11 +728,23 @@ extension DetailViewController: CommentViewDelegate {
     func buttonTapped() {
         let currentDateTime = Date()
         presenter.commentPushButtonTapped(comment: self.input ?? "", date: currentDateTime)
+        comments.append(self.input ?? "")
+        self.addComment(item: comments.last ?? "")
+        deleteCommentsButton.isHidden = false
+        if comments.isEmpty {
+            commentsStackView.isHidden = true
+        } else {
+            commentsStackView.isHidden = false
+        }
         print(self.input ?? "")
     }
 }
 
 extension DetailViewController: AlertViewDelegate {
+    func buttonTwoTapped() {
+        presenter.buttonCancelTapped(range: self.range ?? NSRange(), text: self.input ?? "", clipBoardText: self.text ?? "")
+    }
+    
     func buttonOneTapped() {
         presenter.buttonCutTapped(range: self.range ?? NSRange(), text: self.text ?? "")
     }

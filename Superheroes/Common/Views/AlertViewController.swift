@@ -11,6 +11,7 @@ import UIKit
 
 protocol AlertViewDelegate: AnyObject {
     func buttonOneTapped()
+    func buttonTwoTapped()
 }
 
 class AlertViewController: UIViewController {
@@ -201,7 +202,7 @@ class AlertViewController: UIViewController {
     private func configureActionButtonTwo() {
         actionButtonTwo = UIButton()
         actionButtonTwo.backgroundColor = Colors.orange.color
-        actionButtonTwo.addTarget(self, action: #selector(dismissVC), for: .touchUpInside)
+        actionButtonTwo.addTarget(self, action: #selector(buttonTwoTapped), for: .touchUpInside)
         actionButtonTwo.layer.cornerRadius = 11
         buttonsStackView.addArrangedSubview(actionButtonTwo)
         
@@ -227,9 +228,16 @@ class AlertViewController: UIViewController {
         }
     }
   
-    @objc func buttonOneTapped() {
+    @objc private func buttonOneTapped() {
         if let delegate = alertDelegate {
             delegate.buttonOneTapped()
+            dismissVC()
+        }
+    }
+    
+    @objc private func buttonTwoTapped() {
+        if let delegate = alertDelegate {
+            delegate.buttonTwoTapped()
             dismissVC()
         }
     }

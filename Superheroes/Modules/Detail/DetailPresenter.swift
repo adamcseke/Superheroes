@@ -52,6 +52,11 @@ final class DetailPresenter {
 
 // MARK: - Extensions -
 extension DetailPresenter: DetailPresenterInterface {
+    func buttonCancelTapped(range: NSRange, text: String, clipBoardText: String) {
+        textOfTextview = text.replacingOccurrences(of: clipBoardText, with: "")
+        self.view.pushCutText(text: textOfTextview)
+    }
+    
     func buttonCutTapped(range: NSRange, text: String) {
         let newText = (textOfTextview as NSString).replacingCharacters(in: range, with: text)
         if newText.count > 500 {

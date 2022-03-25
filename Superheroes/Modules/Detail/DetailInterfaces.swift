@@ -35,6 +35,7 @@ protocol DetailPresenterInterface: PresenterInterface {
     func binButtonTapped()
     func checkIfLongText(text: String, delegate: AlertViewDelegate?)
     func buttonCutTapped(range: NSRange, text: String)
+    func buttonCancelTapped(range: NSRange, text: String, clipBoardText: String)
 }
 
 protocol DetailInteractorInterface: InteractorInterface {

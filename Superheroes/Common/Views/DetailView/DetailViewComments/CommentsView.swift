@@ -93,7 +93,7 @@ class CommentsView: UIView {
         commentsTextView.keyboardType = .default
         commentsTextView.layer.cornerRadius = 11
         commentsTextView.layer.borderWidth = 2
-        commentsTextView.returnKeyType = .go
+        commentsTextView.returnKeyType = .default
         commentsTextView.isScrollEnabled = false
         commentsTextView.sizeToFit()
         commentsTextView.textContainerInset = UIEdgeInsets(top: 10, left: 5, bottom: 10, right: 5)
@@ -170,6 +170,7 @@ class CommentsView: UIView {
                 commentsButton.backgroundColor = Colors.orange.color
             }
         } else {
+            self.countLabel.text = "500 characters left"
             commentsButton.isEnabled = false
             if self.traitCollection.userInterfaceStyle == .light {
                 commentsButton.backgroundColor = Colors.grayHeroName.color.withAlphaComponent(0.5)
@@ -254,6 +255,7 @@ extension CommentsView: UITextViewDelegate {
             } else {
                 commentsButton.backgroundColor = Colors.orange.color
             }
+            commentsButton.isEnabled = true
         } else {
             commentsButton.isEnabled = false
             if self.traitCollection.userInterfaceStyle == .light {
