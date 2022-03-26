@@ -49,7 +49,6 @@ final class FavoritesViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
         presenter.getFavorites()
         presenter.viewWillAppear(animated: true)
-        tabBarController?.tabBar.isHidden = false
         configureNotificationCenter()
         emptyAnimationView.play()
     }
@@ -78,7 +77,6 @@ final class FavoritesViewController: UIViewController {
         navigationController?.navigationBar.backgroundColor = .clear
         let attributes = [NSAttributedString.Key.foregroundColor: UIColor.label]
         navigationController?.navigationBar.largeTitleTextAttributes = attributes
-        tabBarController?.tabBar.isHidden = false
     }
     
     private func configureCollectionView() {

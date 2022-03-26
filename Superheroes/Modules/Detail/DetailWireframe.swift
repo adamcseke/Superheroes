@@ -15,6 +15,7 @@ final class DetailWireframe: BaseWireframe {
 
     init(hero: Heroes) {
         let moduleViewController = DetailViewController()
+        moduleViewController.hidesBottomBarWhenPushed = true
         super.init(viewController: moduleViewController)
         
         let interactor = DetailInteractor()
