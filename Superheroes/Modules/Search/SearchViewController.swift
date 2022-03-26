@@ -167,7 +167,6 @@ extension SearchViewController: UISearchBarDelegate {
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-//        presenter.searchButtonTapped(name: searchBar.text ?? "")
         self.reloadCollectionView()
     }
 }

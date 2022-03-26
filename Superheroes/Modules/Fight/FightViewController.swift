@@ -66,6 +66,7 @@ final class FightViewController: UIViewController {
         presenter.stopTimers()
         presenter.viewWillAppear(animated: true)
         fightersStackView.fightersHidden = false
+        fightersStackView.fightersEnabled = true
         configureNotificationCenter()
         emptyAnimationView.play()
         fightButton.isEnabled = true
@@ -126,6 +127,8 @@ final class FightViewController: UIViewController {
             make.centerY.equalToSuperview().multipliedBy(0.5)
             make.height.equalTo(itemWidth + 70)
         }
+        
+        fightersStackView.setFightersConstraints(width: itemWidth, height: itemWidth + 70)
     }
     
     private func configurePointsStackView() {
@@ -416,7 +419,6 @@ extension FightViewController: FightViewInterface {
             let fighterOneStat = heroes[0].powerstats.totalStat
             let fighterTwoStat = heroes[1].powerstats.totalStat
 
-            
             pointsStackView.currentProgressOne = fighterOneStat
             pointsStackView.currentProgressTwo = fighterTwoStat
     

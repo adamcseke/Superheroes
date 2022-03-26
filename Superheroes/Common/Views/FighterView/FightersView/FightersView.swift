@@ -24,7 +24,7 @@ class FightersStackView: UIStackView {
     private var fighterOneLifeCounter: UILabel!
     private var fighterTwoLifeCounter: UILabel!
     
-    private var healthOriginalHeight: CGFloat = 0.0
+    private var itemHeight: CGFloat = 0.0
     
     var fightersHidden: Bool = false {
         didSet {
@@ -116,16 +116,14 @@ class FightersStackView: UIStackView {
         addArrangedSubview(fighterOne)
         addArrangedSubview(fighterTwo)
         
-        healthOriginalHeight = 200
-        
         fighterOne.snp.makeConstraints { make in
-            make.width.equalTo(140)
-            make.height.equalTo(healthOriginalHeight)
+            make.width.equalTo(0)
+            make.height.equalTo(0)
         }
         
         fighterTwo.snp.makeConstraints { make in
-            make.width.equalTo(140)
-            make.height.equalTo(healthOriginalHeight)
+            make.width.equalTo(0)
+            make.height.equalTo(0)
         }
     }
     
@@ -187,12 +185,12 @@ class FightersStackView: UIStackView {
         
         fighterOneLifeView.snp.makeConstraints { make in
             make.leading.centerX.bottom.equalToSuperview()
-            make.height.equalTo(self.healthOriginalHeight)
+            make.height.equalTo(itemHeight)
         }
         
         fighterTwoLifeView.snp.makeConstraints { make in
             make.leading.centerX.bottom.equalToSuperview()
-            make.height.equalTo(self.healthOriginalHeight)
+            make.height.equalTo(itemHeight)
         }
         
         fighterOneLifeCounter.snp.makeConstraints { make in
@@ -212,13 +210,35 @@ class FightersStackView: UIStackView {
     
     func setFighterOneLife(life: CGFloat) {
         self.fighterOneLifeView.snp.updateConstraints { make in
-            make.height.equalTo(self.healthOriginalHeight * life)
+            make.height.equalTo(itemHeight * life)
         }
     }
     
     func setFighterTwoLife(life: CGFloat) {
         self.fighterTwoLifeView.snp.updateConstraints { make in
-            make.height.equalTo(self.healthOriginalHeight * life)
+            make.height.equalTo(itemHeight * life)
+        }
+    }
+    
+    func setFightersConstraints(width: CGFloat, height: CGFloat) {
+        itemHeight = height
+        
+        fighterOne.snp.updateConstraints { make in
+            make.width.equalTo(width)
+            make.height.equalTo(height)
+        }
+        
+        fighterTwo.snp.updateConstraints { make in
+            make.width.equalTo(width)
+            make.height.equalTo(height)
+        }
+        
+        fighterOneLifeView.snp.updateConstraints { make in
+            make.height.equalTo(height)
+        }
+        
+        fighterTwoLifeView.snp.updateConstraints { make in
+            make.height.equalTo(height)
         }
     }
 }
