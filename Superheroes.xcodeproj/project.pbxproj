@@ -32,6 +32,7 @@
 		1B0BFB63233632C60054E28A /* RestClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0BFB62233632C60054E28A /* RestClient.swift */; };
 		1BB2479223E6ED0500EBFD39 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB2479123E6ED0500EBFD39 /* APIError.swift */; };
 		1BB2479523E6EE8000EBFD39 /* DataExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB2479423E6EE8000EBFD39 /* DataExtensions.swift */; };
+		1BCCB16227EF167F003FB3E8 /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCCB16127EF167F003FB3E8 /* UIApplication+Extensions.swift */; };
 		1BDD46A223AFFEAE0020AC54 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDD46A123AFFEAE0020AC54 /* Constants.swift */; };
 		3702619227DF1F9400965843 /* FightInterfaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3702618D27DF1F9400965843 /* FightInterfaces.swift */; };
 		3702619327DF1F9400965843 /* FightPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3702618E27DF1F9400965843 /* FightPresenter.swift */; };
@@ -146,6 +147,7 @@
 		1B17106E75929F6F11346C30 /* Pods-Superheroes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Superheroes.release.xcconfig"; path = "Target Support Files/Pods-Superheroes/Pods-Superheroes.release.xcconfig"; sourceTree = "<group>"; };
 		1BB2479123E6ED0500EBFD39 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		1BB2479423E6EE8000EBFD39 /* DataExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataExtensions.swift; sourceTree = "<group>"; };
+		1BCCB16127EF167F003FB3E8 /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
 		1BDD46A123AFFEAE0020AC54 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		20BC19AFC57ED15C2391D931 /* Pods_TemplateTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TemplateTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		23E9AEC29A7A15DC83867F48 /* Pods_Superheroes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Superheroes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -432,6 +434,7 @@
 				1BB2479323E6EE6E00EBFD39 /* Foundation */,
 				37BDADDF27D8D3F200C3AE2F /* NSTextAttachment.swift */,
 				3717C89D27EDE736000868F2 /* StackView+Ext.swift */,
+				1BCCB16127EF167F003FB3E8 /* UIApplication+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -902,6 +905,7 @@
 				1B0BFB4A23362ECE0054E28A /* TabbarProtocol.swift in Sources */,
 				37268E9B27CF75CB0000F942 /* FavoritesPresenter.swift in Sources */,
 				1B0BFB592336303F0054E28A /* TabbarWireframe.swift in Sources */,
+				1BCCB16227EF167F003FB3E8 /* UIApplication+Extensions.swift in Sources */,
 				37268E8227CF6E2A0000F942 /* ViewControllerPreview.swift in Sources */,
 				371D73C327D0C9CD00BF93EB /* Superheroes.swift in Sources */,
 				371D73CF27D0CA9200BF93EB /* Work.swift in Sources */,
