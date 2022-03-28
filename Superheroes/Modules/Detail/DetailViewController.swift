@@ -119,13 +119,13 @@ final class DetailViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         if stackView.isHidden && !circlesStackView.isHidden {
-            let bottom = heroStatsWebView.frame.maxY
+            let bottom = heroStatsWebView.frame.maxY + 20
             scrollView.contentSize = CGSize(width: view.frame.width, height: bottom)
         } else if stackView.isHidden && !commentsView.isHidden {
             let bottom = deleteCommentsButton.frame.maxY + 20
             scrollView.contentSize = CGSize(width: view.frame.width, height: bottom)
         } else {
-            let bottom = stackView.frame.maxY
+            let bottom = stackView.frame.maxY + 20
             scrollView.contentSize = CGSize(width: view.frame.width, height: bottom)
         }
     }
@@ -573,6 +573,7 @@ final class DetailViewController: UIViewController {
     @objc private func binButtonTapped() {
         deleteCommentsButton.isHidden = true
         commentsStackView.removeAllArrangedSubviews()
+        print(commentsStackView)
         commentsStackView.isHidden = true
         presenter.binButtonTapped()
         self.comments.removeAll()
@@ -746,4 +747,3 @@ extension DetailViewController: AlertViewDelegate {
         presenter.buttonCutTapped(range: self.range ?? NSRange(), text: self.text ?? "")
     }
 }
-

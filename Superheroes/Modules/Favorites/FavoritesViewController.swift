@@ -58,6 +58,7 @@ final class FavoritesViewController: UIViewController {
         setupNavigationController()
         configureCollectionView()
         setupEmptyAnimation()
+        configureSearchController()
     }
     
     private func configureNotificationCenter() {
@@ -96,6 +97,7 @@ final class FavoritesViewController: UIViewController {
         collectionView.register(SearchedCollectionViewCell.self, forCellWithReuseIdentifier: "searchedCell")
         collectionView.delegate = self
         collectionView.dataSource = self
+        self.tabBarController?.delegate = self
         collectionView.backgroundColor = .systemBackground
         collectionView.alwaysBounceVertical = true
         collectionView.emptyDataSetDataSource = self
@@ -122,6 +124,19 @@ final class FavoritesViewController: UIViewController {
             make.centerX.equalToSuperview()
             make.centerY.equalToSuperview().multipliedBy(1.3)
         }
+    }
+    
+    private func configureSearchController() {
+        searchVC = UISearchController(searchResultsController: nil)
+        searchVC.hidesNavigationBarDuringPresentation = true
+        searchVC.searchBar.sizeToFit()
+        searchVC.searchBar.autocorrectionType = .no
+        searchVC.searchBar.placeholder = L10n.SearchViewController.SearchBar.placeholder
+        searchVC.automaticallyShowsCancelButton = true
+        searchVC.obscuresBackgroundDuringPresentation = true
+        searchVC.searchBar.tintColor = Colors.orange.color
+        searchVC.searchBar.delegate = self
+        navigationItem.searchController = searchVC
     }
 }
 
@@ -189,4 +204,36 @@ extension FavoritesViewController: SearchedCellDelegate {
         presenter.favoritesButtonTapped(indexPath: indexPath)
     }
     
+}
+
+extension FavoritesViewController: UISearchBarDelegate {
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        presenter.searchButtonTapped(name: searchBar.text ?? "")
+        reloadCollectionView()
+        searchVC.dismiss(animated: true, completion: nil)
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        presenter.searchButtonTapped(name: searchBar.text ?? "")
+        searchVC.dismiss(animated: true)
+        self.collectionView.reloadData()
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        presenter.searchButtonTapped(name: searchBar.text ?? "")
+        self.reloadCollectionView()
+    }
+}
+
+extension FavoritesViewController: UITabBarControllerDelegate {
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        let tabBarIndex = tabBarController.selectedIndex
+        if tabBarIndex == 1 {
+            if collectionView.contentOffset.y > -168 {
+                let actualHeight = collectionView.contentOffset.y - (collectionView.contentOffset.y + 168)
+                collectionView.setContentOffset(CGPoint(x: 0, y: actualHeight), animated: true)
+            }
+        }
+    }
 }

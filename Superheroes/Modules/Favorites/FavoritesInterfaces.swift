@@ -25,6 +25,7 @@ protocol FavoritesPresenterInterface: PresenterInterface {
     func getFavorites()
     func favoritesButtonTapped(indexPath: IndexPath)
     func pushToDetails(hero: Heroes)
+    func searchButtonTapped(name: String)
 }
 
 protocol FavoritesInteractorInterface: InteractorInterface {

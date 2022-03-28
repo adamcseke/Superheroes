@@ -102,6 +102,7 @@ final class SearchViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.backgroundColor = .systemBackground
         collectionView.alwaysBounceVertical = true
+        self.tabBarController?.delegate = self
         collectionView.emptyDataSetDataSource = self
         collectionView.emptyDataSetDelegate = self
         view.addSubview(collectionView)
@@ -191,5 +192,17 @@ extension SearchViewController: SearchedCellDelegate {
     func buttonTapped(at indexPath: IndexPath) {
         generator.impactOccurred()
         presenter.favoritesButtonTapped(indexPath: indexPath)
+    }
+}
+
+extension SearchViewController: UITabBarControllerDelegate {
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        let tabBarIndex = tabBarController.selectedIndex
+        if tabBarIndex == 0 {
+            if collectionView.contentOffset.y > -168 {
+                let actualHeight = collectionView.contentOffset.y - (collectionView.contentOffset.y + 168)
+                collectionView.setContentOffset(CGPoint(x: 0, y: actualHeight), animated: true)
+            }
+        }
     }
 }

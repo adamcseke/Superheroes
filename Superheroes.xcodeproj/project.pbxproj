@@ -93,7 +93,6 @@
 		37AE99A827ECAF7B0065184E /* fight.json in Resources */ = {isa = PBXBuildFile; fileRef = 37AE99A527ECAF7A0065184E /* fight.json */; };
 		37B5ED3F27E1CC8B00A28FEB /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B5ED3E27E1CC8B00A28FEB /* DatabaseManager.swift */; };
 		37B5ED4427E1CF0400A28FEB /* BoolCompletition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B5ED4327E1CF0400A28FEB /* BoolCompletition.swift */; };
-		37BDADE027D8D3F200C3AE2F /* NSTextAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BDADDF27D8D3F200C3AE2F /* NSTextAttachment.swift */; };
 		37CAEE1827E4702100E06B61 /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CAEE1727E4702100E06B61 /* AlertViewController.swift */; };
 		37E7F9EB27E85EB700BA303C /* FavoriteFightersCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E7F9EA27E85EB700BA303C /* FavoriteFightersCollectionViewCell.swift */; };
 		37ED519327DB5A4300E96829 /* SpiderWebChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37ED519227DB5A4300E96829 /* SpiderWebChartView.swift */; };
@@ -212,7 +211,6 @@
 		37AE99A527ECAF7A0065184E /* fight.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = fight.json; sourceTree = "<group>"; };
 		37B5ED3E27E1CC8B00A28FEB /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		37B5ED4327E1CF0400A28FEB /* BoolCompletition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoolCompletition.swift; sourceTree = "<group>"; };
-		37BDADDF27D8D3F200C3AE2F /* NSTextAttachment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSTextAttachment.swift; sourceTree = "<group>"; };
 		37CAEE1727E4702100E06B61 /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
 		37E7F9EA27E85EB700BA303C /* FavoriteFightersCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteFightersCollectionViewCell.swift; sourceTree = "<group>"; };
 		37ED519227DB5A4300E96829 /* SpiderWebChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiderWebChartView.swift; sourceTree = "<group>"; };
@@ -429,12 +427,11 @@
 		1BDD469E23AFFCAE0020AC54 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				37EF5F5927F1E209006AE27D /* UIApplication */,
+				37EF5F5827F1E1FD006AE27D /* StackView */,
 				3759BC5C27E4C6C800F1D915 /* View */,
 				37268E8527CF721E0000F942 /* String */,
 				1BB2479323E6EE6E00EBFD39 /* Foundation */,
-				37BDADDF27D8D3F200C3AE2F /* NSTextAttachment.swift */,
-				3717C89D27EDE736000868F2 /* StackView+Ext.swift */,
-				1BCCB16127EF167F003FB3E8 /* UIApplication+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -647,6 +644,22 @@
 				37B5ED3E27E1CC8B00A28FEB /* DatabaseManager.swift */,
 			);
 			path = DatabaseManager;
+			sourceTree = "<group>";
+		};
+		37EF5F5827F1E1FD006AE27D /* StackView */ = {
+			isa = PBXGroup;
+			children = (
+				3717C89D27EDE736000868F2 /* StackView+Ext.swift */,
+			);
+			path = StackView;
+			sourceTree = "<group>";
+		};
+		37EF5F5927F1E209006AE27D /* UIApplication */ = {
+			isa = PBXGroup;
+			children = (
+				1BCCB16127EF167F003FB3E8 /* UIApplication+Extensions.swift */,
+			);
+			path = UIApplication;
 			sourceTree = "<group>";
 		};
 		37F77A8A27DE07C600A6D58F /* DetailView */ = {
@@ -934,7 +947,6 @@
 				37EFE0AA27D1F594008F28EF /* Fonts.swift in Sources */,
 				37268E7C27CF6DCF0000F942 /* SearchInterfaces.swift in Sources */,
 				37268E9A27CF75CB0000F942 /* FavoritesInterfaces.swift in Sources */,
-				37BDADE027D8D3F200C3AE2F /* NSTextAttachment.swift in Sources */,
 				375D6D4927E9BB610052389A /* Comments.swift in Sources */,
 				3717C8A027EDFA15000868F2 /* PointsStackView.swift in Sources */,
 				37268E9D27CF75CB0000F942 /* FavoritesInteractor.swift in Sources */,

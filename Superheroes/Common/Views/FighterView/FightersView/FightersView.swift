@@ -33,13 +33,6 @@ class FightersStackView: UIStackView {
         }
     }
     
-    var fightersSelected: Bool = false {
-        didSet {
-            fighterOne.isSelected = fightersSelected
-            fighterTwo.isSelected = fightersSelected
-        }
-    }
-    
     var fightersEnabled: Bool = true {
         didSet {
             fighterOne.isEnabled = fightersEnabled
@@ -131,16 +124,24 @@ class FightersStackView: UIStackView {
         if let delegate = delegate {
             delegate.fighterOneTapped()
         }
-        fighterOne.isSelected.toggle()
-        fighterTwo.isSelected = false
+        if fighterOneSelected {
+            fighterOne.layer.borderColor = Colors.orange.color.cgColor
+            fighterOne.layer.borderWidth = 2
+        } else {
+            fighterOne.layer.borderColor = UIColor.clear.cgColor
+        }
     }
     
     @objc private func fighterTwoTapped() {
         if let delegate = delegate {
             delegate.fighterTwoTapped()
         }
-        fighterTwo.isSelected.toggle()
-        fighterOne.isSelected = false
+        if fighterTwoSelected {
+            fighterTwo.layer.borderColor = Colors.orange.color.cgColor
+            fighterTwo.layer.borderWidth = 2
+        } else {
+            fighterOne.layer.borderColor = UIColor.clear.cgColor
+        }
     }
     
     func setFighterOne(name: String, imageURL: String) {

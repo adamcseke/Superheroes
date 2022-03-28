@@ -41,6 +41,19 @@ final class FavoritesPresenter {
 
 extension FavoritesPresenter: FavoritesPresenterInterface {
     
+    func searchButtonTapped(name: String) {
+        if name.isEmpty {
+            favorites = DatabaseManager.main.getHeroes()
+        } else {
+            favorites.removeAll()
+            DatabaseManager.main.getHeroes().forEach { heroes in
+                if heroes.name.lowercased().contains(name.lowercased()) {
+                    favorites.append(heroes)
+                }
+            }
+        }
+    }
+    
     func pushToDetails(hero: Heroes) {
         wireframe.pushToDetails(hero: hero)
     }
