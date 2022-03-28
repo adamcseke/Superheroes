@@ -191,12 +191,16 @@ final class DetailViewController: UIViewController {
         scrollView.delegate = self
         scrollView.contentInsetAdjustmentBehavior = .never
         scrollView.backgroundColor = .systemBackground
+        scrollView.contentInset = UIEdgeInsets(top: 0,
+                                               left: 0,
+                                               bottom: UIApplication.safeAreaInsets.bottom,
+                                               right: 0)
         view.addSubview(scrollView)
         
         scrollView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
             make.top.equalToSuperview()
-            make.bottom.equalTo(view.safeAreaLayoutGuide)
+            make.bottom.equalToSuperview()
         }
     }
     
