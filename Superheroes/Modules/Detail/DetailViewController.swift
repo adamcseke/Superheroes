@@ -71,7 +71,6 @@ final class DetailViewController: UIViewController {
         navigationController?.navigationBar.tintColor = Colors.orange.color
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
-        tabBarController?.tabBar.isHidden = true
         presenter.getFavorites()
         presenter.getComments()
         presenter.viewWillAppear(animated: true)

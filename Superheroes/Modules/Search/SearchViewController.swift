@@ -48,7 +48,6 @@ final class SearchViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.prefersLargeTitles = true
-        tabBarController?.tabBar.isHidden = false
         presenter.viewWillAppear(animated: true)
         self.reloadCollectionView()
     }
