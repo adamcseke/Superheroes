@@ -48,6 +48,15 @@ final class FightPresenter {
 // MARK: - Extensions -
 
 extension FightPresenter: FightPresenterInterface {
+    func checkFighter(fighter: String) -> Bool {
+        if favorites.contains(where: { $0.id == fighter}) {
+            print("Ok")
+            return true
+        } else {
+            return false
+        }
+    }
+    
     func stopTimers() {
         timerOne.invalidate()
         timerTwo.invalidate()
@@ -87,7 +96,7 @@ extension FightPresenter: FightPresenterInterface {
         view.setSelectedFighter(hero: hero)
     }
     
-    func setTwoHeroesToFight() {
+    func setHeroes() {
         view.pushFavoriteHeroes(heroes: favorites)
     }
     

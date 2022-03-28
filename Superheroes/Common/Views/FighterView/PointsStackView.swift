@@ -26,7 +26,6 @@ class PointsStackView: UIStackView {
         }
     }
 
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
@@ -47,7 +46,7 @@ class PointsStackView: UIStackView {
     private func configureCircleOne() {
         circleOne = CircleShapeView()
         circleOne.radius = 30
-        circleOne.color = UIColor.blue.cgColor
+        circleOne.color = Colors.fighterStatPurple.color.cgColor
         
         addArrangedSubview(circleOne)
         
@@ -67,7 +66,7 @@ class PointsStackView: UIStackView {
         circleTwo = CircleShapeView()
         circleTwo.radius = 30
         addArrangedSubview(circleTwo)
-        circleTwo.color = UIColor.red.cgColor
+        circleTwo.color = Colors.fighterStatOrange.color.cgColor
         
         circleTwo.snp.makeConstraints { make in
             make.width.equalTo(80)

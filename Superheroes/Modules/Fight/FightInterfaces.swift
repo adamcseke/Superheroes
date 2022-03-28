@@ -30,10 +30,11 @@ protocol FightPresenterInterface: PresenterInterface {
     func numberOfItem(in section: Int) -> Int
     func cellForItem(at indexPath: IndexPath) -> Heroes
     func getFavorites()
-    func setTwoHeroesToFight()
+    func setHeroes()
     func setSelectedHero(hero: Heroes)
     func fightButtonTapped(heroOne: Heroes, heroTwo: Heroes)
     func stopTimers()
+    func checkFighter(fighter: String) -> Bool
 }
 
 protocol FightInteractorInterface: InteractorInterface {
