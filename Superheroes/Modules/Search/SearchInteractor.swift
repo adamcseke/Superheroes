@@ -18,6 +18,14 @@ final class SearchInteractor {
 // MARK: - Extensions -
 
 extension SearchInteractor: SearchInteractorInterface {
+    func getSearchedHeroes(name: String) -> [Heroes] {
+        dataProvider.getSearchedHeroes(name: name)
+    }
+    
+    func insertSearchedHeroes(entity: Heroes, completion: BoolCompletition?) {
+        dataProvider.insertSearchedHeroes(entity: entity, completion: completion)
+    }
+    
     func delete(entity: Heroes, completion: BoolCompletition?) {
         dataProvider.delete(entity: entity, completion: completion)
     }

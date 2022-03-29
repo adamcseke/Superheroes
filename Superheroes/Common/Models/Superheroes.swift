@@ -19,4 +19,10 @@ struct Superheroes: Codable {
         case resultsFor = "results-for"
         case results
     }
+    
+    init(heroes: [Heroes], response: String? = nil, resultsFor: String? = nil) {
+        self.results = heroes
+        self.response = response ?? ""
+        self.resultsFor = resultsFor ?? ""
+    }
 }

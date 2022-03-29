@@ -36,4 +36,6 @@ protocol SearchInteractorInterface: InteractorInterface {
     func isInTheFavorites(entity: Heroes) -> Bool
     func delete(entity: Heroes, completion: BoolCompletition?)
     func insert(entity: Heroes, completion: BoolCompletition?)
+    func insertSearchedHeroes(entity: Heroes, completion: BoolCompletition?)
+    func getSearchedHeroes(name: String) -> [Heroes]
 }

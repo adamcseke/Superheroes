@@ -41,7 +41,7 @@
 "commentsView.textView.placeholder" = "Write down your thoughts...";
 "favoritesViewController.emptyStateView.label" = "You don't have any favorites.";
 "searchPresenter.alertViewController.noInternet.title" = "No internet connection";
-"searchPresenter.alertViewController.noInternet.description" = "Please check your internet connection.";
+"searchPresenter.alertViewController.noInternet.description" = "Please check your internet connection. These heroes that you can see are saved to get them offline too.";
 "searchPresenter.alertViewController.button.title" = "Ok";
 "searchPresenter.alertViewController.heroNotFound.title" = "Hero not found ";
 "searchPresenter.alertViewController.heroNotFound.description" = "Please check the hero's name.";

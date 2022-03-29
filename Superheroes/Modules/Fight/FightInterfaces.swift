@@ -20,7 +20,6 @@ protocol FightViewInterface: ViewInterface {
     func setSelectedFighter(hero: Heroes)
     func setHeroTwoLife(life: Double)
     func setHeroOneLife(life: Double)
-    func timerStopped()
     func pushHeroOneLife()
     func pushHeroTwoLife()
 }

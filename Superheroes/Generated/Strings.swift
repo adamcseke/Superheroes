@@ -170,7 +170,7 @@ internal enum L10n {
         internal static let title = L10n.tr("Localizable", "searchPresenter.alertViewController.heroNotFound.title")
       }
       internal enum NoInternet {
-        /// Please check your internet connection.
+        /// Please check your internet connection. These heroes that you can see are saved to get them offline too.
         internal static let description = L10n.tr("Localizable", "searchPresenter.alertViewController.noInternet.description")
         /// No internet connection
         internal static let title = L10n.tr("Localizable", "searchPresenter.alertViewController.noInternet.title")

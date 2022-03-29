@@ -16,7 +16,6 @@ final class SearchViewController: UIViewController {
     private let generator = UIImpactFeedbackGenerator(style: .medium)
     private let statusBarFrame = UIApplication.shared.statusBarFrame
     private var statusBarView: UIView!
-    private var scrollUpButton: UIButton!
     private var searchVC: UISearchController!
     private var collectionView: UICollectionView!
     private let itemsPerRow: CGFloat = 2
@@ -56,7 +55,6 @@ final class SearchViewController: UIViewController {
         configureViewController()
         configureSearchController()
         configureCollectionView()
-        configureScrollUpButton()
     }
     
     private func setupNavigationController() {
@@ -110,30 +108,6 @@ final class SearchViewController: UIViewController {
             make.edges.equalToSuperview()
         }
     }
-    
-    private func configureScrollUpButton() {
-        scrollUpButton = UIButton()
-        let imageConfig = UIImage.SymbolConfiguration(pointSize: 30, weight: .black, scale: .large)
-        let image = UIImage(systemName: "arrow.up.circle.fill", withConfiguration: imageConfig)
-        scrollUpButton.setImage(image, for: .normal)
-        scrollUpButton.tintColor = Colors.orange.color
-        scrollUpButton.isHidden = true
-        scrollUpButton.addTarget(self, action: #selector(scrollUpButtonTapped), for: .touchUpInside)
-        
-        view.addSubview(scrollUpButton)
-        
-        scrollUpButton.snp.makeConstraints { make in
-            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-16)
-            make.trailing.equalToSuperview().offset(-16)
-        }
-    }
-    
-    @objc private func scrollUpButtonTapped() {
-        if collectionView.contentOffset.y > -168 {
-            let actualHeight = collectionView.contentOffset.y - (collectionView.contentOffset.y + 168)
-            collectionView.setContentOffset(CGPoint(x: 0, y: actualHeight), animated: true)
-        }
-    }
 }
 
 // MARK: - Extensions -
@@ -145,14 +119,19 @@ extension SearchViewController: SearchViewInterface {
     
     func reloadCollectionView() {
         self.collectionView.reloadData()
+        collectionView.allowsSelection = true
     }
 }
 
 extension SearchViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let selectedHero = presenter.cellForItem(at: indexPath)
-        presenter.pushToDetails(hero: selectedHero)
+        if Reachability.isConnectedToNetwork() {
+            let selectedHero = presenter.cellForItem(at: indexPath)
+            presenter.pushToDetails(hero: selectedHero)
+        } else {
+            collectionView.allowsSelection = false
+        }
     }
     
 }
@@ -171,9 +150,15 @@ extension SearchViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "searchedCell", for: indexPath) as? SearchedCollectionViewCell else {
             return UICollectionViewCell()
         }
+        var buttonHidden: Bool = false
+        if Reachability.isConnectedToNetwork() {
+            buttonHidden = false
+        } else {
+            buttonHidden = true
+        }
         let heroesInfo = presenter.cellForItem(at: indexPath)
         let heroViewModel = HeroViewModel(hero: heroesInfo)
-        cell.bind(hero: heroViewModel, indexPath: indexPath, delegate: self, isFavorite: heroesInfo.isFavorite)
+        cell.bind(hero: heroViewModel, indexPath: indexPath, delegate: self, isFavorite: heroesInfo.isFavorite, buttonHidden: buttonHidden)
         return cell
     }
 }
@@ -215,20 +200,5 @@ extension SearchViewController: SearchedCellDelegate {
     func buttonTapped(at indexPath: IndexPath) {
         generator.impactOccurred()
         presenter.favoritesButtonTapped(indexPath: indexPath)
-    }
-}
-
-extension SearchViewController: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        print(scrollView.contentOffset.y)
-        if scrollView.contentOffset.y > -72  {
-            UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseIn, animations: {
-                self.scrollUpButton.isHidden = false
-            }, completion: nil)
-        } else {
-            UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseIn, animations: {
-                self.scrollUpButton.isHidden = true
-            }, completion: nil)
-        }
     }
 }

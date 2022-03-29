@@ -82,7 +82,6 @@ class SearchedCollectionViewCell: UICollectionViewCell {
     
     private func configureSaveButton() {
         saveButton = UIButton()
-
         saveButton.layer.backgroundColor = Colors.saveButtonBackground.color.cgColor
         saveButton.layer.cornerRadius = 17.5
         saveButton.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
@@ -115,11 +114,12 @@ class SearchedCollectionViewCell: UICollectionViewCell {
             })
     }
     
-    func bind(hero: SearchedCollectionViewCellBindable, indexPath: IndexPath, delegate: SearchedCellDelegate?, isFavorite: Bool) {
+    func bind(hero: SearchedCollectionViewCellBindable, indexPath: IndexPath, delegate: SearchedCellDelegate?, isFavorite: Bool, buttonHidden: Bool) {
         heroNameLabel.text = hero.name
         cellBackgroundImageView.sd_setImage(with: URL(string: hero.image.url), placeholderImage: Images.superhero.image.withTintColor(UIColor.label))
         self.indexPath = indexPath
         self.delegate = delegate
         saveButton.isSelected = isFavorite
+        saveButton.isHidden = buttonHidden
     }
 }

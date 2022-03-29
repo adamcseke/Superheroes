@@ -18,11 +18,10 @@ final class FavoritesViewController: UIViewController {
     private var searchVC: UISearchController!
     private var collectionView: UICollectionView!
     private var emptyAnimationView: AnimationView!
-    private var scrollUpButton: UIButton!
     
     private let statusBarFrame = UIApplication.shared.statusBarFrame
     private var statusBarView: UIView!
-    
+    private var maxHeight: CGFloat?
     // MARK: - Public properties -
 
     var presenter: FavoritesPresenterInterface!
@@ -60,7 +59,6 @@ final class FavoritesViewController: UIViewController {
         configureCollectionView()
         setupEmptyAnimation()
         configureSearchController()
-        configureScrollUpButton()
     }
     
     private func configureNotificationCenter() {
@@ -139,30 +137,6 @@ final class FavoritesViewController: UIViewController {
         searchVC.searchBar.delegate = self
         navigationItem.searchController = searchVC
     }
-    
-    private func configureScrollUpButton() {
-        scrollUpButton = UIButton()
-        let imageConfig = UIImage.SymbolConfiguration(pointSize: 30, weight: .black, scale: .large)
-        let image = UIImage(systemName: "arrow.up.circle.fill", withConfiguration: imageConfig)
-        scrollUpButton.setImage(image, for: .normal)
-        scrollUpButton.tintColor = Colors.orange.color
-        scrollUpButton.isHidden = true
-        scrollUpButton.addTarget(self, action: #selector(scrollUpButtonTapped), for: .touchUpInside)
-        
-        view.addSubview(scrollUpButton)
-        
-        scrollUpButton.snp.makeConstraints { make in
-            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-16)
-            make.trailing.equalToSuperview().offset(-16)
-        }
-    }
-    
-    @objc private func scrollUpButtonTapped() {
-        if collectionView.contentOffset.y > -168 {
-            let actualHeight = collectionView.contentOffset.y - (collectionView.contentOffset.y + 168)
-            collectionView.setContentOffset(CGPoint(x: 0, y: actualHeight), animated: true)
-        }
-    }
 }
 
 // MARK: - Extensions -
@@ -197,7 +171,7 @@ extension FavoritesViewController: UICollectionViewDataSource {
         }
         let hero = presenter.cellForItem(at: indexPath)
         let heroViewModel = HeroViewModel(hero: hero)
-        cell.bind(hero: heroViewModel, indexPath: indexPath, delegate: self, isFavorite: hero.isFavorite)
+        cell.bind(hero: heroViewModel, indexPath: indexPath, delegate: self, isFavorite: hero.isFavorite, buttonHidden: false)
         return cell
     }
 }
@@ -248,20 +222,5 @@ extension FavoritesViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         presenter.searchButtonTapped(name: searchBar.text ?? "")
         self.reloadCollectionView()
-    }
-}
-
-extension FavoritesViewController: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        print(scrollView.contentOffset.y)
-        if scrollView.contentOffset.y > -168  {
-            UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseIn, animations: {
-                self.scrollUpButton.isHidden = false
-            }, completion: nil)
-        } else {
-            UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseIn, animations: {
-                self.scrollUpButton.isHidden = true
-            }, completion: nil)
-        }
     }
 }

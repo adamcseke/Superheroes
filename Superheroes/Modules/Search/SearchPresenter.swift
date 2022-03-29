@@ -22,6 +22,7 @@ final class SearchPresenter {
     private var text: String = ""
     private var isFavorite: Bool = false
     private var favorites: [Heroes] = []
+    private var hero: Heroes?
     
     // MARK: - Lifecycle -
     
@@ -110,39 +111,56 @@ extension SearchPresenter: SearchPresenterInterface {
     }
     
     private func search(name: String) {
-        interactor.getSuperheroes(name: name) { result in
-            switch result {
-                
-            case .success(let heroes):
-                
-                self.heroes = heroes.results
-                self.getFavorites()
-                self.view.reloadCollectionView()
-                
-            case .failure(let error):
-                if let error = error as? SuperheroesError {
-                    switch error {
-                    case .wrongURL:
-                        self.wireframe.presentAlert(title: L10n.SearchPresenter.AlertViewController.HeroNotFound.title,
-                                                    description: L10n.SearchPresenter.AlertViewController.HeroNotFound.description,
-                                                    buttonText: "",
-                                                    alertImage: UIImage(named: Images.notFound.name)?.withTintColor(Colors.orange.color) ?? UIImage(),
-                                                    buttonTwoLabel: L10n.SearchPresenter.AlertViewController.Button.title,
-                                                    buttonIsHidden: true)
-                        
-                        self.view.setSearchbarTextClear()
-                    case .noInternetConnection:
-                        self.wireframe.presentAlert(title: L10n.SearchPresenter.AlertViewController.NoInternet.title,
-                                                    description: L10n.SearchPresenter.AlertViewController.NoInternet.description,
-                                                    buttonText: "",
-                                                    alertImage: UIImage(named: Images.noSignal.name)?.withTintColor(Colors.orange.color) ?? UIImage(),
-                                                    buttonTwoLabel: L10n.SearchPresenter.AlertViewController.Button.title,
-                                                    buttonIsHidden: true)
+        if Reachability.isConnectedToNetwork() {
+            interactor.getSuperheroes(name: name) { result in
+                switch result {
+                    
+                case .success(let heroes):
+                    
+                    self.heroes = heroes.results
+                    self.getFavorites()
+                    self.view.reloadCollectionView()
+                    
+                    self.heroes.forEach { hero in
+                        self.interactor.insertSearchedHeroes(entity: hero) { _ in
+                            print(self.heroes.count)
+                        }
                     }
+                    
+                case .failure(let error):
+                    if let error = error as? SuperheroesError {
+                        switch error {
+                        case .wrongURL:
+                            self.wireframe.presentAlert(title: L10n.SearchPresenter.AlertViewController.HeroNotFound.title,
+                                                        description: L10n.SearchPresenter.AlertViewController.HeroNotFound.description,
+                                                        buttonText: "",
+                                                        alertImage: UIImage(named: Images.notFound.name)?.withTintColor(Colors.orange.color) ?? UIImage(),
+                                                        buttonTwoLabel: L10n.SearchPresenter.AlertViewController.Button.title,
+                                                        buttonIsHidden: true)
+                            self.view.setSearchbarTextClear()
+                        }
+                    }
+                    print(error.localizedDescription)
                 }
-                print(error.localizedDescription)
             }
+            print("Internet Connection Available!")
+        } else {
+            self.wireframe.presentAlert(title: L10n.SearchPresenter.AlertViewController.NoInternet.title,
+                                        description: L10n.SearchPresenter.AlertViewController.NoInternet.description,
+                                        buttonText: "",
+                                        alertImage: UIImage(named: Images.noSignal.name)?.withTintColor(Colors.orange.color) ?? UIImage(),
+                                        buttonTwoLabel: L10n.SearchPresenter.AlertViewController.Button.title,
+                                        buttonIsHidden: true)
+            self.heroes.removeAll()
+            self.interactor.getSearchedHeroes(name: self.text).forEach({ heroes in
+                if heroes.name.lowercased().contains(name.lowercased()) {
+                    self.heroes.append(heroes)
+                }
+            })
+            self.view.reloadCollectionView()
+            print("Internet Connection not Available!")
         }
+        
     }
     
 }

@@ -16,6 +16,8 @@ protocol SuperheroesDatabaseManager: AnyObject {
     func insertComment(entity: Heroes, comment: String, date: Date, completion: BoolCompletition?)
     func getComments(entity: Heroes) -> [String]
     func deleteComment(entity: Heroes, completion: BoolCompletition?)
+    func insertSearchedHeroes(entity: Heroes, completion: BoolCompletition?)
+    func getSearchedHeroes(name: String) -> [Heroes]
 }
 
 class DatabaseManager: SuperheroesDatabaseManager {
@@ -61,6 +63,8 @@ class DatabaseManager: SuperheroesDatabaseManager {
     fileprivate let userComments = Table("comments")
     fileprivate let userComment = Expression<String?>("comment")
     fileprivate let dateOfComment = Expression<Date>("date")
+    
+    fileprivate let searched = Table("searched")
     
     
     internal func openIfNeeded() {
@@ -112,6 +116,36 @@ class DatabaseManager: SuperheroesDatabaseManager {
                     tColoumn.column(dateOfComment)
                     tColoumn.column(userComment)
                     tColoumn.primaryKey(heroID, dateOfComment)
+                })
+                
+                try database.run(searched.create { tColoumn in
+                    tColoumn.column(heroName)
+                    tColoumn.column(url)
+                    tColoumn.column(heroID, primaryKey: true)
+                    tColoumn.column(intelligence)
+                    tColoumn.column(strength)
+                    tColoumn.column(speed)
+                    tColoumn.column(durability)
+                    tColoumn.column(power)
+                    tColoumn.column(combat)
+                    tColoumn.column(fullName)
+                    tColoumn.column(alterEgos)
+                    tColoumn.column(placeOfBirth)
+                    tColoumn.column(firstAppearance)
+                    tColoumn.column(publisher)
+                    tColoumn.column(alignment)
+                    tColoumn.column(gender)
+                    tColoumn.column(race)
+                    tColoumn.column(eyeColor)
+                    tColoumn.column(hairColor)
+                    tColoumn.column(occupation)
+                    tColoumn.column(base)
+                    tColoumn.column(groupAffiliation)
+                    tColoumn.column(relatives)
+                    tColoumn.column(isFavorite)
+                    tColoumn.column(alias)
+                    tColoumn.column(heightMetric)
+                    tColoumn.column(weightMetric)
                 })
                 
             } catch {
@@ -285,6 +319,56 @@ class DatabaseManager: SuperheroesDatabaseManager {
             print(error)
             completion?(false)
         }
+    }
+    
+    func insertSearchedHeroes(entity: Heroes, completion: BoolCompletition?) {
+        self.openIfNeeded()
+        let insert = searched.insert(
+            heroID <- entity.id,
+            heroName <- entity.name,
+            url <- entity.image.url
+        )
+        
+        do {
+            _ = try database?.run(insert)
+            print("Comment saved to database...\(heroID)")
+            completion?(true)
+        } catch let error {
+            print(error.localizedDescription)
+            print(String(describing: error))
+            completion?(false)
+        }
+    }
+    
+    func getSearchedHeroes(name: String) -> [Heroes] {
+        var heroes: [Heroes] = []
+        if let db = database {
+            
+            do {
+                for hero in try db.prepare(searched) {
+                 
+                    let powerstats = Powerstats(intelligence: hero[intelligence], strength: hero[strength], speed: hero[speed], durability: hero[durability], power: hero[power], combat: hero[combat])
+                    
+                    let biography = Biography(fullName: hero[fullName], alterEgos: hero[alterEgos], placeOfBirth: hero[placeOfBirth], firstAppearance: hero[firstAppearance], publisher: hero[publisher], alignment: hero[alignment])
+                    
+                    let appearance = Appearance(gender: hero[gender], race: hero[race], eyeColor: hero[eyeColor], hairColor: hero[hairColor])
+                    
+                    let work = Work(occupation: hero[occupation], base: hero[base])
+                    
+                    let connections = Connections(groupAffiliation: hero[groupAffiliation], relatives: hero[relatives])
+                    
+                    let image = Image(url: hero[url])
+                    
+                    let superhero = Heroes(id: hero[heroID] ?? "", name: hero[heroName] ?? "", powerstats: powerstats, biography: biography, appearance: appearance, work: work, connections: connections, image: image, isFavorite: hero[isFavorite] ?? false, alias: hero[alias] ?? "", height: hero[heightMetric] ?? "", weight: hero[weightMetric] ?? "")
+                    
+                    heroes.append(superhero)
+                }
+            } catch {
+                print(error)
+            }
+        }
+        
+        return heroes
     }
     
 }

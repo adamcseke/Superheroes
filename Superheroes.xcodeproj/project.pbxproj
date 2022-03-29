@@ -93,6 +93,7 @@
 		37AE99A827ECAF7B0065184E /* fight.json in Resources */ = {isa = PBXBuildFile; fileRef = 37AE99A527ECAF7A0065184E /* fight.json */; };
 		37B5ED3F27E1CC8B00A28FEB /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B5ED3E27E1CC8B00A28FEB /* DatabaseManager.swift */; };
 		37B5ED4427E1CF0400A28FEB /* BoolCompletition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B5ED4327E1CF0400A28FEB /* BoolCompletition.swift */; };
+		37B926D027F3235600D98EFB /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B926CF27F3235600D98EFB /* Reachability.swift */; };
 		37CAEE1827E4702100E06B61 /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CAEE1727E4702100E06B61 /* AlertViewController.swift */; };
 		37E7F9EB27E85EB700BA303C /* FavoriteFightersCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E7F9EA27E85EB700BA303C /* FavoriteFightersCollectionViewCell.swift */; };
 		37ED519327DB5A4300E96829 /* SpiderWebChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37ED519227DB5A4300E96829 /* SpiderWebChartView.swift */; };
@@ -212,6 +213,7 @@
 		37AE99A527ECAF7A0065184E /* fight.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = fight.json; sourceTree = "<group>"; };
 		37B5ED3E27E1CC8B00A28FEB /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		37B5ED4327E1CF0400A28FEB /* BoolCompletition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoolCompletition.swift; sourceTree = "<group>"; };
+		37B926CF27F3235600D98EFB /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		37CAEE1727E4702100E06B61 /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
 		37E7F9EA27E85EB700BA303C /* FavoriteFightersCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteFightersCollectionViewCell.swift; sourceTree = "<group>"; };
 		37ED519227DB5A4300E96829 /* SpiderWebChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiderWebChartView.swift; sourceTree = "<group>"; };
@@ -402,6 +404,7 @@
 		1B0BFB5E233632830054E28A /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				37B926CE27F3234B00D98EFB /* Reachability */,
 				37B5ED3D27E1CC6F00A28FEB /* DatabaseManager */,
 				1B0BFB5F2336328D0054E28A /* RestClient */,
 			);
@@ -647,6 +650,14 @@
 				37B5ED3E27E1CC8B00A28FEB /* DatabaseManager.swift */,
 			);
 			path = DatabaseManager;
+			sourceTree = "<group>";
+		};
+		37B926CE27F3234B00D98EFB /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+				37B926CF27F3235600D98EFB /* Reachability.swift */,
+			);
+			path = Reachability;
 			sourceTree = "<group>";
 		};
 		37EF5F5827F1E1FD006AE27D /* StackView */ = {
@@ -929,6 +940,7 @@
 				1B0BFB3C23362A000054E28A /* InteractorInterface.swift in Sources */,
 				374B9B7827D637C1001BF4A5 /* InfoView.swift in Sources */,
 				1B0BFB3A23362A000054E28A /* UIStoryboardExtension.swift in Sources */,
+				37B926D027F3235600D98EFB /* Reachability.swift in Sources */,
 				37ED519327DB5A4300E96829 /* SpiderWebChartView.swift in Sources */,
 				37E7F9EB27E85EB700BA303C /* FavoriteFightersCollectionViewCell.swift in Sources */,
 				37268EC627CF99970000F942 /* SearchedCollectionViewCell.swift in Sources */,

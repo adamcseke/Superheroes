@@ -9,7 +9,6 @@
 import Foundation
 
 enum SuperheroesError: Error {
-    case noInternetConnection
     case wrongURL
 }
 
@@ -31,7 +30,6 @@ final class RestClient {
         let task = URLSession.shared.dataTask(with: url) { data, _, error in
             if let error = error {
                 DispatchQueue.main.async {
-                    completion(.failure(SuperheroesError.noInternetConnection))
                     print(error.localizedDescription)
                 }
             } else if let data = data {

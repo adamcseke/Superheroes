@@ -48,7 +48,7 @@ struct Heroes: Codable, Hashable {
         self.appearance.heightMetric = height
         self.appearance.weighttMetric = weight
     }
-    
+
     func hash(into hasher: inout Hasher) {
       hasher.combine(id)
     }
