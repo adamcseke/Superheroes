@@ -131,48 +131,44 @@ final class FightViewController: UIViewController {
     }
     
     @objc private func resetButtonTapped() {
-        fightIsOn = false
-        resetButton.isHidden = true
-        fightButton.isHidden = false
-        fightButton.isEnabled = true
-        fightAnimationView.isHidden = true
-        fightButton.backgroundColor = Colors.orange.color
-        winnerLoserView.labelsHidden = true
-        fightersStackView.lifeCountViewHidden = true
-        fightersStackView.fighterOneSelected = false
-        fightersStackView.fighterTwoSelected = false
-        
-        fightersStackView.setFighterOne(name: fighterOneChosen?.name ?? "", imageURL: fighterOneChosen?.image.url ?? "")
-        fightersStackView.setFighterTwo(name: fighterTwoChosen?.name ?? "", imageURL: fighterTwoChosen?.image.url ?? "")
-        
-        let fighterOneStat = fighterOneChosen?.powerstats.totalStat
-        let fighterTwoStat = fighterTwoChosen?.powerstats.totalStat
-        
-        pointsStackView.currentProgressOne = fighterOneStat ?? 0.0
-        pointsStackView.currentProgressTwo = fighterTwoStat ?? 0.0
-        
-        fightersStackView.fighterOneLife = "100%"
-        fightersStackView.fighterTwoLife = "100%"
-        
-        fightersStackView.setFighterOneLife(life: 1.0)
-        fightersStackView.setFighterTwoLife(life: 1.0)
-        
         if favoriteHeroes.count < 2 {
-            favoritesCollectionView.isHidden = true
-            fightersStackView.fightersHidden = true
-            pointsStackView.isHidden = true
-            fightButton.isHidden = true
-            emptyAnimationView.isHidden = false
-            emptyViewTitle.isHidden = false
+            setTwoFighters()
+        } else {
+            fightIsOn = false
+            resetButton.isHidden = true
+            fightButton.isHidden = false
+            fightButton.isEnabled = true
+            fightAnimationView.isHidden = true
+            fightButton.backgroundColor = Colors.orange.color
+            winnerLoserView.labelsHidden = true
+            fightersStackView.lifeCountViewHidden = true
+            fightersStackView.fighterOneSelected = false
+            fightersStackView.fighterTwoSelected = false
+            
+            fightersStackView.setFighterOne(name: fighterOneChosen?.name ?? "", imageURL: fighterOneChosen?.image.url ?? "")
+            fightersStackView.setFighterTwo(name: fighterTwoChosen?.name ?? "", imageURL: fighterTwoChosen?.image.url ?? "")
+            
+            let fighterOneStat = fighterOneChosen?.powerstats.totalStat
+            let fighterTwoStat = fighterTwoChosen?.powerstats.totalStat
+            
+            pointsStackView.currentProgressOne = fighterOneStat ?? 0.0
+            pointsStackView.currentProgressTwo = fighterTwoStat ?? 0.0
+            
+            fightersStackView.fighterOneLife = "100%"
+            fightersStackView.fighterTwoLife = "100%"
+            
+            fightersStackView.setFighterOneLife(life: 1.0)
+            fightersStackView.setFighterTwoLife(life: 1.0)
+            
+            emptyAnimationView.isHidden = true
+            emptyViewTitle.isHidden = true
+            favoritesCollectionView.isHidden = false
+            fightersStackView.fightersHidden = false
+            pointsStackView.isHidden = false
+            fightButton.isHidden = false
+            fightersStackView.fightersEnabled = true
         }
-        
-        emptyAnimationView.isHidden = true
-        emptyViewTitle.isHidden = true
-        favoritesCollectionView.isHidden = false
-        fightersStackView.fightersHidden = false
-        pointsStackView.isHidden = false
-        fightButton.isHidden = false
-        fightersStackView.fightersEnabled = true
+       
     }
     
     func setTwoFighters() {
@@ -546,6 +542,7 @@ extension FightViewController: UITabBarControllerDelegate {
                 favoritesCollectionView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
             }
             presenter.stopTimers()
+            resetButtonTapped()
             setTwoFighters()
         }
     }
