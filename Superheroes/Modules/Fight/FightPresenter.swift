@@ -50,7 +50,6 @@ final class FightPresenter {
 extension FightPresenter: FightPresenterInterface {
     func checkFighter(fighter: String) -> Bool {
         if favorites.contains(where: { $0.id == fighter}) {
-            print("Ok")
             return true
         } else {
             return false

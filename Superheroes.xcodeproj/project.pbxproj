@@ -96,6 +96,7 @@
 		37CAEE1827E4702100E06B61 /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CAEE1727E4702100E06B61 /* AlertViewController.swift */; };
 		37E7F9EB27E85EB700BA303C /* FavoriteFightersCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E7F9EA27E85EB700BA303C /* FavoriteFightersCollectionViewCell.swift */; };
 		37ED519327DB5A4300E96829 /* SpiderWebChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37ED519227DB5A4300E96829 /* SpiderWebChartView.swift */; };
+		37EF5F5B27F1E43A006AE27D /* FightButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37EF5F5A27F1E43A006AE27D /* FightButton.swift */; };
 		37EFE0AA27D1F594008F28EF /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37EFE0A927D1F594008F28EF /* Fonts.swift */; };
 		37EFE0AB27D1F6F0008F28EF /* Gotham-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 37EFE0A227D1F56C008F28EF /* Gotham-Black.otf */; };
 		37EFE0AC27D1F6F0008F28EF /* Gotham-BlackItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 37EFE0A627D1F56C008F28EF /* Gotham-BlackItalic.otf */; };
@@ -214,6 +215,7 @@
 		37CAEE1727E4702100E06B61 /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
 		37E7F9EA27E85EB700BA303C /* FavoriteFightersCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteFightersCollectionViewCell.swift; sourceTree = "<group>"; };
 		37ED519227DB5A4300E96829 /* SpiderWebChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiderWebChartView.swift; sourceTree = "<group>"; };
+		37EF5F5A27F1E43A006AE27D /* FightButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FightButton.swift; sourceTree = "<group>"; };
 		37EFE09927D1F56C008F28EF /* Gotham-BoldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-BoldItalic.otf"; sourceTree = "<group>"; };
 		37EFE09A27D1F56C008F28EF /* Gotham-Ultra.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-Ultra.otf"; sourceTree = "<group>"; };
 		37EFE09B27D1F56C008F28EF /* Gotham-LightItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-LightItalic.otf"; sourceTree = "<group>"; };
@@ -455,14 +457,14 @@
 		1BDD46A023AFFCBA0020AC54 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				37EF5F5E27F1EC13006AE27D /* GradientView */,
+				37EF5F5D27F1EC0A006AE27D /* EmptyView */,
+				37EF5F5C27F1EC00006AE27D /* AlertView */,
 				3704B4B527E8A7D0006E3AF6 /* Animations */,
 				3759BC5927E4BE8D00F1D915 /* FighterView */,
 				37F77A8A27DE07C600A6D58F /* DetailView */,
 				377CFF0727D2433B00BA3A31 /* Button */,
 				37268EC427CF98B50000F942 /* Cell */,
-				37268EC727CFA5220000F942 /* EmptyView.swift */,
-				3798864827D79E9E00B8FBF5 /* GradientView.swift */,
-				37CAEE1727E4702100E06B61 /* AlertViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -634,6 +636,7 @@
 			isa = PBXGroup;
 			children = (
 				377CFF0827D2436200BA3A31 /* StatButton.swift */,
+				37EF5F5A27F1E43A006AE27D /* FightButton.swift */,
 			);
 			path = Button;
 			sourceTree = "<group>";
@@ -660,6 +663,30 @@
 				1BCCB16127EF167F003FB3E8 /* UIApplication+Extensions.swift */,
 			);
 			path = UIApplication;
+			sourceTree = "<group>";
+		};
+		37EF5F5C27F1EC00006AE27D /* AlertView */ = {
+			isa = PBXGroup;
+			children = (
+				37CAEE1727E4702100E06B61 /* AlertViewController.swift */,
+			);
+			path = AlertView;
+			sourceTree = "<group>";
+		};
+		37EF5F5D27F1EC0A006AE27D /* EmptyView */ = {
+			isa = PBXGroup;
+			children = (
+				37268EC727CFA5220000F942 /* EmptyView.swift */,
+			);
+			path = EmptyView;
+			sourceTree = "<group>";
+		};
+		37EF5F5E27F1EC13006AE27D /* GradientView */ = {
+			isa = PBXGroup;
+			children = (
+				3798864827D79E9E00B8FBF5 /* GradientView.swift */,
+			);
+			path = GradientView;
 			sourceTree = "<group>";
 		};
 		37F77A8A27DE07C600A6D58F /* DetailView */ = {
@@ -910,6 +937,7 @@
 				1B0BFB4723362B740054E28A /* BaseTabbarProtocolController.swift in Sources */,
 				37268EAC27CF85C70000F942 /* Strings.swift in Sources */,
 				371D73D327D0FD5200BF93EB /* RestClient+Typealias.swift in Sources */,
+				37EF5F5B27F1E43A006AE27D /* FightButton.swift in Sources */,
 				377CFF0927D2436200BA3A31 /* StatButton.swift in Sources */,
 				371D73C927D0CA5700BF93EB /* Connections.swift in Sources */,
 				37268E8027CF6DCF0000F942 /* SearchWireframe.swift in Sources */,

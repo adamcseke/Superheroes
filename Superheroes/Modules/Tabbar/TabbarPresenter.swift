@@ -61,7 +61,6 @@ extension TabbarPresenter: TabbarPresenterInterface {
             createFavoritesNC(),
             createFightNC()
         ]
-        
         return controllers
     }
     

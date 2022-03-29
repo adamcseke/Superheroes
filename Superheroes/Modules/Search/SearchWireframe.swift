@@ -10,9 +10,13 @@
 
 import UIKit
 
-final class SearchWireframe: BaseWireframe {
+final class SearchWireframe: BaseWireframe, AlertViewDelegate {
+    func buttonOneTapped() {
+    }
     
-
+    func buttonTwoTapped() {
+    }
+    
     // MARK: - Module setup -
 
     init() {
@@ -38,6 +42,7 @@ extension SearchWireframe: SearchWireframeInterface {
         let alertVC = AlertViewController(title: title, message: description, buttonLabel: buttonText, alertImage: alertImage, buttonLabelTwo: buttonTwoLabel, buttonHidden: buttonIsHidden)
         alertVC.modalTransitionStyle = .crossDissolve
         alertVC.modalPresentationStyle = .overFullScreen
+        alertVC.alertDelegate = self
         navigationController?.present(alertVC, animated: true)
     }
 }

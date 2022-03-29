@@ -22,20 +22,26 @@ final class DetailViewController: UIViewController {
     private var gradientView: GradientView!
     private var heroImageView: UIImageView!
     private var heroNameLabel: UILabel!
+    
+    private var stackView: UIStackView!
+    
+    private var buttonsView: UIView!
     private var powerstatButton: StatButton!
     private var characteristicsButton: StatButton!
     private var commentsButton: StatButton!
-    private var stackView: UIStackView!
-    private var buttonsView: UIView!
+    
     private var biographyView: CharacteristicsView!
     private var appearanceView: CharacteristicsView!
     private var workView: CharacteristicsView!
     private var connectionsView: CharacteristicsView!
+    
     private var circlesStackView: UIStackView!
     private var circlesFirstRowView: CirclesStackView!
     private var circlesSecondRowView: CirclesStackView!
     private var heroStatsWebView: SpiderWebChartView!
+    
     private var commentsView: CommentsView!
+    
     private var navBarButton = UIButton(type: UIButton.ButtonType.custom)
     private var input: String?
     private var commentsStackView: UIStackView!
@@ -44,7 +50,6 @@ final class DetailViewController: UIViewController {
     private var range: NSRange?
     private var text: String?
     private var cutText: String?
-    private var backButtonBackground: UIView!
     
     private var selectedHero: Heroes?
     

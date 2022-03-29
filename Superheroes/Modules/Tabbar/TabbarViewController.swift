@@ -13,7 +13,6 @@ import UIKit
 final class TabbarViewController: UITabBarController {
     
     // MARK: - Public properties -
-
     var presenter: TabbarPresenterInterface!
 
     // MARK: - Lifecycle -

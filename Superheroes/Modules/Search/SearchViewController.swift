@@ -16,7 +16,7 @@ final class SearchViewController: UIViewController {
     private let generator = UIImpactFeedbackGenerator(style: .medium)
     private let statusBarFrame = UIApplication.shared.statusBarFrame
     private var statusBarView: UIView!
-    
+    private var scrollUpButton: UIButton!
     private var searchVC: UISearchController!
     private var collectionView: UICollectionView!
     private let itemsPerRow: CGFloat = 2
@@ -32,7 +32,6 @@ final class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -57,6 +56,7 @@ final class SearchViewController: UIViewController {
         configureViewController()
         configureSearchController()
         configureCollectionView()
+        configureScrollUpButton()
     }
     
     private func setupNavigationController() {
@@ -102,13 +102,36 @@ final class SearchViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.backgroundColor = .systemBackground
         collectionView.alwaysBounceVertical = true
-        self.tabBarController?.delegate = self
         collectionView.emptyDataSetDataSource = self
         collectionView.emptyDataSetDelegate = self
         view.addSubview(collectionView)
         
         collectionView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
+        }
+    }
+    
+    private func configureScrollUpButton() {
+        scrollUpButton = UIButton()
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 30, weight: .black, scale: .large)
+        let image = UIImage(systemName: "arrow.up.circle.fill", withConfiguration: imageConfig)
+        scrollUpButton.setImage(image, for: .normal)
+        scrollUpButton.tintColor = Colors.orange.color
+        scrollUpButton.isHidden = true
+        scrollUpButton.addTarget(self, action: #selector(scrollUpButtonTapped), for: .touchUpInside)
+        
+        view.addSubview(scrollUpButton)
+        
+        scrollUpButton.snp.makeConstraints { make in
+            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-16)
+            make.trailing.equalToSuperview().offset(-16)
+        }
+    }
+    
+    @objc private func scrollUpButtonTapped() {
+        if collectionView.contentOffset.y > -168 {
+            let actualHeight = collectionView.contentOffset.y - (collectionView.contentOffset.y + 168)
+            collectionView.setContentOffset(CGPoint(x: 0, y: actualHeight), animated: true)
         }
     }
 }
@@ -195,14 +218,17 @@ extension SearchViewController: SearchedCellDelegate {
     }
 }
 
-extension SearchViewController: UITabBarControllerDelegate {
-    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-        let tabBarIndex = tabBarController.selectedIndex
-        if tabBarIndex == 0 {
-            if collectionView.contentOffset.y > -168 {
-                let actualHeight = collectionView.contentOffset.y - (collectionView.contentOffset.y + 168)
-                collectionView.setContentOffset(CGPoint(x: 0, y: actualHeight), animated: true)
-            }
+extension SearchViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        print(scrollView.contentOffset.y)
+        if scrollView.contentOffset.y > -72  {
+            UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseIn, animations: {
+                self.scrollUpButton.isHidden = false
+            }, completion: nil)
+        } else {
+            UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseIn, animations: {
+                self.scrollUpButton.isHidden = true
+            }, completion: nil)
         }
     }
 }
