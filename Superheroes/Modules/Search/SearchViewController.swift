@@ -157,6 +157,7 @@ extension SearchViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "searchedCell", for: indexPath) as? SearchedCollectionViewCell else {
             return UICollectionViewCell()
         }
+        
         var buttonHidden: Bool = false
         if Reachability.isConnectedToNetwork() {
             buttonHidden = false

@@ -8,9 +8,9 @@
 
 import Charts
 import SDWebImage
-import TBEmptyDataSet
 import SnapKit
 import SwiftyBeaver
+import TBEmptyDataSet
 import UIKit
 
 let log = SwiftyBeaver.self
@@ -31,7 +31,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         initializers.forEach { $0.performInitialization() }
         setRoot(wireframe: TabbarWireframe())
-        UIApplication.shared.isStatusBarHidden = false
         return true
     }
     

@@ -66,7 +66,6 @@ class DatabaseManager: SuperheroesDatabaseManager {
     
     fileprivate let searched = Table("searched")
     
-    
     internal func openIfNeeded() {
         if self.database != nil {
             return

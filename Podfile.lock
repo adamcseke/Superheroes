@@ -11,25 +11,6 @@ PODS:
   - SQLite.swift (0.13.2):
     - SQLite.swift/standard (= 0.13.2)
   - SQLite.swift/standard (0.13.2)
-  - SwifterSwift (5.0.0):
-    - SwifterSwift/AppKit (= 5.0.0)
-    - SwifterSwift/CoreGraphics (= 5.0.0)
-    - SwifterSwift/CoreLocation (= 5.0.0)
-    - SwifterSwift/Dispatch (= 5.0.0)
-    - SwifterSwift/Foundation (= 5.0.0)
-    - SwifterSwift/MapKit (= 5.0.0)
-    - SwifterSwift/SpriteKit (= 5.0.0)
-    - SwifterSwift/SwiftStdlib (= 5.0.0)
-    - SwifterSwift/UIKit (= 5.0.0)
-  - SwifterSwift/AppKit (5.0.0)
-  - SwifterSwift/CoreGraphics (5.0.0)
-  - SwifterSwift/CoreLocation (5.0.0)
-  - SwifterSwift/Dispatch (5.0.0)
-  - SwifterSwift/Foundation (5.0.0)
-  - SwifterSwift/MapKit (5.0.0)
-  - SwifterSwift/SpriteKit (5.0.0)
-  - SwifterSwift/SwiftStdlib (5.0.0)
-  - SwifterSwift/UIKit (5.0.0)
   - SwiftGen (6.5.1)
   - SwiftLint (0.35.0)
   - SwiftyBeaver (1.7.1)
@@ -42,7 +23,6 @@ DEPENDENCIES:
   - SDWebImage
   - SnapKit
   - SQLite.swift
-  - SwifterSwift
   - SwiftGen
   - SwiftLint
   - SwiftyBeaver
@@ -56,7 +36,6 @@ SPEC REPOS:
     - SDWebImage
     - SnapKit
     - SQLite.swift
-    - SwifterSwift
     - SwiftGen
     - SwiftLint
     - SwiftyBeaver
@@ -69,12 +48,11 @@ SPEC CHECKSUMS:
   SDWebImage: 53179a2dba77246efa8a9b85f5c5b21f8f43e38f
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SQLite.swift: 4fc2be46c36392e3b87afe6fe7f1801c1daa07ef
-  SwifterSwift: 96f90594b370802f01647c2b1229c74a84ffafee
   SwiftGen: a6d22010845f08fe18fbdf3a07a8e380fd22e0ea
   SwiftLint: 5553187048b900c91aa03552807681bb6b027846
   SwiftyBeaver: da5e573ad583586c18236324c36900990afe1733
   TBEmptyDataSet: 349add79095bf66d0d11ef9464edd1a8cf5354b5
 
-PODFILE CHECKSUM: 02508fc14ed051a76247ca11da8653707a4cc1c6
+PODFILE CHECKSUM: 4262bad14b395515f79e5430f795bab861bda7d3
 
 COCOAPODS: 1.11.2

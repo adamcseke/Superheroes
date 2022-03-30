@@ -42,11 +42,14 @@ final class DetailPresenter {
     }
     
     func viewDidLoad() {
-        view.pushHeroName(hero: hero)
+        view.pushHero(hero)
+        getComments()
+        view.pushComments(comments: comments)
+        
     }
     
     func viewWillAppear(animated: Bool) {
-        view.pushComments(comments: comments)
+        
     }
 }
 

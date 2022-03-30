@@ -51,7 +51,7 @@ final class DetailViewController: UIViewController {
     private var text: String?
     private var cutText: String?
     
-    private var selectedHero: Heroes?
+//    private var selectedHero: Heroes?
     
     // MARK: - Public properties -
     
@@ -61,12 +61,11 @@ final class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        presenter.viewDidLoad()
         setup()
-        addInfos()
         statusBarView.frame = statusBarFrame
         self.view.addSubview(statusBarView)
         self.hideKeyboardWhenTappedAround()
+        presenter.viewDidLoad()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -77,18 +76,17 @@ final class DetailViewController: UIViewController {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         presenter.getFavorites()
-        presenter.getComments()
+//        presenter.getComments()
         presenter.viewWillAppear(animated: true)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        let numIntelligence = Double(selectedHero?.powerstats.intelligence ?? "") ?? 0.0
-        let numStrength = Double(selectedHero?.powerstats.strength ?? "") ?? 0.0
-        let numSpeed = Double(selectedHero?.powerstats.speed ?? "") ?? 0.0
-        let numDurability = Double(selectedHero?.powerstats.durability ?? "") ?? 0.0
-        let numPower = Double(selectedHero?.powerstats.power ?? "") ?? 0.0
-        let numCombat = Double(selectedHero?.powerstats.combat ?? "") ?? 0.0
+    fileprivate func setHeroStatistics(selectedHero: Heroes) {
+        let numIntelligence = Double(selectedHero.powerstats.intelligence) ?? 0.0
+        let numStrength = Double(selectedHero.powerstats.strength) ?? 0.0
+        let numSpeed = Double(selectedHero.powerstats.speed) ?? 0.0
+        let numDurability = Double(selectedHero.powerstats.durability) ?? 0.0
+        let numPower = Double(selectedHero.powerstats.power) ?? 0.0
+        let numCombat = Double(selectedHero.powerstats.combat) ?? 0.0
         
         circlesFirstRowView.currentProgressCircleOne = numIntelligence
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
@@ -232,8 +230,6 @@ final class DetailViewController: UIViewController {
             make.bottom.equalTo(stackView.snp.top)
         }
         
-        heroImageView.sd_setImage(with: URL(string: selectedHero?.image.url ?? ""),
-                                  placeholderImage: Images.superhero.image)
         heroImageView.clipsToBounds = true
         heroImageView.contentMode = .scaleAspectFill
         
@@ -255,7 +251,6 @@ final class DetailViewController: UIViewController {
         } else {
             heroNameLabel.textColor = Colors.orange.color
         }
-        heroNameLabel.text = selectedHero?.name
         scrollView.addSubview(heroNameLabel)
         
         heroNameLabel.snp.makeConstraints { make in
@@ -396,61 +391,37 @@ final class DetailViewController: UIViewController {
         }
     }
     
-    private func addInfos() {
-        guard let bio = selectedHero?.biography,
-              let heroAppearance = selectedHero?.appearance,
-              let heroWork = selectedHero?.work,
-              let heroConnections = selectedHero?.connections else { return }
+    
+    fileprivate func makeInfo(_ mirrorObject: Mirror, characteristicsView: CharacteristicsView, characteristicViewName: String ) {
+        for (_, attr) in mirrorObject.children.enumerated() {
+            
+            if let propertyName = attr.label as String? {
+                if let arrayString = attr.value as? [String] {
+                    characteristicsView.addItem(title: "detailViewController.\(characteristicViewName).\(propertyName)".localized,
+                                          info:  "\(arrayString.joined(separator: ", "))")
+                } else {
+                    characteristicsView.addItem(title: "detailViewController.\(characteristicViewName).\(propertyName)".localized,
+                                          info: "\(attr.value)")
+                }
+            }
+        }
+    }
+    
+    private func addInfos(hero: Heroes) {
+        let bio = hero.biography
+        let heroAppearance = hero.appearance
+        let heroWork = hero.work
+        let heroConnections = hero.connections
         
         let biography = Mirror(reflecting: bio)
         let appearance = Mirror(reflecting: heroAppearance)
         let work = Mirror(reflecting: heroWork)
         let connections = Mirror(reflecting: heroConnections)
         
-        for (index, attr) in biography.children.enumerated() {
-            if let propertyName = attr.label as String? {
-                if let arrayString = attr.value as? [String] {
-                    biographyView.addItem(title: "detailViewController.biographyView.\(propertyName)".localized,
-                                          info:  "\(arrayString.joined(separator: ", "))")
-                } else {
-                    biographyView.addItem(title: "detailViewController.biographyView.\(propertyName)".localized,
-                                          info: "\(attr.value)")
-                }
-            }
-        }
-        for (index, attr) in appearance.children.enumerated() {
-            if let propertyName = attr.label as String? {
-                if let arrayString = attr.value as? [String] {
-                    appearanceView.addItem(title: "detailViewController.appearanceView.\(propertyName)".localized,
-                                           info: "\(arrayString.last ?? "")")
-                } else {
-                    appearanceView.addItem(title: "detailViewController.appearanceView.\(propertyName)".localized,
-                                           info: "\(attr.value)")
-                }
-            }
-        }
-        for (index, attr) in work.children.enumerated() {
-            if let propertyName = attr.label as String? {
-                if let arrayString = attr.value as? [String] {
-                    workView.addItem(title: "detailViewController.workView.\(propertyName)".localized,
-                                     info: "\(arrayString.joined(separator: ", "))")
-                } else {
-                    workView.addItem(title: "detailViewController.workView.\(propertyName)".localized,
-                                     info: "\(attr.value)")
-                }
-            }
-        }
-        for (index, attr) in connections.children.enumerated() {
-            if let propertyName = attr.label as String? {
-                if let arrayString = attr.value as? [String] {
-                    connectionsView.addItem(title: "detailViewController.connectionsView.\(propertyName)".localized,
-                                            info:  "\(arrayString.joined(separator: ", "))")
-                } else {
-                    connectionsView.addItem(title: "detailViewController.connectionsView.\(propertyName)".localized,
-                                            info: "\(attr.value)")
-                }
-            }
-        }
+        makeInfo(biography, characteristicsView: biographyView, characteristicViewName: "biographyView")
+        makeInfo(appearance, characteristicsView: appearanceView, characteristicViewName: "appearanceView")
+        makeInfo(work, characteristicsView: workView, characteristicViewName: "workView")
+        makeInfo(connections, characteristicsView: connectionsView, characteristicViewName: "connectionsView")
     }
     
     private func configureCirclesRowStackView() {
@@ -543,9 +514,7 @@ final class DetailViewController: UIViewController {
     
     func addComments(items: [String]) {
         for item in items {
-            let commentsView = Comments()
-            commentsView.text = item
-            commentsStackView.addArrangedSubview(commentsView)
+            addComment(item: item)
         }
     }
     
@@ -648,8 +617,20 @@ extension DetailViewController: DetailViewInterface {
         scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
     }
     
-    func pushHeroName(hero: Heroes) {
-        selectedHero = hero
+    private func downloadHeroImage(imageURL: String) {
+        heroImageView.sd_setImage(with: URL(string: imageURL),
+                                  placeholderImage: Images.superhero.image)
+    }
+    
+    private func setHeroName(name: String) {
+        heroNameLabel.text = name
+    }
+    
+    func pushHero(_ hero: Heroes) {
+        addInfos(hero: hero)
+        setHeroStatistics(selectedHero: hero)
+        downloadHeroImage(imageURL: hero.image.url)
+        setHeroName(name: hero.name)
     }
     
     func pushCutText(text: String) {
@@ -674,29 +655,21 @@ extension DetailViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offsetY = scrollView.contentOffset.y
         let maxHeight = scrollView.frame.height * 0.55
-        if offsetY > maxHeight {
-            UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseIn, animations: {
-                self.navBarButton.layer.backgroundColor = UIColor.clear.cgColor
-                self.statusBarView.frame = self.statusBarFrame
-                self.statusBarView.backgroundColor = UIColor.systemBackground
-                self.heroNameLabel.alpha = 0.0
-                self.navigationItem.title = self.selectedHero?.name
-                self.navigationController?.navigationBar.backgroundColor = .systemBackground
-            }, completion: nil)
-        } else {
-            UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseIn, animations: {
-                if self.traitCollection.userInterfaceStyle == .light {
-                    self.navBarButton.layer.backgroundColor = Colors.white.color.cgColor
-                } else {
-                    self.navBarButton.layer.backgroundColor = Colors.saveButtonBackground.color.cgColor
-                }
-                self.statusBarView.frame = self.statusBarFrame
-                self.statusBarView.backgroundColor = UIColor.clear
-                self.heroNameLabel.alpha = 1.0
-                self.navigationItem.title = ""
-                self.navigationController?.navigationBar.backgroundColor = .clear
-            }, completion: nil)
-        }
+
+        UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseIn, animations: { [weak self] in
+            guard let safeSelf = self else { return }
+            
+            let hideAnimation = offsetY > maxHeight
+            if safeSelf.traitCollection.userInterfaceStyle == .light {
+                safeSelf.navBarButton.layer.backgroundColor = Colors.white.color.cgColor
+            } else {
+                safeSelf.navBarButton.layer.backgroundColor = Colors.saveButtonBackground.color.cgColor
+            }
+            safeSelf.statusBarView.backgroundColor = hideAnimation ? UIColor.systemBackground : UIColor.clear
+            safeSelf.heroNameLabel.alpha = hideAnimation ? 0.0 : 1.0
+            safeSelf.navigationItem.title = hideAnimation ? safeSelf.heroNameLabel.text : ""
+            safeSelf.navigationController?.navigationBar.backgroundColor = hideAnimation ? .systemBackground : .clear
+        }, completion: nil)
     }
 }
 

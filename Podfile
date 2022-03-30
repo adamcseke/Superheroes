@@ -7,12 +7,7 @@ target 'Superheroes' do
   use_frameworks!
 
   # Pods for Superheroes
-  # pod 'Crashlytics'
-  # pod 'Fabric'
-  # pod 'Firebase/Analytics'
-  # pod 'SDWebImage'
   pod 'SnapKit'
-  pod 'SwifterSwift'
   pod 'SwiftLint'
   pod 'SwiftyBeaver'
   pod 'SDWebImage'
