@@ -149,7 +149,7 @@ class DatabaseManager: SuperheroesDatabaseManager {
                 })
                 
             } catch {
-                print(error.localizedDescription)
+                print("Table creation: \(String(describing: error))")
             }
         }
     }
@@ -219,7 +219,7 @@ class DatabaseManager: SuperheroesDatabaseManager {
             print("Hero inserted to database... \(entity.name)")
             completion?(true)
         } catch let error {
-            print(error.localizedDescription)
+            print("Inserting (favorite) hero data: \(String(describing: error))")
             completion?(false)
         }
     }
@@ -248,7 +248,7 @@ class DatabaseManager: SuperheroesDatabaseManager {
                     heroes.append(superhero)
                 }
             } catch {
-                print (error)
+                print("Get favorite heroes data: \(String(describing: error))")
             }
         }
         
@@ -263,7 +263,7 @@ class DatabaseManager: SuperheroesDatabaseManager {
             print("Hero deleted from database... \(entity.name)")
             completion?(true)
         } catch let error {
-            print(error)
+            print("Deleting (favorite) hero data: \(String(describing: error))")
             completion?(false)
         }
     }
@@ -281,8 +281,7 @@ class DatabaseManager: SuperheroesDatabaseManager {
             print("Comment saved to database...\(comment)")
             completion?(true)
         } catch let error {
-            print(error.localizedDescription)
-            print(String(describing: error))
+            print("Inserting comment to a hero: \(String(describing: error))")
             completion?(false)
         }
     }
@@ -301,7 +300,7 @@ class DatabaseManager: SuperheroesDatabaseManager {
                     }
                 }
             } catch {
-                print(error)
+                print("Getting comments for a hero: \(String(describing: error))")
             }
         }
         
@@ -316,7 +315,7 @@ class DatabaseManager: SuperheroesDatabaseManager {
             print("Hero's comment deleted from database... \(userComment)")
             completion?(true)
         } catch let error {
-            print(error)
+            print("Deleting hero's comments: \(String(describing: error))")
             completion?(false)
         }
     }
@@ -331,11 +330,10 @@ class DatabaseManager: SuperheroesDatabaseManager {
         
         do {
             _ = try database?.run(insert)
-            print("Comment saved to database...\(heroID)")
+            print("Hero saved to database...\(entity.name), ID: \(entity.id)")
             completion?(true)
         } catch let error {
-            print(error.localizedDescription)
-            print(String(describing: error))
+            print("Inserting searched hero data: \(String(describing: error)), hero is already saved to the database.")
             completion?(false)
         }
     }
@@ -364,7 +362,7 @@ class DatabaseManager: SuperheroesDatabaseManager {
                     heroes.append(superhero)
                 }
             } catch {
-                print(error)
+                print("Getting searched hero data: \(String(describing: error))")
             }
         }
         

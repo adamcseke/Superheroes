@@ -107,7 +107,6 @@ class CirclesStackView: UIStackView {
         
         circleOne.snp.makeConstraints { make in
             make.height.equalTo(150)
-            make.width.equalTo(80)
         }
     }
 }

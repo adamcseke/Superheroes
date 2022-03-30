@@ -382,7 +382,7 @@ final class FightViewController: UIViewController {
         view.addSubview(fightAnimationView)
         
         fightAnimationView.snp.makeConstraints { make in
-            make.left.centerX.equalToSuperview()
+            make.centerX.equalToSuperview()
             make.centerY.equalTo(favoritesCollectionView.snp.centerY)
             make.height.width.equalTo(150)
         }

@@ -22,7 +22,6 @@ final class SearchPresenter {
     private var text: String = ""
     private var isFavorite: Bool = false
     private var favorites: [Heroes] = []
-    private var hero: Heroes?
     
     // MARK: - Lifecycle -
     
@@ -120,10 +119,9 @@ extension SearchPresenter: SearchPresenterInterface {
                     self.heroes = heroes.results
                     self.getFavorites()
                     self.view.reloadCollectionView()
-                    
+
                     self.heroes.forEach { hero in
                         self.interactor.insertSearchedHeroes(entity: hero) { _ in
-                            print(self.heroes.count)
                         }
                     }
                     

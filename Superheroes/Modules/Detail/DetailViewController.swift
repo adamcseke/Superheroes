@@ -203,9 +203,7 @@ final class DetailViewController: UIViewController {
         view.addSubview(scrollView)
         
         scrollView.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview()
-            make.top.equalToSuperview()
-            make.bottom.equalToSuperview()
+            make.edges.equalToSuperview()
         }
     }
     
@@ -497,7 +495,6 @@ final class DetailViewController: UIViewController {
             make.top.centerX.equalToSuperview()
         }
         circlesSecondRowView.snp.makeConstraints { make in
-            make.top.equalTo(circlesFirstRowView.snp.bottom).offset(10)
             make.bottom.centerX.equalToSuperview()
         }
     }
@@ -736,7 +733,6 @@ extension DetailViewController: CommentViewDelegate {
         self.addComment(item: comments.last ?? "")
         deleteCommentsButton.isHidden = false
         self.commentsStackView.isHidden = false
-        print(comments)
     }
 }
 

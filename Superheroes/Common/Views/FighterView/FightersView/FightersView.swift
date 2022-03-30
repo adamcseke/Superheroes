@@ -108,16 +108,6 @@ class FightersStackView: UIStackView {
         
         addArrangedSubview(fighterOne)
         addArrangedSubview(fighterTwo)
-        
-        fighterOne.snp.makeConstraints { make in
-            make.width.equalTo(0)
-            make.height.equalTo(0)
-        }
-        
-        fighterTwo.snp.makeConstraints { make in
-            make.width.equalTo(0)
-            make.height.equalTo(0)
-        }
     }
     
     @objc private func fighterOneTapped() {
@@ -184,16 +174,6 @@ class FightersStackView: UIStackView {
         fighterOne.addSubview(fighterOneLifeCounter)
         fighterTwo.addSubview(fighterTwoLifeCounter)
         
-        fighterOneLifeView.snp.makeConstraints { make in
-            make.leading.centerX.bottom.equalToSuperview()
-            make.height.equalTo(itemHeight)
-        }
-        
-        fighterTwoLifeView.snp.makeConstraints { make in
-            make.leading.centerX.bottom.equalToSuperview()
-            make.height.equalTo(itemHeight)
-        }
-        
         fighterOneLifeCounter.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.leading.equalToSuperview().offset(25)
@@ -224,21 +204,23 @@ class FightersStackView: UIStackView {
     func setFightersConstraints(width: CGFloat, height: CGFloat) {
         itemHeight = height
         
-        fighterOne.snp.updateConstraints { make in
+        fighterOne.snp.makeConstraints { make in
             make.width.equalTo(width)
             make.height.equalTo(height)
         }
         
-        fighterTwo.snp.updateConstraints { make in
+        fighterTwo.snp.makeConstraints { make in
             make.width.equalTo(width)
             make.height.equalTo(height)
         }
         
-        fighterOneLifeView.snp.updateConstraints { make in
+        fighterOneLifeView.snp.makeConstraints { make in
+            make.leading.centerX.bottom.equalToSuperview()
             make.height.equalTo(height)
         }
         
-        fighterTwoLifeView.snp.updateConstraints { make in
+        fighterTwoLifeView.snp.makeConstraints { make in
+            make.leading.centerX.bottom.equalToSuperview()
             make.height.equalTo(height)
         }
     }

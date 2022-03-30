@@ -27,7 +27,6 @@ class CommentsView: UIView {
     var commentText: String = "" {
         didSet {
             commentsTextView.text = commentText
-            print(commentText)
         }
     }
     
@@ -159,7 +158,6 @@ class CommentsView: UIView {
         if let delegate = delegate {
             delegate.buttonTapped()
         }
-        print("tapped button")
         commentsTextView.text = ""
         let cleanInput = commentsTextView.text.trimmingCharacters(in: .whitespacesAndNewlines)
         
@@ -213,8 +211,6 @@ extension CommentsView: UITextViewDelegate {
         animation.autoreverses = true
         animation.fromValue = NSValue(cgPoint: CGPoint(x: textView.center.x - 10, y: textView.center.y))
         animation.toValue = NSValue(cgPoint: CGPoint(x: textView.center.x + 10, y: textView.center.y))
-        
-        print(textView.text.count)
         
         if textView.text.count > 500 {
             textView.layer.add(animation, forKey: "position")
