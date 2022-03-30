@@ -6,11 +6,12 @@
 //  Copyright © 2022. levivig. All rights reserved.
 //
 
+import PaddingLabel
 import UIKit
 
 class StatButton: UIButton {
     
-    private var label: UILabel!
+    private var label: PaddingLabel!
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -48,12 +49,16 @@ class StatButton: UIButton {
     }
     
     private func configureLabel() {
-        label = UILabel()
+        label = PaddingLabel()
         if UIDevice.Devices.iPhoneSE1stGen {
             label.font = FontFamily.Gotham.medium.font(size: 10)
         }
         label.font = FontFamily.Gotham.medium.font(size: 14)
         label.textAlignment = .center
+        label.leftInset = 5
+        label.rightInset = 5
+        label.topInset = 5
+        label.bottomInset = 5
         
         addSubview(label)
         

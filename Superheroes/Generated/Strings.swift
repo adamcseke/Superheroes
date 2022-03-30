@@ -71,7 +71,7 @@ internal enum L10n {
     }
     internal enum Comments {
       internal enum Alert {
-        /// Your text was too long. Should we cut the end and paste it in a shorter version, or not?
+        /// Your text was too long. Should we cut the end and paste it in a shorter version?
         internal static let description = L10n.tr("Localizable", "detailViewController.comments.alert.description")
         /// Oops
         internal static let title = L10n.tr("Localizable", "detailViewController.comments.alert.title")
@@ -170,7 +170,7 @@ internal enum L10n {
         internal static let title = L10n.tr("Localizable", "searchPresenter.alertViewController.heroNotFound.title")
       }
       internal enum NoInternet {
-        /// Please check your internet connection. These heroes that you can see are saved to get them offline too.
+        /// Please check your internet connection. These heroes that you can see are saved to get them offline too, but without internet connection, we can't save heroes to favorites.
         internal static let description = L10n.tr("Localizable", "searchPresenter.alertViewController.noInternet.description")
         /// No internet connection
         internal static let title = L10n.tr("Localizable", "searchPresenter.alertViewController.noInternet.title")

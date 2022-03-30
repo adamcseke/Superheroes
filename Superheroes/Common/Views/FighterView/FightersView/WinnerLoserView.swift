@@ -6,12 +6,18 @@
 //  Copyright © 2022. levivig. All rights reserved.
 //
 
+import PaddingLabel
 import UIKit
 
 class WinnerLoserView: UIView {
     
-    private var winnerLabel: UILabel!
-    private var loserLabel: UILabel!
+    private var winnerLabel: PaddingLabel!
+    private var loserLabel: PaddingLabel!
+    
+    var topInset: CGFloat = 5.0
+    var bottomInset: CGFloat = 5.0
+    var leftInset: CGFloat = 5.0
+    var rightInset: CGFloat = 5.0
     
     var labelsHidden: Bool = true {
         didSet {
@@ -34,8 +40,8 @@ class WinnerLoserView: UIView {
     }
     
     private func configureWinnerLoser() {
-        winnerLabel = UILabel()
-        loserLabel = UILabel()
+        winnerLabel = PaddingLabel()
+        loserLabel = PaddingLabel()
         
         winnerLabel.text = L10n.FightViewController.Winner.title
         winnerLabel.font = FontFamily.Gotham.bold.font(size: 20)
@@ -43,6 +49,10 @@ class WinnerLoserView: UIView {
         winnerLabel.layer.masksToBounds = true
         winnerLabel.layer.cornerRadius = 12
         winnerLabel.textAlignment = .center
+        winnerLabel.leftInset = 10
+        winnerLabel.rightInset = 10
+        winnerLabel.topInset = 5
+        winnerLabel.bottomInset = 5
         
         loserLabel.text = L10n.FightViewController.Loser.title
         loserLabel.font = FontFamily.Gotham.bold.font(size: 20)
@@ -50,6 +60,10 @@ class WinnerLoserView: UIView {
         loserLabel.layer.masksToBounds = true
         loserLabel.layer.cornerRadius = 12
         loserLabel.textAlignment = .center
+        loserLabel.leftInset = 10
+        loserLabel.rightInset = 10
+        loserLabel.topInset = 5
+        loserLabel.bottomInset = 5
         
         addSubview(winnerLabel)
         addSubview(loserLabel)
@@ -58,15 +72,12 @@ class WinnerLoserView: UIView {
             make.centerX.equalToSuperview().multipliedBy(1)
             make.centerY.equalToSuperview()
             make.height.equalTo(35)
-            make.width.equalTo(70)
-            
         }
         
         winnerLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview().multipliedBy(1)
             make.centerY.equalToSuperview()
             make.height.equalTo(35)
-            make.width.equalTo(100)
         }
     }
     
@@ -75,7 +86,6 @@ class WinnerLoserView: UIView {
             make.centerX.equalToSuperview().multipliedBy(multipliedBy)
             make.centerY.equalToSuperview()
             make.height.equalTo(35)
-            make.width.equalTo(90)
         }
     }
     
@@ -84,7 +94,6 @@ class WinnerLoserView: UIView {
             make.centerX.equalToSuperview().multipliedBy(multipliedBy)
             make.centerY.equalToSuperview()
             make.height.equalTo(35)
-            make.width.equalTo(70)
         }
     }
 }

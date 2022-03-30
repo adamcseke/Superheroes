@@ -139,7 +139,7 @@ class AlertViewController: UIViewController {
     
     private func configureMessageLabel() {
         messageLabel = UILabel()
-        messageLabel.numberOfLines = 4
+        messageLabel.numberOfLines = 0
         messageLabel.textAlignment = .center
         messageLabel.textColor = Colors.infoLabel.color
         messageLabel.text = message ?? ""

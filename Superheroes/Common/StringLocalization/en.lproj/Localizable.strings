@@ -34,14 +34,14 @@
 "detailViewController.powerstats.Power" = "Power";
 "detailViewController.powerstats.Combat" = "Combat";
 "detailViewController.comments.alert.title" = "Oops";
-"detailViewController.comments.alert.description" = "Your text was too long. Should we cut the end and paste it in a shorter version, or not?";
+"detailViewController.comments.alert.description" = "Your text was too long. Should we cut the end and paste it in a shorter version?";
 "detailViewController.comments.alert.button.one.title" = "Cut";
 "detailViewController.comments.alert.button.two.title" = "Cancel";
 "commentsView.button.title" = " Push to comment";
 "commentsView.textView.placeholder" = "Write down your thoughts...";
 "favoritesViewController.emptyStateView.label" = "You don't have any favorites.";
 "searchPresenter.alertViewController.noInternet.title" = "No internet connection";
-"searchPresenter.alertViewController.noInternet.description" = "Please check your internet connection. These heroes that you can see are saved to get them offline too.";
+"searchPresenter.alertViewController.noInternet.description" = "Please check your internet connection. These heroes that you can see are saved to get them offline too, but without internet connection, we can't save heroes to favorites.";
 "searchPresenter.alertViewController.button.title" = "Ok";
 "searchPresenter.alertViewController.heroNotFound.title" = "Hero not found ";
 "searchPresenter.alertViewController.heroNotFound.description" = "Please check the hero's name.";

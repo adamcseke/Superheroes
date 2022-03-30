@@ -29,6 +29,7 @@ protocol SearchPresenterInterface: PresenterInterface {
     func pushToDetails(hero: Heroes)
     func favoritesButtonTapped(indexPath: IndexPath)
     func getFavorites()
+    func presentAlertOfflineMode()
 }
 
 protocol SearchInteractorInterface: InteractorInterface {

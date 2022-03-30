@@ -55,6 +55,7 @@ final class SearchViewController: UIViewController {
         configureViewController()
         configureSearchController()
         configureCollectionView()
+        presentAlertOfflineMode()
     }
     
     private func setupNavigationController() {
@@ -66,6 +67,12 @@ final class SearchViewController: UIViewController {
     
     private func configureViewController() {
         view.backgroundColor = .systemBackground
+    }
+    
+    private func presentAlertOfflineMode() {
+        if !Reachability.isConnectedToNetwork() {
+            presenter.presentAlertOfflineMode()
+        }
     }
     
     private func configureSearchController() {

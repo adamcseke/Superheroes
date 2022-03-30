@@ -21,6 +21,7 @@ target 'Superheroes' do
   pod 'Charts'
   pod 'SQLite.swift'
   pod 'lottie-ios'
+  pod 'PaddingLabel', '1.2'
 
 end
 

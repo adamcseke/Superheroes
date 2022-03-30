@@ -43,6 +43,15 @@ final class SearchPresenter {
 // MARK: - Extensions -
 
 extension SearchPresenter: SearchPresenterInterface {
+    func presentAlertOfflineMode() {
+        self.wireframe.presentAlert(title: L10n.SearchPresenter.AlertViewController.NoInternet.title,
+                                    description: L10n.SearchPresenter.AlertViewController.NoInternet.description,
+                                    buttonText: "",
+                                    alertImage: UIImage(named: Images.noSignal.name)?.withTintColor(Colors.orange.color) ?? UIImage(),
+                                    buttonTwoLabel: L10n.SearchPresenter.AlertViewController.Button.title,
+                                    buttonIsHidden: true)
+    }
+    
 
     func getFavorites() {
         favorites = DatabaseManager.main.getHeroes()
@@ -143,12 +152,6 @@ extension SearchPresenter: SearchPresenterInterface {
             }
             print("Internet Connection Available!")
         } else {
-            self.wireframe.presentAlert(title: L10n.SearchPresenter.AlertViewController.NoInternet.title,
-                                        description: L10n.SearchPresenter.AlertViewController.NoInternet.description,
-                                        buttonText: "",
-                                        alertImage: UIImage(named: Images.noSignal.name)?.withTintColor(Colors.orange.color) ?? UIImage(),
-                                        buttonTwoLabel: L10n.SearchPresenter.AlertViewController.Button.title,
-                                        buttonIsHidden: true)
             self.heroes.removeAll()
             self.interactor.getSearchedHeroes(name: self.text).forEach({ heroes in
                 if heroes.name.lowercased().contains(name.lowercased()) {

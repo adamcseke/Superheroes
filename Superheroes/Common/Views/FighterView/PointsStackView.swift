@@ -57,6 +57,8 @@ class PointsStackView: UIStackView {
     
     private func configurePointsLabel() {
         pointsLabel = UILabel()
+        pointsLabel.numberOfLines = 0
+        pointsLabel.textAlignment = .center
         pointsLabel.text = L10n.FightViewController.Points.title
         
         addArrangedSubview(pointsLabel)
