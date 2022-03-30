@@ -152,6 +152,7 @@ extension SearchPresenter: SearchPresenterInterface {
             }
             print("Internet Connection Available!")
         } else {
+            self.presentAlertOfflineMode()
             self.heroes.removeAll()
             self.interactor.getSearchedHeroes(name: self.text).forEach({ heroes in
                 if heroes.name.lowercased().contains(name.lowercased()) {
