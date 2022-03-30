@@ -578,11 +578,8 @@ final class DetailViewController: UIViewController {
     @objc private func binButtonTapped() {
         deleteCommentsButton.isHidden = true
         commentsStackView.removeAllArrangedSubviews()
-        print(commentsStackView)
         commentsStackView.isHidden = true
         presenter.binButtonTapped()
-        self.comments.removeAll()
-        presenter.getComments()
         scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
     }
     

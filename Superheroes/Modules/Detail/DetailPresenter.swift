@@ -81,6 +81,7 @@ extension DetailPresenter: DetailPresenterInterface {
     
     func binButtonTapped() {
         interactor.deleteComment(entity: self.hero) { _ in
+            self.comments.removeAll()
             self.view.pushComments(comments: self.comments)
             print("Delete done...")
         }
