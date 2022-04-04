@@ -101,10 +101,6 @@ extension FightPresenter: FightPresenterInterface {
         view.setSelectedFighter(hero: hero)
     }
     
-//    func setHeroes() {
-//        view.pushFavoriteHeroes(heroes: favorites)
-//    }
-    
     func numberOfSections() -> Int {
         1
     }

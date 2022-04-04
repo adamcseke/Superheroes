@@ -14,19 +14,15 @@ import UIKit
 final class FightViewController: UIViewController {
     
     private var fightersStackView: FightersStackView!
-    
     private var pointsStackView: PointsStackView!
-
     private var favoritesCollectionView: UICollectionView!
     private var fightButton: FightButton!
     private var emptyAnimationView: AnimationView!
     private var emptyViewTitle: UILabel!
     private var fightAnimationView: AnimationView!
     private var winnerLoserView: WinnerLoserView!
-    
     private var resetButton: FightButton!
     private var drawAnimation = AnimationView(name: "bomb-explode")
-    
     private var fighterOneChosen: Heroes?
     private var fighterTwoChosen: Heroes?
     
@@ -49,10 +45,10 @@ final class FightViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
-        presenter.viewWillAppear(animated: true)
         configureNotificationCenter()
         emptyAnimationView.play()
         fightAnimationView.play()
+        presenter.viewWillAppear(animated: true)
     }
 
     private func setup() {

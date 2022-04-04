@@ -43,7 +43,7 @@ final class RestClient {
                 } catch let exepction {
                     DispatchQueue.main.async {
                         completion(.failure(SuperheroesError.wrongURL))
-                        print(String(describing: exepction))
+                        log.error(String(describing: exepction))
                     }
                 }
             }
