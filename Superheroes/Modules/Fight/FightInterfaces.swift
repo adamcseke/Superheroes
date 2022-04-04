@@ -29,7 +29,7 @@ protocol FightPresenterInterface: PresenterInterface {
     func numberOfItem(in section: Int) -> Int
     func cellForItem(at indexPath: IndexPath) -> Heroes
     func getFavorites()
-    func setHeroes()
+    func refreshScreen()
     func setSelectedHero(hero: Heroes)
     func fightButtonTapped(heroOne: Heroes, heroTwo: Heroes)
     func stopTimers()

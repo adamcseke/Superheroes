@@ -41,13 +41,19 @@ final class FightPresenter {
     }
     
     func viewWillAppear(animated: Bool) {
-        view.reloadCollectionView()
+        refreshScreen()
     }
 }
 
 // MARK: - Extensions -
 
 extension FightPresenter: FightPresenterInterface {
+    func refreshScreen() {
+        getFavorites()
+        view.pushFavoriteHeroes(heroes: favorites)
+        view.reloadCollectionView()
+    }
+    
     func checkFighter(fighter: String) -> Bool {
         if favorites.contains(where: { $0.id == fighter}) {
             return true
@@ -95,9 +101,9 @@ extension FightPresenter: FightPresenterInterface {
         view.setSelectedFighter(hero: hero)
     }
     
-    func setHeroes() {
-        view.pushFavoriteHeroes(heroes: favorites)
-    }
+//    func setHeroes() {
+//        view.pushFavoriteHeroes(heroes: favorites)
+//    }
     
     func numberOfSections() -> Int {
         1

@@ -38,7 +38,6 @@ final class SearchViewController: UIViewController {
         statusBarView = UIView()
         statusBarView.frame = statusBarFrame
         self.view.addSubview(statusBarView)
-        self.statusBarView.frame = self.statusBarFrame
         self.statusBarView.backgroundColor = UIColor.systemBackground
         self.navigationController?.navigationBar.backgroundColor = .systemBackground
     }

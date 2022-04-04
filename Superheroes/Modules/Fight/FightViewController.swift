@@ -30,8 +30,6 @@ final class FightViewController: UIViewController {
     private var fighterOneChosen: Heroes?
     private var fighterTwoChosen: Heroes?
     
-    private var favoriteHeroes: [Heroes] = []
-    
     private var fightIsOn: Bool = false
     
     private var healthOriginalHeight: CGFloat = 1
@@ -51,24 +49,10 @@ final class FightViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
-        presenter.getFavorites()
-        presenter.setHeroes()
         presenter.viewWillAppear(animated: true)
         configureNotificationCenter()
         emptyAnimationView.play()
         fightAnimationView.play()
-        
-        if !fightIsOn {
-            updateFighters()
-        } else if favoriteHeroes.count > 2 && fightIsOn {
-            if presenter.checkFighter(fighter: fighterOneChosen?.id ?? "") == false || presenter.checkFighter(fighter: fighterTwoChosen?.id ?? "") == false {
-                presenter.stopTimers()
-                resetButtonTapped()
-                updateFighters()
-            }
-        } else if presenter.checkFighter(fighter: fighterOneChosen?.id ?? "") == false || presenter.checkFighter(fighter: fighterTwoChosen?.id ?? "") == false {
-            resetButtonTapped()
-        }
     }
 
     private func setup() {
@@ -83,148 +67,74 @@ final class FightViewController: UIViewController {
         configureWinnerLoserStackView()
         configureResetButton()
         presenter.getFavorites()
-        presenter.setHeroes()
-        setTwoFighters()
     }
     
     private func configureNotificationCenter() {
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
     }
     
-    func updateFighters() {
-        if favoriteHeroes.count < 2  {
-            favoritesCollectionView.isHidden = true
-            fightersStackView.fightersHidden = true
-            pointsStackView.isHidden = true
-            fightButton.isHidden = true
-            fightAnimationView.isHidden = true
-            emptyAnimationView.isHidden = false
-            emptyViewTitle.isHidden = false
+    private func updateIfEnoughFav(favoriteHeroes: [Heroes]) {
+        fightIsOn ? nil : setTwoFighters(favoriteHeroes: favoriteHeroes)
+        favoritesCollectionView.isHidden = fightIsOn ? true : false
+        fightersStackView.fightersHidden = fightIsOn ? true : false
+        fightersStackView.fightersEnabled = fightIsOn ? false : true
+        pointsStackView.isHidden = fightIsOn ? true : false
+        fightButton.isHidden = fightIsOn ? true : false
+        resetButton.isHidden = fightIsOn ? false : true
+        emptyAnimationView.isHidden = fightIsOn ? false : true
+        emptyViewTitle.isHidden = fightIsOn ? false : true
+        fightAnimationView.isHidden = fightIsOn ? false : true
+        winnerLoserView.labelsHidden = fightIsOn ? false : true
+
+        let randomHero = favoriteHeroes.randomElement()
+        if presenter.checkFighter(fighter: fighterOneChosen?.id ?? "") == false && fighterOneChosen != nil {
+            fightersStackView.setFighterOne(name: randomHero?.name ?? "", imageURL: randomHero?.image.url ?? "")
+            let fighterStat = randomHero?.powerstats.totalStat
+            pointsStackView.currentProgressOne = fighterStat ?? 0.0
         } else {
-            if !fightIsOn {
-                setTwoFighters()
-                favoritesCollectionView.isHidden = false
-                fightersStackView.fightersHidden = false
-                fightersStackView.fightersEnabled = true
-                pointsStackView.isHidden = false
-                fightButton.isHidden = false
-                resetButton.isHidden = true
-                emptyAnimationView.isHidden = true
-                emptyViewTitle.isHidden = true
-                let randomHero = favoriteHeroes.randomElement()
-                if presenter.checkFighter(fighter: fighterOneChosen?.id ?? "") == false && fighterOneChosen != nil {
-                    fightersStackView.setFighterOne(name: randomHero?.name ?? "", imageURL: randomHero?.image.url ?? "")
-                    let fighterStat = randomHero?.powerstats.totalStat
-                    pointsStackView.currentProgressOne = fighterStat ?? 0.0
-                } else {
-                    fightersStackView.setFighterOne(name: fighterOneChosen?.name ?? "", imageURL: fighterOneChosen?.image.url ?? "")
-                    let fighterStat = fighterOneChosen?.powerstats.totalStat
-                    pointsStackView.currentProgressOne = fighterStat ?? 0.0
-                    fightersStackView.setFighterOne(name: fighterOneChosen?.name ?? "", imageURL: fighterOneChosen?.image.url ?? "")
-                    fightersStackView.fighterOneLife = "100%"
-                    fightersStackView.setFighterOneLife(life: 1.0)
-                    fightersStackView.lifeCountViewHidden = true
-                    fightButton.isEnabled = true
-                }
-                let random = favoriteHeroes.randomElement()
-                if presenter.checkFighter(fighter: fighterTwoChosen?.id ?? "") == false && fighterTwoChosen != nil  {
-                    fightersStackView.setFighterTwo(name: random?.name ?? "", imageURL: random?.image.url ?? "")
-                    let fighterStat = random?.powerstats.totalStat
-                    pointsStackView.currentProgressTwo = fighterStat ?? 0.0
-                } else {
-                    fightersStackView.setFighterTwo(name: fighterTwoChosen?.name ?? "", imageURL: fighterTwoChosen?.image.url ?? "")
-                    let fighterStat = fighterTwoChosen?.powerstats.totalStat
-                    pointsStackView.currentProgressTwo = fighterStat ?? 0.0
-                    fightersStackView.fighterTwoLife = "100%"
-                    fightersStackView.setFighterTwoLife(life: 1.0)
-                    fightersStackView.lifeCountViewHidden = true
-                    fightButton.isEnabled = true
-                }
-            } else {
-                favoritesCollectionView.isHidden = true
-                fightersStackView.fightersHidden = false
-                fightersStackView.fightersEnabled = false
-                pointsStackView.isHidden = false
-                fightButton.isHidden = true
-                resetButton.isHidden = false
-                emptyAnimationView.isHidden = true
-                emptyViewTitle.isHidden = true
-                let randomHero = favoriteHeroes.randomElement()
-                if presenter.checkFighter(fighter: fighterOneChosen?.id ?? "") == false && fighterOneChosen != nil {
-                    fightersStackView.setFighterOne(name: randomHero?.name ?? "", imageURL: randomHero?.image.url ?? "")
-                    let fighterStat = randomHero?.powerstats.totalStat
-                    pointsStackView.currentProgressOne = fighterStat ?? 0.0
-                } else {
-                    fightersStackView.setFighterOne(name: fighterOneChosen?.name ?? "", imageURL: fighterOneChosen?.image.url ?? "")
-                    let fighterStat = fighterOneChosen?.powerstats.totalStat
-                    pointsStackView.currentProgressOne = fighterStat ?? 0.0
-                }
-                let random = favoriteHeroes.randomElement()
-                if presenter.checkFighter(fighter: fighterTwoChosen?.id ?? "") == false && fighterTwoChosen != nil  {
-                    fightersStackView.setFighterTwo(name: random?.name ?? "", imageURL: random?.image.url ?? "")
-                    let fighterStat = random?.powerstats.totalStat
-                    pointsStackView.currentProgressTwo = fighterStat ?? 0.0
-                } else {
-                    fightersStackView.setFighterTwo(name: fighterTwoChosen?.name ?? "", imageURL: fighterTwoChosen?.image.url ?? "")
-                    let fighterStat = fighterTwoChosen?.powerstats.totalStat
-                    pointsStackView.currentProgressTwo = fighterStat ?? 0.0
-                }
-            }
-        }
-    }
-    
-    @objc private func resetButtonTapped() {
-        if favoriteHeroes.count < 2 {
-            setTwoFighters()
-            emptyAnimationView.isHidden = false
-            emptyViewTitle.isHidden = false
-            favoritesCollectionView.isHidden = true
-            fightersStackView.fightersHidden = true
-            pointsStackView.isHidden = true
-            fightersStackView.fightersEnabled = false
-            fightAnimationView.isHidden = true
-            winnerLoserView.labelsHidden = true
-            fightIsOn = false
-            presenter.stopTimers()
-        } else {
-            fightIsOn = false
-            resetButton.isHidden = true
-            fightButton.isHidden = false
-            fightButton.isEnabled = true
-            fightAnimationView.isHidden = true
-            fightButton.backgroundColor = Colors.orange.color
-            winnerLoserView.labelsHidden = true
-            fightersStackView.lifeCountViewHidden = true
-            fightersStackView.fighterOneSelected = false
-            fightersStackView.fighterTwoSelected = false
-            
             fightersStackView.setFighterOne(name: fighterOneChosen?.name ?? "", imageURL: fighterOneChosen?.image.url ?? "")
-            fightersStackView.setFighterTwo(name: fighterTwoChosen?.name ?? "", imageURL: fighterTwoChosen?.image.url ?? "")
-            
-            let fighterOneStat = fighterOneChosen?.powerstats.totalStat
-            let fighterTwoStat = fighterTwoChosen?.powerstats.totalStat
-            
-            pointsStackView.currentProgressOne = fighterOneStat ?? 0.0
-            pointsStackView.currentProgressTwo = fighterTwoStat ?? 0.0
-            
+            let fighterStat = fighterOneChosen?.powerstats.totalStat
+            pointsStackView.currentProgressOne = fighterStat ?? 0.0
+            fightersStackView.setFighterOne(name: fighterOneChosen?.name ?? "", imageURL: fighterOneChosen?.image.url ?? "")
             fightersStackView.fighterOneLife = "100%"
-            fightersStackView.fighterTwoLife = "100%"
-            
             fightersStackView.setFighterOneLife(life: 1.0)
-            fightersStackView.setFighterTwoLife(life: 1.0)
-            
-            emptyAnimationView.isHidden = true
-            emptyViewTitle.isHidden = true
-            favoritesCollectionView.isHidden = false
-            fightersStackView.fightersHidden = false
-            pointsStackView.isHidden = false
-            fightersStackView.fightersEnabled = true
-            presenter.stopTimers()
+            fightersStackView.lifeCountViewHidden = true
+            fightButton.isEnabled = true
         }
-       
+        let random = favoriteHeroes.randomElement()
+        if presenter.checkFighter(fighter: fighterTwoChosen?.id ?? "") == false && fighterTwoChosen != nil  {
+            fightersStackView.setFighterTwo(name: random?.name ?? "", imageURL: random?.image.url ?? "")
+            let fighterStat = random?.powerstats.totalStat
+            pointsStackView.currentProgressTwo = fighterStat ?? 0.0
+        } else {
+            fightersStackView.setFighterTwo(name: fighterTwoChosen?.name ?? "", imageURL: fighterTwoChosen?.image.url ?? "")
+            let fighterStat = fighterTwoChosen?.powerstats.totalStat
+            pointsStackView.currentProgressTwo = fighterStat ?? 0.0
+            fightersStackView.fighterTwoLife = "100%"
+            fightersStackView.setFighterTwoLife(life: 1.0)
+            fightersStackView.lifeCountViewHidden = true
+            fightButton.isEnabled = true
+        }
     }
     
-    func setTwoFighters() {
+    private func updateIfNotEnoughFav() {
+        favoritesCollectionView.isHidden = true
+        fightersStackView.fightersHidden = true
+        pointsStackView.isHidden = true
+        fightButton.isHidden = true
+        fightAnimationView.isHidden = true
+        emptyAnimationView.isHidden = false
+        emptyViewTitle.isHidden = false
+        presenter.stopTimers()
+        fightIsOn = false
+    }
+    
+    private func updateFighters(favoriteHeroes: [Heroes]) {
+        let notEnoughFavorites = favoriteHeroes.count < 2
+        notEnoughFavorites ? updateIfNotEnoughFav() : updateIfEnoughFav(favoriteHeroes: favoriteHeroes)
+    }
+    
+    func setTwoFighters(favoriteHeroes: [Heroes]) {
         if favoriteHeroes.count >= 2 {
             if fighterOneChosen == nil || presenter.checkFighter(fighter: fighterOneChosen?.id ?? "") == false {
                 fighterOneChosen = favoriteHeroes[0]
@@ -447,7 +357,10 @@ final class FightViewController: UIViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-15)
             make.centerX.equalToSuperview()
         }
-        
+    }
+    
+    @objc private func resetButtonTapped() {
+        presenter.refreshScreen()
     }
     
     private func setupDrawAnimation() {
@@ -464,6 +377,15 @@ final class FightViewController: UIViewController {
             make.edges.equalToSuperview().offset(0)
         }
     }
+    
+    private func resetScreen() {
+        winnerLoserView.labelsHidden = false
+        presenter.stopTimers()
+        fightAnimationView.isHidden = true
+        fightButton.isHidden = true
+        resetButton.isHidden = false
+        fightIsOn = false
+    }
 }
 
 // MARK: - Extensions -
@@ -471,23 +393,15 @@ final class FightViewController: UIViewController {
 extension FightViewController: FightViewInterface {
     
     func pushHeroOneLife() {
+        self.resetScreen()
         fightersStackView.fighterOneLife = "0%"
-        winnerLoserView.labelsHidden = false
-        presenter.stopTimers()
-        fightAnimationView.isHidden = true
-        fightButton.isHidden = true
-        resetButton.isHidden = false
         winnerLoserView.remakeConstraintWinner(multipliedBy: 1.5)
         winnerLoserView.remakeConstraintLoser(multipliedBy: 0.5)
     }
     
     func pushHeroTwoLife() {
+        self.resetScreen()
         fightersStackView.fighterTwoLife = "0%"
-        winnerLoserView.labelsHidden = false
-        presenter.stopTimers()
-        fightAnimationView.isHidden = true
-        fightButton.isHidden = true
-        resetButton.isHidden = false
         winnerLoserView.remakeConstraintWinner(multipliedBy: 0.5)
         winnerLoserView.remakeConstraintLoser(multipliedBy: 1.5)
     }
@@ -521,26 +435,16 @@ extension FightViewController: FightViewInterface {
     }
     
     func pushFavoriteHeroes(heroes: [Heroes]) {
-        favoriteHeroes = heroes
-        
-        if heroes.count >= 2 {
-            if presenter.checkFighter(fighter: fighterOneChosen?.id ?? "") == true && presenter.checkFighter(fighter: fighterTwoChosen?.id ?? "") == true {
-                if !fightIsOn {
-                    emptyAnimationView.isHidden = true
-                    emptyViewTitle.isHidden = true
-                    fightersStackView.fightersHidden = false
-                    favoritesCollectionView.isHidden = false
-                    pointsStackView.isHidden = false
-                    fightButton.isHidden = false
-                }
+        if !fightIsOn {
+            updateFighters(favoriteHeroes: heroes)
+        } else if heroes.count >= 2 && fightIsOn {
+            if presenter.checkFighter(fighter: fighterOneChosen?.id ?? "") == false || presenter.checkFighter(fighter: fighterTwoChosen?.id ?? "") == false {
+                presenter.stopTimers()
+                fightIsOn = false
+                updateFighters(favoriteHeroes: heroes)
             }
-        } else {
-            favoritesCollectionView.isHidden = true
-            fightersStackView.fightersHidden = true
-            pointsStackView.isHidden = true
-            fightButton.isHidden = true
-            emptyAnimationView.isHidden = false
-            emptyViewTitle.isHidden = false
+        } else if heroes.count < 2 {
+            updateFighters(favoriteHeroes: heroes)
         }
     }
     
