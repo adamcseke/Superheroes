@@ -51,8 +51,6 @@ final class DetailViewController: UIViewController {
     private var text: String?
     private var cutText: String?
     
-//    private var selectedHero: Heroes?
-    
     // MARK: - Public properties -
     
     var presenter: DetailPresenterInterface!
@@ -76,7 +74,6 @@ final class DetailViewController: UIViewController {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         presenter.getFavorites()
-//        presenter.getComments()
         presenter.viewWillAppear(animated: true)
     }
     
@@ -634,15 +631,11 @@ extension DetailViewController: DetailViewInterface {
     }
     
     func pushCutText(text: String) {
-        if text.count == 500{
+        if text.count == 500 {
             commentsView.commentText = text
             commentsView.countText = "0 character left"
             commentsView.commentButtonEnabled = true
-            if self.traitCollection.userInterfaceStyle == .light {
-                commentsView.buttonColor = Colors.grayHeroName.color
-            } else {
-                commentsView.buttonColor = Colors.orange.color
-            }
+            commentsView.buttonColor = self.traitCollection.userInterfaceStyle == .light ? Colors.grayHeroName.color : Colors.orange.color
             self.input = commentsView.commentText
         } else {
             commentsView.commentText = text

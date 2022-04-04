@@ -21,7 +21,6 @@ final class FavoritesViewController: UIViewController {
     
     private let statusBarFrame = UIApplication.shared.statusBarFrame
     private var statusBarView: UIView!
-    private var maxHeight: CGFloat?
     // MARK: - Public properties -
 
     var presenter: FavoritesPresenterInterface!

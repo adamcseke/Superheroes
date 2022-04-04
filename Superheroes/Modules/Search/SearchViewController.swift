@@ -18,9 +18,6 @@ final class SearchViewController: UIViewController {
     private var statusBarView: UIView!
     private var searchVC: UISearchController!
     private var collectionView: UICollectionView!
-    private let itemsPerRow: CGFloat = 2
-    private var selectedHero: Heroes?
-    private var saveButtonImage: NSAttributedString?
     
     // MARK: - Public properties -
     
