@@ -111,9 +111,7 @@ class FightersStackView: UIStackView {
     }
     
     @objc private func fighterOneTapped() {
-        if let delegate = delegate {
-            delegate.fighterOneTapped()
-        }
+        delegate?.fighterOneTapped()
         if fighterOneSelected {
             fighterOne.layer.borderColor = Colors.orange.color.cgColor
             fighterOne.layer.borderWidth = 2
@@ -123,9 +121,8 @@ class FightersStackView: UIStackView {
     }
     
     @objc private func fighterTwoTapped() {
-        if let delegate = delegate {
-            delegate.fighterTwoTapped()
-        }
+        delegate?.fighterTwoTapped()
+
         if fighterTwoSelected {
             fighterTwo.layer.borderColor = Colors.orange.color.cgColor
             fighterTwo.layer.borderWidth = 2

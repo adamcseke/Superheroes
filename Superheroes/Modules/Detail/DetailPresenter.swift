@@ -47,10 +47,6 @@ final class DetailPresenter {
         view.pushComments(comments: comments)
         
     }
-    
-    func viewWillAppear(animated: Bool) {
-        
-    }
 }
 
 // MARK: - Extensions -

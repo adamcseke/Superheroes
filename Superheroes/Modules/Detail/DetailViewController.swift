@@ -74,7 +74,6 @@ final class DetailViewController: UIViewController {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         presenter.getFavorites()
-        presenter.viewWillAppear(animated: true)
     }
     
     fileprivate func setHeroStatistics(selectedHero: Heroes) {

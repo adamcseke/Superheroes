@@ -9,8 +9,6 @@
 import UIKit
 
 class FightButton: UIButton {
-
-    private var buttonLabel: UILabel!
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -32,29 +30,13 @@ class FightButton: UIButton {
     }
     
     private func setup() {
+        titleLabel?.font = FontFamily.Gotham.medium.font(size: 18)
         backgroundColor = Colors.orange.color
+        setTitleColor(.systemBackground, for: .normal)
         layer.cornerRadius = 12
         isEnabled = true
         snp.makeConstraints { make in
             make.height.equalTo(50)
         }
-        configureLabel()
-    }
-    
-    private func configureLabel() {
-        buttonLabel = UILabel()
-        buttonLabel.textColor = .systemBackground
-        buttonLabel.font = FontFamily.Gotham.medium.font(size: 18)
-        buttonLabel.textAlignment = .center
-        
-        addSubview(buttonLabel)
-        
-        buttonLabel.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-    }
-    
-    func bind(buttonLabelText: String) {
-        buttonLabel.text = buttonLabelText
     }
 }

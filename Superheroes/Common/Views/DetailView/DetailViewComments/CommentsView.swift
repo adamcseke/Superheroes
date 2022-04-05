@@ -155,9 +155,8 @@ class CommentsView: UIView {
     }
     
     @objc func didTapButton() {
-        if let delegate = delegate {
-            delegate.buttonTapped()
-        }
+        delegate?.buttonTapped()
+        
         commentsTextView.text = ""
         let cleanInput = commentsTextView.text.trimmingCharacters(in: .whitespacesAndNewlines)
         

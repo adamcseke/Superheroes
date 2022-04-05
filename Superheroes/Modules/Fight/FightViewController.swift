@@ -221,11 +221,11 @@ final class FightViewController: UIViewController {
     
     private func configureFightButton() {
         fightButton = FightButton()
-        fightButton.bind(buttonLabelText: L10n.FightViewController.Button.title)
+        fightButton.setTitle(L10n.FightViewController.Button.title, for: .normal)
         fightButton.addTarget(self, action: #selector(fightButtonTapped), for: .touchUpInside)
-        
+
         view.addSubview(fightButton)
-        
+
         fightButton.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(16)
             make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-15)
@@ -342,7 +342,7 @@ final class FightViewController: UIViewController {
     
     private func configureResetButton() {
         resetButton = FightButton()
-        resetButton.bind(buttonLabelText: L10n.FightViewController.ResetButton.title)
+        resetButton.setTitle(L10n.FightViewController.ResetButton.title, for: .normal)
         resetButton.addTarget(self, action: #selector(resetButtonTapped), for: .touchUpInside)
         resetButton.isHidden = true
         

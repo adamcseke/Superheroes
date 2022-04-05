@@ -12,16 +12,6 @@ class InfoView: UIView {
     
     private var titleLabel: UILabel!
     private var infoLabel: UILabel!
-    var title: String? {
-        didSet {
-            titleLabel.text = title
-        }
-    }
-    var info: String? {
-        didSet {
-            infoLabel.text = info
-        }
-    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
