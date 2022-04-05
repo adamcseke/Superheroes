@@ -104,17 +104,12 @@ final class DetailViewController: UIViewController {
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        if self.traitCollection.userInterfaceStyle == .light {
-            heroNameLabel.textColor = Colors.grayHeroName.color
-            navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: Colors.grayHeroName.color]
-            navBarButton.layer.backgroundColor = Colors.white.color.cgColor
-        } else {
-            heroNameLabel.textColor = Colors.orange.color
-            navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: Colors.orange.color]
-            navBarButton.layer.backgroundColor = Colors.saveButtonBackground.color.cgColor
-        }
+        let lightMode = self.traitCollection.userInterfaceStyle == .light
+        heroNameLabel.textColor = lightMode ? Colors.grayHeroName.color : Colors.orange.color
+        navigationController?.navigationBar.titleTextAttributes = lightMode ? [NSAttributedString.Key.foregroundColor: Colors.grayHeroName.color] : [NSAttributedString.Key.foregroundColor: Colors.orange.color]
+        navBarButton.layer.backgroundColor = lightMode ? Colors.white.color.cgColor : Colors.saveButtonBackground.color.cgColor
     }
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         if stackView.isHidden && !circlesStackView.isHidden {

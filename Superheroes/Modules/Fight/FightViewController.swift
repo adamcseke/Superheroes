@@ -387,19 +387,17 @@ final class FightViewController: UIViewController {
 // MARK: - Extensions -
 
 extension FightViewController: FightViewInterface {
-    
-    func pushHeroOneLife() {
+    func pushHeroLife(timerID: Int) {
         self.resetScreen()
-        fightersStackView.fighterOneLife = "0%"
-        winnerLoserView.remakeConstraintWinner(multipliedBy: 1.5)
-        winnerLoserView.remakeConstraintLoser(multipliedBy: 0.5)
-    }
-    
-    func pushHeroTwoLife() {
-        self.resetScreen()
-        fightersStackView.fighterTwoLife = "0%"
-        winnerLoserView.remakeConstraintWinner(multipliedBy: 0.5)
-        winnerLoserView.remakeConstraintLoser(multipliedBy: 1.5)
+        if timerID == 1 {
+            fightersStackView.fighterTwoLife = "0%"
+            winnerLoserView.remakeConstraintWinner(multipliedBy: 0.5)
+            winnerLoserView.remakeConstraintLoser(multipliedBy: 1.5)
+        } else {
+            fightersStackView.fighterOneLife = "0%"
+            winnerLoserView.remakeConstraintWinner(multipliedBy: 1.5)
+            winnerLoserView.remakeConstraintLoser(multipliedBy: 0.5)
+        }
     }
     
     func setHeroOneLife(life: Double) {

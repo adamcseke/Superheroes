@@ -116,6 +116,7 @@
 		37EFE0B927D1F6F0008F28EF /* Gotham-XLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 37EFE09D27D1F56C008F28EF /* Gotham-XLight.otf */; };
 		37EFE0BA27D1F6F0008F28EF /* Gotham-XLightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 37EFE09E27D1F56C008F28EF /* Gotham-XLightItalic.otf */; };
 		37F77A8D27DE07F400A6D58F /* CommentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F77A8C27DE07F400A6D58F /* CommentsView.swift */; };
+		37F883D527FC280600B44947 /* WinnerLoserLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F883D427FC280600B44947 /* WinnerLoserLabel.swift */; };
 		7E1421E2FFB77FBBB14AD6A9 /* Pods_Superheroes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23E9AEC29A7A15DC83867F48 /* Pods_Superheroes.framework */; };
 /* End PBXBuildFile section */
 
@@ -238,6 +239,7 @@
 		37EFE0A827D1F56C008F28EF /* Gotham-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-Light.otf"; sourceTree = "<group>"; };
 		37EFE0A927D1F594008F28EF /* Fonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		37F77A8C27DE07F400A6D58F /* CommentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsView.swift; sourceTree = "<group>"; };
+		37F883D427FC280600B44947 /* WinnerLoserLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WinnerLoserLabel.swift; sourceTree = "<group>"; };
 		4EF7DC8171F9897A5B5FA456 /* Pods-TemplateTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TemplateTests.release.xcconfig"; path = "Target Support Files/Pods-TemplateTests/Pods-TemplateTests.release.xcconfig"; sourceTree = "<group>"; };
 		9C0B7910D5B3D654CE3114A2 /* Pods-TemplateUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TemplateUITests.debug.xcconfig"; path = "Target Support Files/Pods-TemplateUITests/Pods-TemplateUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		AA1C71581E8FB7D1071CE22E /* Pods_TemplateUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TemplateUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -490,6 +492,7 @@
 				3717C8A127EDFD85000868F2 /* FightersView.swift */,
 				3759BC5A27E4BEE300F1D915 /* FighterSelectorButton.swift */,
 				3717C8A627EE0D2D000868F2 /* WinnerLoserView.swift */,
+				37F883D427FC280600B44947 /* WinnerLoserLabel.swift */,
 			);
 			path = FightersView;
 			sourceTree = "<group>";
@@ -936,6 +939,7 @@
 				1BB2479523E6EE8000EBFD39 /* DataExtensions.swift in Sources */,
 				374B9B7327D6326D001BF4A5 /* Devices.swift in Sources */,
 				1B0BFB30233629890054E28A /* Initializable.swift in Sources */,
+				37F883D527FC280600B44947 /* WinnerLoserLabel.swift in Sources */,
 				1B0BFB4D23362F950054E28A /* LoggerInitializer.swift in Sources */,
 				1B0BFB582336303F0054E28A /* TabbarInterfaces.swift in Sources */,
 				372301F327DA23AB008C5853 /* CirclesStackView.swift in Sources */,

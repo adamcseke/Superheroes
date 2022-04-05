@@ -79,7 +79,7 @@ extension FightPresenter: FightPresenterInterface {
             self.heroTwoLife = (self.heroTwoLife - heroOne.powerstats.damage)
             self.view.setHeroTwoLife(life: self.heroTwoLife / self.originalLifeTwo)
             if self.heroTwoLife <= 0 {
-                self.view.pushHeroTwoLife()
+                self.view.pushHeroLife(timerID: 1)
             }
         }
         
@@ -87,7 +87,7 @@ extension FightPresenter: FightPresenterInterface {
             self.heroOneLife = (self.heroOneLife - heroTwo.powerstats.damage)
             self.view.setHeroOneLife(life: self.heroOneLife / self.originalLifeOne)
             if self.heroOneLife <= 0 {
-                self.view.pushHeroOneLife()
+                self.view.pushHeroLife(timerID: 2)
             }
         }
         

@@ -11,13 +11,8 @@ import UIKit
 
 class WinnerLoserView: UIView {
     
-    private var winnerLabel: PaddingLabel!
-    private var loserLabel: PaddingLabel!
-    
-    var topInset: CGFloat = 5.0
-    var bottomInset: CGFloat = 5.0
-    var leftInset: CGFloat = 5.0
-    var rightInset: CGFloat = 5.0
+    private var winnerLabel: WinnerLoserLabel!
+    private var loserLabel: WinnerLoserLabel!
     
     var labelsHidden: Bool = true {
         didSet {
@@ -40,30 +35,14 @@ class WinnerLoserView: UIView {
     }
     
     private func configureWinnerLoser() {
-        winnerLabel = PaddingLabel()
-        loserLabel = PaddingLabel()
+        winnerLabel = WinnerLoserLabel()
+        loserLabel = WinnerLoserLabel()
         
         winnerLabel.text = L10n.FightViewController.Winner.title
-        winnerLabel.font = FontFamily.Gotham.bold.font(size: 20)
         winnerLabel.backgroundColor = .systemGreen.withAlphaComponent(0.8)
-        winnerLabel.layer.masksToBounds = true
-        winnerLabel.layer.cornerRadius = 12
-        winnerLabel.textAlignment = .center
-        winnerLabel.leftInset = 10
-        winnerLabel.rightInset = 10
-        winnerLabel.topInset = 5
-        winnerLabel.bottomInset = 5
         
         loserLabel.text = L10n.FightViewController.Loser.title
-        loserLabel.font = FontFamily.Gotham.bold.font(size: 20)
         loserLabel.backgroundColor = .systemRed.withAlphaComponent(0.8)
-        loserLabel.layer.masksToBounds = true
-        loserLabel.layer.cornerRadius = 12
-        loserLabel.textAlignment = .center
-        loserLabel.leftInset = 10
-        loserLabel.rightInset = 10
-        loserLabel.topInset = 5
-        loserLabel.bottomInset = 5
         
         addSubview(winnerLabel)
         addSubview(loserLabel)
