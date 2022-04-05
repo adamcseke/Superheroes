@@ -130,15 +130,15 @@ extension DetailPresenter: DetailPresenterInterface {
     }
     
     func powerstatsButtonTapped() {
-        view.setPowerstatsButton(selected: true)
+        view.setView(buttonNumber: 0)
     }
     
     func characteristicsButtonTapped() {
-        view.setCharacteristicsButton(selected: true)
+        view.setView(buttonNumber: 1)
     }
     
     func commentsButtonTapped() {
-        view.setCommentsButton(selected: true)
+        view.setView(buttonNumber: 2)
     }
     
 }

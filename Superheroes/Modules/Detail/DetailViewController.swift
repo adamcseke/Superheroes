@@ -558,6 +558,45 @@ final class DetailViewController: UIViewController {
 // MARK: - Extensions -
 
 extension DetailViewController: DetailViewInterface {
+    func setView(buttonNumber: Int) {
+        if buttonNumber == 0 {
+            stackView.isHidden = true
+            powerstatButton.isSelected = true
+            characteristicsButton.isSelected = false
+            commentsButton.isSelected = false
+            circlesStackView.isHidden = false
+            heroStatsWebView.isHidden = false
+            commentsView.isHidden = true
+            commentsStackView.isHidden = true
+            deleteCommentsButton.isHidden = true
+        } else if buttonNumber == 1 {
+            stackView.isHidden = false
+            characteristicsButton.isSelected = true
+            powerstatButton.isSelected = false
+            commentsButton.isSelected = false
+            circlesStackView.isHidden = true
+            heroStatsWebView.isHidden = true
+            commentsView.isHidden = true
+            commentsStackView.isHidden = true
+            deleteCommentsButton.isHidden = true
+        } else if buttonNumber == 2 {
+            stackView.isHidden = true
+            commentsButton.isSelected = true
+            powerstatButton.isSelected = false
+            characteristicsButton.isSelected = false
+            circlesStackView.isHidden = true
+            heroStatsWebView.isHidden = true
+            commentsView.isHidden = false
+            commentsStackView.isHidden = false
+            if comments.isEmpty {
+                deleteCommentsButton.isHidden = true
+            } else {
+                deleteCommentsButton.isHidden = false
+            }
+            scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+        }
+    }
+    
    
     func pushComments(comments: [String]) {
         self.comments = comments
@@ -566,46 +605,6 @@ extension DetailViewController: DetailViewInterface {
     
     func setNavBarImage(image: String) {
         navBarButton.setImage(UIImage(systemName: image), for: .normal)
-    }
-    
-    func setPowerstatsButton(selected: Bool) {
-        stackView.isHidden = true
-        powerstatButton.isSelected = true
-        characteristicsButton.isSelected = false
-        commentsButton.isSelected = false
-        circlesStackView.isHidden = false
-        heroStatsWebView.isHidden = false
-        commentsView.isHidden = true
-        commentsStackView.isHidden = true
-        deleteCommentsButton.isHidden = true
-    }
-    
-    func setCharacteristicsButton(selected: Bool) {
-        stackView.isHidden = false
-        characteristicsButton.isSelected = true
-        powerstatButton.isSelected = false
-        commentsButton.isSelected = false
-        circlesStackView.isHidden = true
-        heroStatsWebView.isHidden = true
-        commentsView.isHidden = true
-        commentsStackView.isHidden = true
-        deleteCommentsButton.isHidden = true
-    }
-    func setCommentsButton(selected: Bool) {
-        stackView.isHidden = true
-        commentsButton.isSelected = true
-        powerstatButton.isSelected = false
-        characteristicsButton.isSelected = false
-        circlesStackView.isHidden = true
-        heroStatsWebView.isHidden = true
-        commentsView.isHidden = false
-        commentsStackView.isHidden = false
-        if comments.isEmpty {
-            deleteCommentsButton.isHidden = true
-        } else {
-            deleteCommentsButton.isHidden = false
-        }
-        scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
     }
     
     private func downloadHeroImage(imageURL: String) {

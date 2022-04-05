@@ -16,9 +16,7 @@ protocol DetailWireframeInterface: WireframeInterface {
 
 protocol DetailViewInterface: ViewInterface {
     func pushHero(_ hero: Heroes)
-    func setPowerstatsButton(selected: Bool)
-    func setCharacteristicsButton(selected: Bool)
-    func setCommentsButton(selected: Bool)
+    func setView(buttonNumber: Int)
     func setNavBarImage(image: String)
     func pushComments(comments: [String])
     func pushCutText(text: String)
