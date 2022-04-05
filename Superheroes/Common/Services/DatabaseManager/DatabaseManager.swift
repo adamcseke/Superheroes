@@ -17,7 +17,7 @@ protocol SuperheroesDatabaseManager: AnyObject {
     func getComments(entity: Heroes) -> [String]
     func deleteComment(entity: Heroes, completion: BoolCompletition?)
     func insertSearchedHeroes(entity: Heroes, completion: BoolCompletition?)
-    func getSearchedHeroes(name: String) -> [Heroes]
+    func getSearchedHeroes() -> [Heroes]
 }
 
 class DatabaseManager: SuperheroesDatabaseManager {
@@ -224,34 +224,7 @@ class DatabaseManager: SuperheroesDatabaseManager {
     }
     
     func getHeroes() -> [Heroes] {
-        var heroes: [Heroes] = []
-        if let db = database {
-            
-            do {
-                for hero in try db.prepare(hero) {
-                    
-                    let powerstats = Powerstats(intelligence: hero[intelligence], strength: hero[strength], speed: hero[speed], durability: hero[durability], power: hero[power], combat: hero[combat])
-                    
-                    let biography = Biography(fullName: hero[fullName], alterEgos: hero[alterEgos], placeOfBirth: hero[placeOfBirth], firstAppearance: hero[firstAppearance], publisher: hero[publisher], alignment: hero[alignment])
-                    
-                    let appearance = Appearance(gender: hero[gender], race: hero[race], eyeColor: hero[eyeColor], hairColor: hero[hairColor])
-                    
-                    let work = Work(occupation: hero[occupation], base: hero[base])
-                    
-                    let connections = Connections(groupAffiliation: hero[groupAffiliation], relatives: hero[relatives])
-                    
-                    let image = Image(url: hero[url])
-                    
-                    let superhero = Heroes(id: hero[heroID] ?? "", name: hero[heroName] ?? "", powerstats: powerstats, biography: biography, appearance: appearance, work: work, connections: connections, image: image, isFavorite: hero[isFavorite] ?? false, alias: hero[alias] ?? "", height: hero[heightMetric] ?? "", weight: hero[weightMetric] ?? "")
-                    
-                    heroes.append(superhero)
-                }
-            } catch {
-                print("Get favorite heroes data: \(String(describing: error))")
-            }
-        }
-        
-        return heroes
+        return createSuperhero(table: hero)
     }
     
     func delete(entity: Heroes, completion: BoolCompletition?) {
@@ -337,12 +310,16 @@ class DatabaseManager: SuperheroesDatabaseManager {
         }
     }
     
-    func getSearchedHeroes(name: String) -> [Heroes] {
+    func getSearchedHeroes() -> [Heroes] {
+        return createSuperhero(table: searched)
+    }
+    
+    private func createSuperhero(table: Table) -> [Heroes] {
         var heroes: [Heroes] = []
         if let db = database {
             
             do {
-                for hero in try db.prepare(searched) {
+                for hero in try db.prepare(table) {
                  
                     let powerstats = Powerstats(intelligence: hero[intelligence], strength: hero[strength], speed: hero[speed], durability: hero[durability], power: hero[power], combat: hero[combat])
                     
@@ -364,7 +341,6 @@ class DatabaseManager: SuperheroesDatabaseManager {
                 print("Getting searched hero data: \(String(describing: error))")
             }
         }
-        
         return heroes
     }
     

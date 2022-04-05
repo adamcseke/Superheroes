@@ -154,7 +154,7 @@ extension SearchPresenter: SearchPresenterInterface {
         } else {
             self.presentAlertOfflineMode()
             self.heroes.removeAll()
-            self.interactor.getSearchedHeroes(name: self.text).forEach({ heroes in
+            self.interactor.getSearchedHeroes().forEach({ heroes in
                 if heroes.name.lowercased().contains(name.lowercased()) {
                     self.heroes.append(heroes)
                 }
