@@ -10,7 +10,7 @@ import UIKit
 
 extension UIDevice {
     
-    enum Devices{
+    enum Devices {
         static var iPhoneSE1stGen: Bool { UIScreen.main.nativeBounds.height == 1136 }
         static var iPad: Bool { UIDevice().userInterfaceIdiom == .pad }
         static var iPhone8: Bool { UIScreen.main.nativeBounds.height == 1334 }

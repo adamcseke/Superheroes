@@ -98,7 +98,7 @@ final class FightViewController: UIViewController {
             fightButton.isEnabled = true
         }
         let random = favoriteHeroes.randomElement()
-        if presenter.checkFighter(fighter: fighterTwoChosen?.id ?? "") == false && fighterTwoChosen != nil  {
+        if presenter.checkFighter(fighter: fighterTwoChosen?.id ?? "") == false && fighterTwoChosen != nil {
             fightersStackView.setFighterTwo(name: random?.name ?? "", imageURL: random?.image.url ?? "")
             let fighterStat = random?.powerstats.totalStat
             pointsStackView.currentProgressTwo = fighterStat ?? 0.0
@@ -241,7 +241,7 @@ final class FightViewController: UIViewController {
             fightButton.isEnabled = false
             fightButton.backgroundColor = Colors.orange.color.withAlphaComponent(0.5)
             tabBarController?.tabBar.isHidden = true
-            let timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { timer in
+            _ = Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { timer in
                 self.drawAnimation.isHidden = true
                 self.drawAnimation.stop()
                 self.fightButton.isEnabled = true
@@ -270,7 +270,7 @@ final class FightViewController: UIViewController {
             fightersStackView.lifeTitle = "100%"
             fightersStackView.setFighterOneLife(life: self.healthOriginalHeight)
             fightersStackView.setFighterTwoLife(life: self.healthOriginalHeight)
-            let timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { timer in
+            _ = Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { timer in
                 self.presenter.fightButtonTapped(heroOne: fighterOneChosen, heroTwo: fighterTwoChosen)
             }
         }

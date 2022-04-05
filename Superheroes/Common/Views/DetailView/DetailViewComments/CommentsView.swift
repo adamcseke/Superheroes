@@ -216,7 +216,7 @@ extension CommentsView: UITextViewDelegate {
             self.commentsTextView.layer.borderColor = UIColor.systemRed.cgColor
             textView.text.removeLast()
             self.countLabel.text = "\(maxLength - textView.text.count) characters left"
-            let timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (timer) in
+            _ = Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (timer) in
                 self.commentsTextView.layer.borderColor = Colors.orange.color.cgColor
             }
         }
