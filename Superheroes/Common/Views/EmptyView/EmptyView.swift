@@ -29,7 +29,7 @@ class EmptyView: UIView {
     
     private func configureEmptyLabel() {
         emptyLabel = UILabel()
-        emptyLabel.numberOfLines = 2
+        emptyLabel.numberOfLines = 0
         emptyLabel.font = FontFamily.Gotham.medium.font(size: 18)
         emptyLabel.textColor = .label
         emptyLabel.textAlignment = .center

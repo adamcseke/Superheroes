@@ -297,7 +297,7 @@ final class FightViewController: UIViewController {
     private func configureEmptyTitle() {
         emptyViewTitle = UILabel()
         emptyViewTitle.textColor = .label
-        emptyViewTitle.numberOfLines = 2
+        emptyViewTitle.numberOfLines = 0
         emptyViewTitle.textAlignment = .center
         emptyViewTitle.font = FontFamily.Gotham.medium.font(size: 18)
         emptyViewTitle.text = L10n.FightViewController.EmptyView.title
