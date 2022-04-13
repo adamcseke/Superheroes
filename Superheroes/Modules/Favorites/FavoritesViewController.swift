@@ -134,7 +134,6 @@ final class FavoritesViewController: UIViewController {
         searchVC.obscuresBackgroundDuringPresentation = true
         searchVC.searchBar.tintColor = Colors.orange.color
         searchVC.searchBar.delegate = self
-        navigationItem.searchController = searchVC
     }
 }
 
@@ -180,8 +179,10 @@ extension FavoritesViewController: TBEmptyDataSetDelegate {
     func emptyDataSetShouldDisplay(in scrollView: UIScrollView) -> Bool {
         if presenter.numberOfItem(in: 1) == 0 {
             emptyAnimationView.isHidden = false
+            navigationItem.searchController = nil
         } else {
             emptyAnimationView.isHidden = true
+            navigationItem.searchController = searchVC
         }
         return presenter.numberOfItem(in: 1) == 0
     }
